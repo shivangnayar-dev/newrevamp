@@ -1,14 +1,15 @@
-@{
-    ViewData["Title"] = "Home Page";
-}
-@{
-    var importUrl = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap";
+﻿@{
+    ViewData["Title"] = "Candidate Academic Information";
 }
 
-@section Styles{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta FullName="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Candidate Information</title>
     <style>
-
-
         .timer-container {
             text-align: center;
             display: flex;
@@ -237,6 +238,7 @@
             padding: 0 15px;
             justify-content: space-between;
         }
+
         #progress-container {
             width: 70%;
             height: 10px;
@@ -255,14 +257,15 @@
             transition: background-color 1s ease-in-out;
         }
 
-@@keyframes fillProgressBar {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
+        @@keyframes fillProgressBar {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
 
 
         #internet-speed-indicator {
@@ -614,12 +617,16 @@
 
 
         .chatbox-input {
-            position: relative;
-            width: 100%;
-            background: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; /* Fix the position to the bottom */
+            bottom: 0; /* Align it to the bottom of the viewport */
+            left: 0; /* Align it to the left of the viewport */
+            width: 100%; /* Make it span the full width */
+            background: #f0f0f0; /* Background color */
+            padding: 10px; /* Add some padding */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space out the input and button */
+            align-items: center; /* Center items vertically */
+            z-index: 1000; /* Ensure it's above other content */
         }
 
             .chatbox-input i {
@@ -781,7 +788,9 @@
             cursor: pointer;
             border-radius: 15px;
         }
-
+        #buttonContainer {
+            display: none;
+        }
 
         .openbtn {
             margin-right: 10px;
@@ -870,158 +879,256 @@
         .flex-content {
             margin: 10px;
         }
-        .message-box p {
-            background-color: #dcf8c6; /* Green background for original questions */
-        }
-
-        /* Style for translated questions */
-        .translated-question p {
-            background-color: #f0f0f0; /* Light grey background for translated questions */
-            font-style: italic; /* Italicize translated text to differentiate */
-        }
     </style>
-}
+</head>
+<body>
 
 
-
-<div class="background-green"></div>
-
-<div class="main-container">
-
-    <div class="left-container" id="left-container">
-        <!-- header -->
-        <div class="header">
-            <div class="user-img">
-                <a href="https://careertests.in/">
-                    <img class="dp" src="https://github.com/shivangnayar-dev/img/blob/main/ai%201.png?raw=true" alt="">
-                </a>
+    <div class="main-container">
+        <div class="right-container">
+            <div class="header1">
+                <div class="img-text">
+                    <h4>Candidate Academic Information</h4>
+                </div>
             </div>
-            <div class="nav-icons">
-                <div class="linkedin-logo-container">
-                    <a href="https://www.linkedin.com/company/pexitics.com/" target="_blank">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" alt="LinkedIn" class="nav-icon linkedin-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://www.instagram.com/your_careergraph?igsh=NnR3ZjkxaGl1dGY4" target="_blank">
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/%E2%80%94Pngtree%E2%80%94instagram%20social%20platform%20icon_8704818.png?raw=true
-    " alt="LinkedIn" class="nav-icon linkedin-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://wa.me/917349662320" target="_blank">
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/logo-whatsapp-png-46041.png?raw=true" alt="WhatsApp" class="nav-icon whatsapp-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://www.youtube.com/playlist?list=PLFhNcXkdLYt-fFQYRTbIKYD77WabWVnSP" target="_blank">
 
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/youtube-logo-png-3566.png?raw=true
-    " alt="YouTube" class="nav-icon whatsapp-icon">
-                    </a>
+            <div class="chat-container">
+                <div class="message-box my-message">
+                    <p id="promptText"></p> <!-- Dynamically populated -->
                 </div>
+
+                <!-- Button container for Yes/No options -->
+                <div class="message-box my-message astro-button-container" id="buttonContainer">
+                    <button class="westernnn-button" id="yesButton">Yes</button>
+                    <button class="westernnn-button" id="noButton">No</button>
+                </div>
+
+                <div class="chatbox-input" id="inputContainer">
+                    <!-- Dynamic content will be injected here -->
+                </div>
+
+                <div id="error-message" class="error-message"></div>
             </div>
         </div>
-
-        <!-- notification -->
-        <!-- chats -->
-
-
-
-
-
-
     </div>
 
 
+    <script>
+        let candidateData = {};
 
-    <div class="right-container">
-        <div class="header1">
-            <div class="openbtn" id="openbtn">
-                <div class="openbtn-area">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+        document.addEventListener("DOMContentLoaded", function () {
+            askQualification(); // Start with the qualification question
+        });
 
-            </div>
-         
-            <div class="img-text">
-                <div class="user-img">
-
-                </div>
-
-            </div>
-            <div id="google_translate_element"></div>
-        </div>
-
-
-        <!-- header -->
-        <!-- chat-container -->
-        <div class="chat-container">
-            <div class="message-box my-message">
-        
-            </div>
-            <div class="message-box my-message astro-button-container">
-           
-
-            </div>
-
-        </div>
-
-        <!-- input-bottom -->
-        <div class="chatbox-input">
-
-            <input type="text" id="dobInput" placeholder="Type a message...">
-            <button id="dobSubmitButton" onclick="handleMultipleSubmit()">Submit</button>
-	    <button id="skipButton" class="skip-button" style="display: none;">Skip</button>
-           
-        </div>
-    </div>
-</div>
-</div>
-
-<script type="text/javascript"> function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',  // Default language of the page
-            includedLanguages: 'es,fr,de,ja,ko', // Languages that you want to translate to (example: Spanish, French, etc.)
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }</script>
-
-
-<script type="text/javascript">function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
+        function updatePromptText(text) {
+            document.getElementById("promptText").innerText = text;
         }
-    }
 
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation</script>
-
-<script type="text/javascript">
-    function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
+        function clearInputContainer() {
+            document.getElementById("inputContainer").innerHTML = "";
         }
-    }
 
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation
-</script>
-<script>// Call asktesttt() function as soon as the page loads
-    window.onload = function () {
-        asktesttt();
-    };</script>
+        // Show Yes and No buttons for each question
+        function showYesNoButtons(yesCallback, noCallback) {
+            const buttonContainer = document.getElementById("buttonContainer");
+            buttonContainer.style.display = "flex";
 
-<script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?
-cb=googleTranslateElementInit"></script>
+            document.getElementById("yesButton").onclick = () => {
+                yesCallback();
+             // Hide buttons after a choice
+            };
 
-<script src="/js/test.js" asp-append-version="true"></script>
+            document.getElementById("noButton").onclick = () => {
+                noCallback();
+            
+            };
+        }
+
+        // 1. Ask for Qualification
+        function askQualification() {
+            updatePromptText("Please select your highest qualification:");
+
+            const qualificationSelect = document.createElement("select");
+            qualificationSelect.id = "qualificationSelect";
+
+            const placeholderOption = document.createElement("option");
+            placeholderOption.value = "";
+            placeholderOption.text = "Select your highest qualification";
+            placeholderOption.disabled = true;
+            placeholderOption.selected = true;
+            qualificationSelect.appendChild(placeholderOption);
+
+            // Fetch qualification options from the server
+            fetch('/api/QualificationTyp')
+                .then(response => response.json())
+                .then(qualificationOptions => {
+                    qualificationOptions.forEach(qualification => {
+                        const option = document.createElement("option");
+                        option.value = qualification.toLowerCase();
+                        option.text = qualification;
+                        qualificationSelect.appendChild(option);
+                    });
+
+                    clearInputContainer();
+                    document.getElementById("inputContainer").appendChild(qualificationSelect);
+
+                    qualificationSelect.addEventListener("change", submitQualification);
+                })
+                .catch(error => {
+                    console.error('Error fetching qualification options:', error);
+                    alert('Error fetching qualification options. Please try again.');
+                });
+        }
+
+        // Handle qualification selection
+        function submitQualification() {
+            const qualification = document.getElementById("qualificationSelect").value;
+            candidateData.Qualification = qualification;
+            saveField({ Qualification: qualification });
+            askPursuingQualification();
+        }
+
+        // 2. Ask if Pursuing Qualification
+        function askPursuingQualification() {
+            updatePromptText("Are you pursuing this qualification?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.Pursuing = "Yes";
+                    saveField({ Pursuing: "Yes" });
+                    askMathStatistics();
+                },
+                () => {
+                    candidateData.Pursuing = "No";
+                    saveField({ Pursuing: "No" });
+                    askMathStatistics();
+                }
+            );
+        }
+
+        // 3. Ask about Math/Statistics
+        function askMathStatistics() {
+            updatePromptText("Have you studied Math / Statistics as part of this qualification?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.MathStatistics = "Yes";
+                    saveField({ MathStatistics: "Yes" });
+                    askScience();
+                },
+                () => {
+                    candidateData.MathStatistics = "No";
+                    saveField({ MathStatistics: "No" });
+                    askScience();
+                }
+            );
+        }
+
+        // 4. Ask about Science
+        function askScience() {
+            updatePromptText("Have you studied Science as part of this qualification?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.Science = "Yes";
+                    saveField({ Science: "Yes" });
+                    askGovernmentJobs();
+                },
+                () => {
+                    candidateData.Science = "No";
+                    saveField({ Science: "No" });
+                    askGovernmentJobs();
+                }
+            );
+        }
+
+        // 5. Ask about Government Jobs
+        function askGovernmentJobs() {
+            updatePromptText("Are you open to Government Jobs?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.GovernmentJobs = "Yes";
+                    saveField({ GovernmentJobs: "Yes" });
+                    askArmedForcesJobs();
+                },
+                () => {
+                    candidateData.GovernmentJobs = "No";
+                    saveField({ GovernmentJobs: "No" });
+                    askArmedForcesJobs();
+                }
+            );
+        }
+
+        // 6. Ask about Armed Forces Jobs
+        function askArmedForcesJobs() {
+            updatePromptText("Are you open to Armed Forces Jobs?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.ArmedForcesJobs = "Yes";
+                    saveField({ ArmedForcesJobs: "Yes" });
+                    askSportsCareer();
+                },
+                () => {
+                    candidateData.ArmedForcesJobs = "No";
+                    saveField({ ArmedForcesJobs: "No" });
+                    askSportsCareer();
+                }
+            );
+        }
+
+        // 7. Ask about Career in Sports
+        function askSportsCareer() {
+            updatePromptText("Do you want to take a career in sports?");
+            clearInputContainer();
+            showYesNoButtons(
+                () => {
+                    candidateData.SportsCareer = "Yes";
+                    saveField({ SportsCareer: "Yes" });
+                    completeForm();
+                },
+                () => {
+                    candidateData.SportsCareer = "No";
+                    saveField({ SportsCareer: "No" });
+                    completeForm();
+                }
+            );
+        }
+
+        // Finalize and save all data
+        function completeForm() {
+            updatePromptText("Thank you! All information has been saved.");
+            clearInputContainer(); // Clear input area after form completion
+        }
+
+        // Save each field to the server
+        async function saveField(fieldData) {
+            try {
+                const token = localStorage.getItem('jwt');
+                if (!token) {
+                    console.error("User is not authenticated.");
+                    return;
+                }
+
+                const response = await fetch('/api/CandidateInfo/save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(fieldData)
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to save data:", await response.text());
+                }
+            } catch (error) {
+                console.error("Error saving field:", error);
+            }
+        }
+
+
+    </script>
+</body>
+</html>

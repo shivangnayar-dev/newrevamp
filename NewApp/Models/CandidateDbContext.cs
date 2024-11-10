@@ -26,7 +26,9 @@ namespace NewApp.Models
         public DbSet<InterestAnswersIIA> InterestAnswersIIA { get; set; }
         public DbSet<StreamJobRole> StreamJobRole { get; set; }
         public DbSet<AcademicStream> AcademicStream { get; set; }
- 	public DbSet<pexiticsscore> pexiticsscore { get; set; }       
+ 	public DbSet<pexiticsscore> pexiticsscore { get; set; }
+        public DbSet<TestInfo> TestInfo { get; set; }
+      
 
         public DbSet<IIAIndustriessub> IIAIndustriessub { get; set; }
 
@@ -34,7 +36,8 @@ namespace NewApp.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
-         modelBuilder.Entity<pexiticsscore>().ToTable("pexiticsscore");
+            modelBuilder.Entity<TestInfo>().HasNoKey();
+            modelBuilder.Entity<pexiticsscore>().ToTable("pexiticsscore");
             modelBuilder.Entity<pexiticsscore>().HasKey(qd => qd.id); 
 	   modelBuilder.Entity<StreamJobRole>().ToTable("streamjobrole");
             modelBuilder.Entity<StreamJobRole>().HasNoKey();

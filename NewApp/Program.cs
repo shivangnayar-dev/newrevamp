@@ -2,6 +2,9 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Microsoft.EntityFrameworkCore;
 using NewApp.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHostedService<PexiticsscoreEmailService>();
@@ -14,12 +17,36 @@ builder.Services.AddDbContext<CandidateDbContext>(options =>
 {
     var connectionString = configuration.GetConnectionString("DefaultConnection");
     var serverVersion = ServerVersion.AutoDetect(connectionString);
-
     options.UseMySql(connectionString, serverVersion);
 });
 
-var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddDbContext<UserDbContext>(options =>
+{
+    var connectionString = configuration.GetConnectionString("DefaultConnection");
+    var serverVersion = ServerVersion.AutoDetect(connectionString);
+    options.UseMySql(connectionString, serverVersion);
+});
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])), // Key here
+        ValidateIssuer = true,
+        ValidIssuer = configuration["Jwt:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = configuration["Jwt:Audience"],
+        ValidateLifetime = true
+    };
+});
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
@@ -28,24 +55,22 @@ builder.Services.AddCors(options =>
                                       .AllowAnyMethod());
 });
 
-
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseStaticFiles();
 app.UseRouting();
-app.UseForwardedHeaders(); // Place it here
+app.UseCors(MyAllowSpecificOrigins); // Use CORS policy
+app.UseAuthentication(); // Ensure this is before UseAuthorization
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
@@ -54,10 +79,18 @@ app.UseEndpoints(endpoints =>
         name: "code",
         pattern: "code",
         defaults: new { controller = "Home", action = "code" });
+     endpoints.MapControllerRoute(
+        name: "candidate_info",
+        pattern: "candidate_info",
+        defaults: new { controller = "Home", action = "candidate_info" });
     endpoints.MapControllerRoute(
         name: "code",
         pattern: "code",
         defaults: new { controller = "Home", action = "Login" });
+    endpoints.MapControllerRoute(
+    name: "candidate_academic_info",
+    pattern: "candidate_academic_info",
+    defaults: new { controller = "Home", action = "candidate_academic_info" });
 
     // Your existing default route
     endpoints.MapControllerRoute(
@@ -72,6 +105,10 @@ app.UseEndpoints(endpoints =>
    name: "Dashboard",
    pattern: "Dashboard",
    defaults: new { controller = "Home", action = "Dashboard" });
+      endpoints.MapControllerRoute(
+        name: "Login",
+        pattern: "Login",
+         defaults: new { controller = "Home", action = "Login" });
 
     endpoints.MapControllerRoute(
         name: "Councellor",

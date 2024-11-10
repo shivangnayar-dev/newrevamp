@@ -72,6 +72,16 @@ public class HomeController : Controller
     {
         return View();
     }
+ 
+
+        public IActionResult candidate_info()
+    {
+        return View();
+    }
+    public IActionResult candidate_academic_info()
+    {
+        return View();
+    }
 }
 
 

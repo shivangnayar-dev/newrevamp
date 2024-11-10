@@ -1,233 +1,1110 @@
-
-@model LoginModel
-
-
-
-
-
-<style>
-    body {
-        color: #000;
-        overflow-x: hidden;
-        height: 100%;
-        background-image: linear-gradient(to right, #712c81, #FFD54F);
-        background-repeat: no-repeat;
-        /*//background-image: url(/images/front-page.png)*/
-    }
-
-    input,
-    textarea {
-        background-color: #F3E5F5;
-        border-radius: 50px !important;
-        padding: 12px 15px 12px 15px !important;
-        width: 100%;
-        box-sizing: border-box;
-        border: none !important;
-        border: 1px solid #F3E5F5 !important;
-        font-size: 16px !important;
-        color: #000 !important;
-        font-weight: 400
-    }
-
-        input:focus,
-        textarea:focus {
-            -moz-box-shadow: none !important;
-            -webkit-box-shadow: none !important;
-            box-shadow: none !important;
-            border: 1px solid #712c81 !important;
-            outline-width: 0;
-            font-weight: 400
+@{
+    ViewData["Title"] = "Login or Register";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Authentication</title>
+    <style>
+        /* Add your existing CSS styles here */
+        .timer-container {
+            text-align: center;
+            display: flex;
+            align-items: center;
+            margin-top: 20%;
+            margin-left: 10px;
         }
 
-    button:focus {
-        -moz-box-shadow: none !important;
-        -webkit-box-shadow: none !important;
-        box-shadow: none !important;
-        outline-width: 0
-    }
+            .timer-container > * {
+                margin: 0 5px; /* Add margin between timer elements */
+            }
 
-    .card {
-        border-radius: 1rem;
-        border: none
-    }
-
-    .card1 {
-        width: 50%;
-        padding: 40px 30px 10px 30px
-    }
-
-    .card2 {
-        width: 50%;
-        background-image: linear-gradient(to right, #FFD54F, #712c81)
-    }
-
-    #logo {
-        width: 80px;
-        height: 80px
-    }
-
-    .heading {
-        margin-bottom: 60px !important
-    }
-
-    ::placeholder {
-        color: #000 !important;
-        opacity: 1
-    }
-
-    :-ms-input-placeholder {
-        color: #000 !important
-    }
-
-    ::-ms-input-placeholder {
-        color: #000 !important
-    }
-
-    .form-control-label {
-        font-size: 12px;
-        margin-left: 15px
-    }
-
-    .msg-info {
-        padding-left: 15px;
-        margin-bottom: 30px
-    }
-
-    .btn-color {
-        border-radius: 50px;
-        color: #fff;
-        background-image: linear-gradient(to right, #FFD54F, #712c81);
-        padding: 15px;
-        cursor: pointer;
-        border: none !important;
-        margin-top: 40px
-    }
-
-        .btn-color:hover {
-            color: #fff;
-            background-image: linear-gradient(to right, #712c81, #FFD54F)
+        .timer {
+            display: flex;
+            align-items: center;
         }
 
-    .btn-white {
-        border-radius: 50px;
-        color: #712c81;
-        background-color: #fff;
-        padding: 8px 40px;
-        cursor: pointer;
-        border: 2px solid #712c81 !important
-    }
-
-        .btn-white:hover {
-            color: #fff;
-            background-image: linear-gradient(to right, #FFD54F, #712c81)
+        .minutes,
+        .seconds {
+            font-size: 3em;
+            color: #333;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-    a {
-        color: #000
-    }
-
-        a:hover {
-            color: #000
+        .timer-separator {
+            font-size: 3em;
+            color: #333;
+            margin: 0 10px;
         }
 
-    .bottom {
-        width: 100%;
-        margin-top: 50px !important
-    }
-
-    .sm-text {
-        font-size: 15px
-    }
-
-    @@media screen and (max-width: 992px) {
-        .card1 {
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
             width: 100%;
-            padding: 40px 30px 10px 30px
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
         }
 
-        .card2 {
-            width: 100%
+        /* Style for the modal content */
+        .modal-content {
+            margin: 10% auto;
+            padding: 25px;
+            width: 80%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 5px;
+            text-align: center;
         }
 
-        .right {
-            margin-top: 100px !important;
-            margin-bottom: 100px !important
-        }
-    }
-
-    @@media screen and (max-width: 768px) {
-        .container {
-            padding: 10px !important
+        /* Style for the close button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
         }
 
-        .card2 {
-            padding: 50px
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        .question-container {
+            margin-right: 10px; /* Adjust the value according to your preference */
         }
 
-        .right {
-            margin-top: 50px !important;
-            margin-bottom: 50px !important
+        .question-grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 10px;
+            gap: 8px;
+            margin-top: 20%;
+            overflow: auto;
+            max-height: 300px;
         }
-    }
-</style>
 
-<div class="container px-4 py-5 mx-auto">
-    <section>
-        <div class="card card0">
-            <div class="d-flex flex-lg-row flex-column-reverse">
-                <div class="card card1">
-                    <form id="account" method="post">
-                        <div class="row justify-content-center my-auto">
-                            <div class="col-md-8 col-10">
-                                @*<div class="row justify-content-center px-3 mb-3"> <img id="logo" src="~/images/Pexi logo.png"> </div>
-                                    <h3 class="text-center heading">We are PexiTest</h3>*@
-                                <div class="form-group">
-                                    <label class="form-control-label text-muted" asp-for="Input.Email">Username</label>
-                                    <input type="text" id="email" name="email" placeholder="email id" class="form-control" asp-for="Input.Email">
-                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-control-label text-muted" asp-for="Input.Password">Password</label>
-                                    <input id="Password" name="Password" placeholder="Password" class="form-control" asp-for="Input.Password">
-                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                                    <div asp-validation-summary="All" class="text-danger"></div>
-                                </div>
-                                <div class="row justify-content-center my-3 px-3">
-                                    <button type="submit" class="btn-block btn-color">Login to Pexitest</button>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </form>
+        .question-box {
+            width: 30px;
+            height: 30px;
+            background-color: rgb(0 0 0 / 36%); /* Blue color */
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            font-weight: bold;
+        }
 
-                </div>
+        @@media only screen and (max-width: 767px) {
+            body {
+                overflow: auto; /* Enable scrolling for the entire page on mobile */
+            }
 
-                <div class="card card2">
-                    <div class="my-auto mx-md-5 px-md-5 right">
-                        <h3 class="text-white mt-2">"Get Answers with Pexitest" </h3>
-                        <br />
-                        <small class="text-white">“I cannot teach anybody anything. I can only make them think.”: Socrates</small> <small class="text-white"></small>
-                        <br />
-                        <small class="text-white text-justify">
-                            We hope to ask you questions which will lead to answers and help you lead a great life , one of evolution and following your passions within the constraints of  your interests, capability and skills
-                        </small>
-                    </div>
+            .main-container {
+                flex-direction: row; /* Stack containers vertically in mobile view */
+                height: auto; /* Allow the main container to take the necessary height */
+            }
 
-                   
-                    <div class="bottom text-center mb-5">
-                        <p class="sm-text mx-auto mb-3">Don't have an account? <a class="btn btn-white ml-2">Create new</a></p>
+            .left-container {
+                width: 100%; /* Adjust the width as needed for mobile view */
+                order: -1; /* Move the left container to the top in the flex order */
+                margin-left: 0; /* Reset margin for the closed state in mobile view */
+            }
 
-                    </div>
+            .right-container {
+                flex: 100%; /* Allow the right container to take the full width on mobile */
+            }
+
+            .header {
+                height: auto; /* Allow the header to take the necessary height */
+                flex-direction: column; /* Stack header items vertically in mobile view */
+                padding: 10px;
+            }
+
+                .header .nav-icons {
+                    justify-content: flex-start; /* Align navigation icons to the start in mobile view */
+                }
+
+                    .header .nav-icons li {
+                        margin-left: 10px; /* Adjust the margin for better spacing in mobile view */
+                    }
+
+            .chat-container {
+                height: auto; /* Allow the chat container to take the necessary height */
+                padding: 20px; /* Adjust padding for better spacing on mobile */
+            }
+
+            .message-box p {
+                max-width: 100%; /* Allow messages to take full width on mobile */
+            }
+
+            .chatbox-input {
+                width: 100%; /* Allow the input area to take the full width on mobile */
+            }
+
+
+                .chatbox-input input {
+                    width: 100%;
+                    margin-right: 0;
+                    / Remove margin for better spacing on mobile */
+                }
+
+            .chat-list {
+                height: auto; /* Allow the chat list to take the necessary height */
+                overflow-y: auto; /* Add vertical scrolling if content exceeds max-height */
+            }
+
+                .chat-list .chat-box {
+                    flex-direction: column; /* Stack chat boxes vertically in mobile view */
+                    padding: 15px;
+                }
+
+            .message-box.my-message.astro-button-container {
+                flex-direction: column; /* Stack buttons vertically in mobile view */
+                align-items: center; /* Center buttons in mobile view */
+            }
+
+                .message-box.my-message.astro-button-container button {
+                    width: 100%; /* Make buttons take full width in mobile view */
+                    margin-bottom: 10px; /* Add margin between buttons in mobile view */
+                }
+            /* Additional styles as needed for other elements */
+            /* ... existing styles ... */
+        }
+
+        importUrl = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap";
+        body {
+            position: sticky !important;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+
+
+            .main-container .right-container {
+                flex: 70%;
+                background: #e5ddd5;
+                position: relative;
+            }
+
+                .main-container .right-container::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url(https://camo.githubusercontent.com/854a93c27d64274c4f8f5a0b6ec36ee1d053cfcd934eac6c63bed9eaef9764bd/68747470733a2f2f7765622e77686174736170702e636f6d2f696d672f62672d636861742d74696c652d6461726b5f61346265353132653731393562366237333364393131306234303866303735642e706e67);
+                    opacity: 0.5;
+                }
+
+        .header {
+            margin-top: 20%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            background: #ededed;
+            padding: 0 15px;
+        }
+
+        .header1 {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            height: 60px;
+            background: #ededed;
+            padding: 0 15px;
+            justify-content: space-between;
+        }
+
+        #progress-container {
+            width: 70%;
+            height: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0 15px;
+        }
+
+        .progress-section {
+            flex: 1;
+            height: 100%;
+            background-color: grey;
+            margin: 0 2px;
+            border-radius: 5px;
+            transition: background-color 1s ease-in-out;
+        }
+
+        @@keyframes fillProgressBar {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+
+        #internet-speed-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: green;
+            color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            /* Additional styling for slow-speed indicator */
+            #internet-speed-indicator.slow-speed {
+                background-color: red; /* Change color to indicate slow speed */
+            }
+
+        .user-img {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .dp {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .nav-icons {
+            display: flex;
+            justify-content: flex-end;
+            padding-left: 10px;
+        }
+
+            .nav-icons li {
+                background-color: pink;
+                list-style: none;
+                display: flex;
+                cursor: pointer;
+                color: #51585c;
+                margin-left: 22px;
+                font-size: 18px;
+            }
+
+        .notif-box {
+            position: relative;
+            display: flex;
+            width: 100%;
+            height: 70px;
+            background: #cf9fff;
+            align-items: center;
+            font-size: 0.8em;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+            .notif-box i {
+                position: relative;
+                left: 13px;
+                background: #fff;
+                padding: 10px;
+                width: 42px;
+                height: auto;
+                font-size: 20px;
+                border-radius: 55%;
+                cursor: pointer;
+                color: #76daff;
+            }
+
+            .notif-box:hover {
+                background-color: lightgray; /* or any other color you prefer on hover */
+            }
+
+            .notif-box .fa-xmark {
+                position: absolute;
+                left: 260px;
+                text-align: center;
+                background: #76daff;
+                color: #fff;
+            }
+
+        .notif-text {
+            margin: 25px;
+        }
+
+            .notif-text a {
+                text-decoration: none;
+                color: #333;
+                font-size: 0.9em;
+            }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+            height: 40px;
+            background: #f6f6f6;
+            display: flex;
+        }
+
+            .search-container .input input {
+                width: 100%;
+                outline: none;
+                border: none;
+                background: #fff;
+                padding: 5px;
+                height: 30px;
+                border-radius: 10px;
+                font-size: 12px;
+                padding-left: 60px;
+                margin: 10px;
+            }
+
+            .search-container .input i {
+                position: absolute;
+                left: 26px;
+                top: 14px;
+                color: #bbb;
+                font-size: 0.8em;
+            }
+
+        .chat-list {
+            position: relative;
+            height: 80%;
+            overflow-y: auto;
+        }
+
+            .chat-list .chat-box {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                padding: 15px;
+                border-bottom: 1px solid #eee;
+            }
+
+                .chat-list .chat-box .img-box {
+                    width: 55px;
+                    height: 45px;
+                    overflow: hidden;
+                    border-radius: 50%;
+                }
+
+                .chat-list .chat-box .chat-details {
+                    width: 100%;
+                    margin-left: 10px;
+                }
+
+                    .chat-list .chat-box .chat-details .text-head {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 2px;
+                    }
+
+                        .chat-list .chat-box .chat-details .text-head h4 {
+                            font-size: 1.1em;
+                            font-weight: 600;
+                            color: #8a2be2;
+                        }
+
+                        .chat-list .chat-box .chat-details .text-head .time {
+                            font-size: 0.8em;
+                            color: #aaa;
+                        }
+
+                    .chat-list .chat-box .chat-details .text-message {
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+
+                        .chat-list .chat-box .chat-details .text-message p {
+                            color: #8a2be2;
+                            font-size: 0.9em;
+                            overflow: hidden;
+                        }
+
+        img {
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .chat-list .chat-box .chat-details .text-message b {
+            background: #06e744;
+            color: #fff;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.8em;
+            font-weight: 400;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-list .active {
+            background: #ebebeb;
+        }
+
+        .chat-list .chat-box:hover {
+            background: #f5f5f5;
+        }
+
+        .chat-list .chat-box .chat-details .text-head .unread {
+            color: #06e744;
+        }
+
+        .right-container .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+            .right-container .header .img-text .user-img .dp {
+                width: 40px;
+                height: auto;
+                overflow: hidden;
+                object-fit: cover;
+            }
+
+            .right-container .header .img-text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+
+                .right-container .header .img-text h4 {
+                    font-weight: 500;
+                    line-height: 1.2em;
+                    margin-left: 15px;
+                }
+
+                    .right-container .header .img-text h4 span {
+                        font-size: 0.8em;
+                        color: #555;
+                    }
+
+            .right-container .header .nav-icons {
+                margin-right: 0px;
+            }
+
+                .right-container .header .nav-icons i {
+                    padding: 10px;
+                }
+
+        .chat-container {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 120px);
+            padding: 50px;
+            overflow-x: auto; /* Enable horizontal scroll */
+            overflow-y: auto;
+        }
+
+        .message-box {
+            display: flex;
+            width: 100%;
+            margin: 5px 0;
+        }
+
+        .openbtn.active ~ .right-container .chat-container .message-box {
+            margin-left: 20% !important;
+        }
+
+        .message-box p {
+            text-align: left;
+            max-width: 65%;
+            padding: 12px;
+            background: #dcf8c6;
+            border-radius: 10px;
+        }
+
+        .message-box.my-message p::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -12px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #dcf8c6 0%, #dcf8c6 50%, transparent 50%, transparent);
+        }
+
+        .message-box p span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8em;
+            opacity: 0.5;
+        }
+
+        .my-message {
+            justify-content: flex-end;
+        }
+
+        .my-messagee {
+        }
+
+        .friend-message p {
+            background: #fff;
+        }
+
+        .friend-message {
+            justify-content: flex-start;
+        }
+
+        .chat-container .my-message i {
+            color: yellow;
+        }
+
+        .message-box.friend-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -12px;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(225deg, #fff 0%, #fff 50%, transparent 50%, transparent);
+        }
+
+        .internet-speed-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: red; /* Default color */
+        }
+
+            .indicator.green {
+                background-color: green;
+            }
+
+
+
+
+        .chatbox-input {
+            position: fixed; /* Fix the position to the bottom */
+            bottom: 0; /* Align it to the bottom of the viewport */
+            left: 0; /* Align it to the left of the viewport */
+            width: 100%; /* Make it span the full width */
+            background: #f0f0f0; /* Background color */
+            padding: 10px; /* Add some padding */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space out the input and button */
+            align-items: center; /* Center items vertically */
+            z-index: 1000; /* Ensure it's above other content */
+        }
+
+            .chatbox-input i {
+                cursor: pointer;
+                font-size: 1.8em;
+                color: #515855;
+            }
+
+                .chatbox-input i:nth-child(1) {
+                    margin: 15px;
+                }
+
+                .chatbox-input i:last-child {
+                    margin-right: 25px;
+                }
+
+            .chatbox-input input {
+                width: 90%;
+                margin: 0 20px;
+                padding: 10px 20px;
+                border-radius: 10px;
+                font-size: 1em;
+                border: none;
+                outline: none;
+            }
+
+        .westernnn-button,
+        .vedic-button, .ascendant-button, .ascendantsub-button,
+        #dobSubmitButton, #ascendantInput {
+            background-color: #d19cff;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .westernn-button,
+        .vedic-button, .ascendant-button, .ascendantsub-button,
+        #dobSubmitButton, #ascendantInput {
+            background-color: #b766e9;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .message-button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            margin-top: 10px; /* Adjust margin as needed */
+        }
+
+        .qr-button {
+            background-color: #8a2be2;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+        .western-button, .skipButton,
+        .vedic-button, .ascendant-button, .ascendantsub-button,
+        #dobSubmitButton, #ascendantInput {
+            background-color: #8a2be2;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+            .western-button:hover,
+            .westernn-button:hover,
+            .westernnn-button:hover,
+            .vedic-button:hover,
+            #dobSubmitButton:hover {
+                background-color: #8000ff; /* Darker Purple color on hover */
+            }
+
+        .nav-icon {
+            width: 30px;
+            height: 24px;
+        }
+
+        .linkedin-logo-container {
+            margin-left: 22px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .linkedin-icon {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            margin-left: 10px;
+            position: relative;
+            z-index: 3;
+        }
+
+
+        .left-container {
+            width: 20%;
+        }
+
+        .left-container-closed {
+            margin-left: -60%;
+            width: 0;
+        }
+
+        .slide-button {
+            position: fixed;
+            top: 50%;
+            left: 29.4%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            font-size: 24px;
+        }
+
+        .slide-button-closed {
+            left: 0;
+        }
+
+        .skip-button {
+            background-color: #8a2be2;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 15px;
+        }
+
+
+        .openbtn {
+            margin-right: 10px;
+            margin-top: 10px;
+            background: #8a2be2;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-left: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .openbtn .openbtn-area {
+                transition: all .4s;
+            }
+
+            .openbtn span {
+                position: absolute;
+                background: #fff;
+                display: inline-block;
+                border-radius: 3px;
+                left: 13px;
+                height: 3px;
+                transition: all .4s;
+                width: 50%;
+            }
+
+                .openbtn span:nth-of-type(1) {
+                    top: 16px;
+                }
+
+                .openbtn span:nth-of-type(2) {
+                    top: 24px;
+                }
+
+                .openbtn span:nth-of-type(3) {
+                    top: 32px;
+                }
+
+            .openbtn.active .openbtn-area {
+                transform: rotate(45deg);
+            }
+
+            .openbtn.active span:nth-of-type(1) {
+                width: 45%;
+                top: 18px;
+                left: 14px;
+                transform: translateY(6px) rotate(-135deg);
+            }
+
+            .openbtn.active span:nth-of-type(2) {
+                opacity: 0;
+            }
+
+            .openbtn.active span:nth-of-type(3) {
+                width: 45%;
+                top: 30px;
+                left: 14px;
+                transform: translateY(-6px) rotate(135deg);
+            }
+
+            .openbtn.active {
+                z-index: 1000; /* Ensure it's above the left container */
+            }
+
+
+        .left-container {
+            position: fixed;
+            top: 0;
+            left: -100%; /* Initially hidden */
+            width: 300px;
+            height: 100%;
+            background-color: white;
+            z-index: 999; /* Ensure it's below the hamburger menu */
+            transition: left 0.3s ease;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            justify-content: Center;
+        }
+
+        .flex-content {
+            margin: 10px;
+        }
+
+        /* Add additional CSS styles as needed */
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="right-container">
+            <div class="header1">
+                <div class="img-text">
+                    <h4>Authentication</h4>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
 
-<link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
-<script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+            <div class="chat-container">
+                <div class="message-box my-message">
+                    <p>Are you existing user?</p>
+                </div>
+                <div class="message-box my-message astro-button-container">
+                    <button class="westernnn-button" onclick="showLogin()">Yes</button>
+                    <button class="westernnn-button" onclick="showRegister()">No</button>
+                </div>
+
+                <div id="registerForm" style="display: none;">
+                    <div class="message-box my-message">
+                        <p>Please choose your method to register:</p>
+                    </div>
+                    <div class="message-box my-message astro-button-container">
+                        <button class="westernnn-button" onclick="setRegisterMethod('adhar')">Aadhaar</button>
+                        <button class="westernnn-button" onclick="setRegisterMethod('mobile')">Mobile</button>
+                        <button class="westernnn-button" onclick="setRegisterMethod('email')">Email</button>
+                    </div>
+                </div>
+
+                <div id="loginForm" style="display: none;">
+                    <div class="message-box my-message">
+                        <p>Please enter your email:</p>
+                    </div>
+                    <div class="chatbox-input">
+                        <input type="text" id="loginEmail" placeholder="Enter your email" />
+                        <button class="westernnn-button" onclick="submitEmail()">Submit</button>
+                    </div>
+
+                    <div class="message-box my-message" id="passwordPrompt">
+                        <p>Please enter your password:</p>
+                    </div>
+                    <div class="chatbox-input" id="passwordInput" style="display: none;">
+                        <input type="password" id="loginPassword" placeholder="Enter your password" />
+                        <button class="westernnn-button" onclick="login()">Submit</button>
+                    </div>
+                </div>
+                <div id="inputForm" style="display: none;">
+                    <div class="message-box my-message">
+                        <p id="inputPrompt"></p>
+                    </div>
+                </div>
+               
+                <div id="inputForm" style="display: none;">
+                    <div class="message-box my-message">
+                        <p id=" passwordInput"></p>
+                    </div>
+                </div>
+
+                <div class="chatbox-input" id="chatboxInput" style="display: none;">
+                    <input type="text" id="inputField" placeholder="Enter value" />
+                    <button class="westernnn-button" onclick="handleInput()">Submit</button>
+                </div>
+            </div>
+
+            <div id="message"></div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>  let registerMethod = '';
+        let step = 0; // To track the registration steps
+        let registrationData = { email: "", passwordHash: "", adhar: "", mobile: "" }; // Global registration data
+
+        function showRegister() {
+            console.log("Register option selected");
+            document.getElementById("registerForm").style.display = "block";
+            document.getElementById("loginForm").style.display = "none";
+            document.getElementById("inputForm").style.display = "none";
+            document.getElementById("chatboxInput").style.display = "none"; // Hide input initially
+            document.getElementById("inputField").value = ""; // Clear input field
+            document.getElementById("message").innerHTML = ""; // Clear previous messages
+            step = 0; // Reset step
+        }
+
+   
+  
+
+        function setRegisterMethod(method) {
+            registerMethod = method;
+            console.log("Registration method set to:", registerMethod);
+            document.getElementById("inputForm").style.display = "block";
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("inputField").value = ""; // Clear input field
+            document.getElementById("chatboxInput").style.display = "block"; // Show input area
+
+            if (method === 'adhar') {
+                document.getElementById("inputPrompt").innerText = "Enter your Aadhaar number:";
+                document.getElementById("inputField").placeholder = "Enter your Aadhaar number";
+            } else if (method === 'mobile') {
+                document.getElementById("inputPrompt").innerText = "Enter your mobile number:";
+                document.getElementById("inputField").placeholder = "Enter your mobile number";
+            } else if (method === 'email') {
+                document.getElementById("inputPrompt").innerText = "Enter your email:";
+                document.getElementById("inputField").placeholder = "Enter your email";
+            }
+        }
+
+        function handleInput() {
+            const inputValue = document.getElementById("inputField").value;
+            console.log("Input value:", inputValue);
+
+            if (step === 0) {
+                // First step
+                if (registerMethod === 'adhar' || registerMethod === 'mobile') {
+                    document.getElementById("inputPrompt").innerText = "Enter your email:";
+                    document.getElementById("inputField").placeholder = "Enter your email";
+                    registrationData[registerMethod] = inputValue; // Store Aadhaar or Mobile
+                } else if (registerMethod === 'email') {
+                    document.getElementById("inputPrompt").innerText = "Create a password:";
+                    document.getElementById("inputField").placeholder = "Create a password";
+                    registrationData.email = inputValue; // Store the email
+                }
+                step++;
+                console.log("Step:", step);
+            } else if (step === 1) {
+                // Second step
+                registrationData.passwordHash = inputValue; // Set password here
+                register(registerMethod, registrationData); // Call register function with collected data
+            }
+            document.getElementById("inputField").value = ""; // Clear input field
+        }
+        async function register(method, data) {
+            console.log("Registration data:", data);
+
+            const response = await fetch('/api/Auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();  // Parse the response as JSON
+            console.log("Registration response:", result);
+
+            if (response.ok) {
+                // Save the token in localStorage
+                const token = result.token;  // Assuming the token is returned in the 'token' field
+                localStorage.setItem('jwt', token);
+
+                // Check token immediately after saving it
+                const tokenn = localStorage.getItem('jwt');
+                if (tokenn) {
+                    console.log("Token stored in localStorage:", tokenn);
+                } else {
+                    console.log("Token not found in localStorage.");
+                }
+
+                // Optionally, show the message from the response
+                document.getElementById("message").innerText = result.message;
+
+                // Redirect to another page after successful registration
+                // Wait for a moment before redirecting to ensure token is saved
+                setTimeout(() => {
+                    window.location.href = "/candidate_info";
+              
+                }, 100); // Delay to ensure token is available in localStorage
+            } else {
+                // Handle error, show the error message from the response
+                document.getElementById("message").innerText = result.message || "An error occurred during registration.";
+            }
+        }
+        function showLogin() {
+            console.log("Login option selected");
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block"; // Show the login form
+            document.getElementById("chatboxInput").style.display = "none"; // Hide input initially
+            document.getElementById("message").innerHTML = ""; // Clear previous messages
+            document.getElementById("loginEmail").value = ""; // Clear email field
+            document.getElementById("loginPassword").value = ""; // Clear password field
+            document.getElementById("passwordPrompt").style.display = "none"; // Hide password prompt
+            document.getElementById("passwordInput").style.display = "none"; // Hide password input
+        }
+        const urlParams = new URLSearchParams(window.location.search);
+        const testcode = urlParams.get('testcode');
+
+        if (testcode) {
+            console.log("Testcode from URL:", testcode); // Log the testcode retrieved from the URL
+            localStorage.setItem('testcode', testcode);
+            console.log("Testcode saved to localStorage:", localStorage.getItem('testcode')); // Verify it’s saved in localStorage
+        } else {
+            console.log("No testcode found in URL"); // Log if testcode is not present in the URL
+        }
+        function submitEmail() {
+            const email = document.getElementById("loginEmail").value;
+            if (email) {
+                console.log("Email entered:", email);
+                // Show password prompt
+                document.getElementById("passwordInput").style.display = "block"; // Show password input
+                document.getElementById("chatboxInput").style.display = "none"; // Hide chat input after submitting email
+            } else {
+                document.getElementById("message").innerText = "Please enter a valid email.";
+            }
+        }
+
+        async function login() {
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+
+            console.log("Login attempt with email:", email);
+
+            const response = await fetch('/api/Auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, passwordHash: password })
+            });
+
+            const data = await response.json();
+            console.log("Login response data:", data);
+            if (data.token) {
+                localStorage.setItem('jwt', data.token);
+                window.location.href = "/candidate_info"; // Redirect to the Candidate Info page
+            } else {
+                document.getElementById("message").innerText = "Login failed!";
+            }
+        }</script>
+</body>
+</html>

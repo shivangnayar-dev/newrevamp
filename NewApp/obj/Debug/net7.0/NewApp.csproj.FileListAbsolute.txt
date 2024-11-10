@@ -284,3 +284,6 @@
 /root/pexibackup/NewApp/obj/Debug/net7.0/NewApp.pdb
 /root/pexibackup/NewApp/obj/Debug/net7.0/NewApp.genruntimeconfig.cache
 /root/pexibackup/NewApp/obj/Debug/net7.0/ref/NewApp.dll
+/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/bin/Debug/net7.0/BCrypt.Net-Next.dll
+/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/bin/Debug/net7.0/Microsoft.Bcl.TimeProvider.dll

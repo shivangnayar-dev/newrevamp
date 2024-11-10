@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/root/pexibackup/NewApp/NewApp.csproj": {}
+    "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj": {}
   },
   "projects": {
-    "/root/pexibackup/NewApp/NewApp.csproj": {
+    "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/root/pexibackup/NewApp/NewApp.csproj",
+        "projectUniqueName": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj",
         "projectName": "NewApp",
-        "projectPath": "/root/pexibackup/NewApp/NewApp.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/root/pexibackup/NewApp/obj/",
+        "projectPath": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj",
+        "packagesPath": "/Users/shivangnayar/.nuget/packages/",
+        "outputPath": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/shivangnayar/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "/usr/local/share/dotnet/sdk/7.0.311/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,9 +40,17 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.3, )"
+            },
             "DinkToPdf": {
               "target": "Package",
               "version": "[1.0.8, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -49,6 +59,14 @@
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.14, )"
+            },
+            "Microsoft.IdentityModel.JsonWebTokens": {
+              "target": "Package",
+              "version": "[8.1.2, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",
@@ -61,6 +79,10 @@
             "Quartz.Extensions.Hosting": {
               "target": "Package",
               "version": "[3.13.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.1.2, )"
             }
           },
           "imports": [
@@ -82,7 +104,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.119/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.311/RuntimeIdentifierGraph.json"
         }
       }
     }

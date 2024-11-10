@@ -1,14 +1,15 @@
-@{
-    ViewData["Title"] = "Home Page";
-}
-@{
-    var importUrl = "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap";
+﻿@{
+    ViewData["Title"] = "Candidate Information";
 }
 
-@section Styles{
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta FullName="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Candidate Information</title>
     <style>
-
-
         .timer-container {
             text-align: center;
             display: flex;
@@ -237,6 +238,7 @@
             padding: 0 15px;
             justify-content: space-between;
         }
+
         #progress-container {
             width: 70%;
             height: 10px;
@@ -255,14 +257,15 @@
             transition: background-color 1s ease-in-out;
         }
 
-@@keyframes fillProgressBar {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
+        @@keyframes fillProgressBar {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
 
 
         #internet-speed-indicator {
@@ -614,12 +617,16 @@
 
 
         .chatbox-input {
-            position: relative;
-            width: 100%;
-            background: #f0f0f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; /* Fix the position to the bottom */
+            bottom: 0; /* Align it to the bottom of the viewport */
+            left: 0; /* Align it to the left of the viewport */
+            width: 100%; /* Make it span the full width */
+            background: #f0f0f0; /* Background color */
+            padding: 10px; /* Add some padding */
+            display: flex; /* Use flexbox for layout */
+            justify-content: space-between; /* Space out the input and button */
+            align-items: center; /* Center items vertically */
+            z-index: 1000; /* Ensure it's above other content */
         }
 
             .chatbox-input i {
@@ -870,158 +877,385 @@
         .flex-content {
             margin: 10px;
         }
-        .message-box p {
-            background-color: #dcf8c6; /* Green background for original questions */
+        #loadingSpinner {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
         }
-
-        /* Style for translated questions */
-        .translated-question p {
-            background-color: #f0f0f0; /* Light grey background for translated questions */
-            font-style: italic; /* Italicize translated text to differentiate */
+          @@keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
-}
+</head>
+<body>
+    <div id="loadingSpinner"></div>
 
-
-
-<div class="background-green"></div>
-
-<div class="main-container">
-
-    <div class="left-container" id="left-container">
-        <!-- header -->
-        <div class="header">
-            <div class="user-img">
-                <a href="https://careertests.in/">
-                    <img class="dp" src="https://github.com/shivangnayar-dev/img/blob/main/ai%201.png?raw=true" alt="">
-                </a>
+    <div class="main-container">
+        <div class="right-container">
+            <div class="header1">
+                <div class="img-text">
+                    <h4>Candidate Information</h4>
+                </div>
             </div>
-            <div class="nav-icons">
-                <div class="linkedin-logo-container">
-                    <a href="https://www.linkedin.com/company/pexitics.com/" target="_blank">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/LinkedIn_logo_initials.png/640px-LinkedIn_logo_initials.png" alt="LinkedIn" class="nav-icon linkedin-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://www.instagram.com/your_careergraph?igsh=NnR3ZjkxaGl1dGY4" target="_blank">
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/%E2%80%94Pngtree%E2%80%94instagram%20social%20platform%20icon_8704818.png?raw=true
-    " alt="LinkedIn" class="nav-icon linkedin-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://wa.me/917349662320" target="_blank">
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/logo-whatsapp-png-46041.png?raw=true" alt="WhatsApp" class="nav-icon whatsapp-icon">
-                    </a>
-                </div>
-                <div class="linkedin-logo-container">
-                    <a href="https://www.youtube.com/playlist?list=PLFhNcXkdLYt-fFQYRTbIKYD77WabWVnSP" target="_blank">
 
-                        <img src="https://github.com/shivangnayar-dev/img/blob/main/youtube-logo-png-3566.png?raw=true
-    " alt="YouTube" class="nav-icon whatsapp-icon">
-                    </a>
+            <div class="chat-container">
+                <div class="message-box my-message">
+                    <p id="promptText">Please enter your FullName:</p>
                 </div>
+
+                <div class="chatbox-input" id="inputContainer">
+                    <input type="text" id="candidateInput" placeholder="Enter your FullName" />
+                    <button class="westernnn-button" onclick="nextStep()">Submit</button>
+                </div>
+
+                <div id="error-message" class="error-message"></div>
             </div>
         </div>
-
-        <!-- notification -->
-        <!-- chats -->
-
-
-
-
-
-
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            checkIfCandidateExists();
+        });
 
+        async function checkIfCandidateExists() {
+            // Show the loading spinner
+            document.getElementById("loadingSpinner").style.display = "block";
 
-    <div class="right-container">
-        <div class="header1">
-            <div class="openbtn" id="openbtn">
-                <div class="openbtn-area">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            const token = localStorage.getItem('jwt');
+            if (!token) {
+                document.getElementById("messageBox").innerText = "You are not logged in!";
+                // Hide the loading spinner
+                document.getElementById("loadingSpinner").style.display = "none";
+                return;
+            }
 
-            </div>
-         
-            <div class="img-text">
-                <div class="user-img">
+            try {
+                // Call the GET API to check if the candidate's information already exists
+                const response = await fetch('/api/CandidateInfo/get', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
 
-                </div>
+                if (response.ok) {
+                    const candidateData = await response.json();
 
-            </div>
-            <div id="google_translate_element"></div>
-        </div>
-
-
-        <!-- header -->
-        <!-- chat-container -->
-        <div class="chat-container">
-            <div class="message-box my-message">
-        
-            </div>
-            <div class="message-box my-message astro-button-container">
-           
-
-            </div>
-
-        </div>
-
-        <!-- input-bottom -->
-        <div class="chatbox-input">
-
-            <input type="text" id="dobInput" placeholder="Type a message...">
-            <button id="dobSubmitButton" onclick="handleMultipleSubmit()">Submit</button>
-	    <button id="skipButton" class="skip-button" style="display: none;">Skip</button>
-           
-        </div>
-    </div>
-</div>
-</div>
-
-<script type="text/javascript"> function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',  // Default language of the page
-            includedLanguages: 'es,fr,de,ja,ko', // Languages that you want to translate to (example: Spanish, French, etc.)
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
-    }</script>
-
-
-<script type="text/javascript">function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
+                    // If candidate data exists, call checkScreenInfo
+                    if (candidateData) {
+                        console.log("Candidate data exists:", candidateData);
+                        checkScreenInfo(); // Call checkScreenInfo if candidate exists
+                    } else {
+                        console.log("Candidate not found. Proceeding with registration.");
+                        // Proceed with the registration or next steps if no candidate data exists
+                    }
+                } else {
+                    console.error("Error fetching candidate info:", await response.text());
+                    document.getElementById("messageBox").innerText = "Failed to fetch candidate information.";
+                }
+            } catch (error) {
+                console.error("Error checking candidate info:", error);
+                document.getElementById("messageBox").innerText = "An error occurred while checking candidate information.";
+            } finally {
+                // Hide the loading spinner after the process is complete
+                document.getElementById("loadingSpinner").style.display = "none";
+            }
         }
-    }
 
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation</script>
 
-<script type="text/javascript">
-    function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
+
+        let candidateData = {};
+        let step = 0;
+
+        function nextStep() {
+            const errorDiv = document.getElementById("error-message");
+            errorDiv.innerText = ""; // Clear any previous errors
+
+            switch (step) {
+                case 0:
+                    askName();
+                    break;
+                case 1:
+                    askCountry();
+                    break;
+                case 2:
+                    askLocation();
+                    break;
+                case 3:
+                    askGender();
+                    break;
+                case 4:
+                    askDOB();
+                    break;
+                default:
+                    saveCandidateInfo(); // Final step to save data
+                    break;
+            }
         }
-    }
 
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation
-</script>
-<script>// Call asktesttt() function as soon as the page loads
-    window.onload = function () {
-        asktesttt();
-    };</script>
+        function askName() {
+            const inputField = document.getElementById("candidateInput");
+            const promptText = document.getElementById("promptText");
+            const FullName = inputField.value.trim();
 
-<script type="text/javascript"
-        src="https://translate.google.com/translate_a/element.js?
-cb=googleTranslateElementInit"></script>
+            if (!FullName) {
+                document.getElementById("error-message").innerText = "Name cannot be empty.";
+                return;
+            }
 
-<script src="/js/test.js" asp-append-version="true"></script>
+            candidateData.FullName = FullName;
+            promptText.innerText = "Please select your country:";
+            inputField.value = ""; // Clear input field
+            inputField.style.display = "none"; // Hide the input for FullName
+
+            createCountryDropdown(); // Call function to create country dropdown
+            step++;
+        }
+
+        function createCountryDropdown() {
+            const inputContainer = document.getElementById("inputContainer");
+            const countrySelect = document.createElement("select");
+            countrySelect.id = "countrySelect";
+            countrySelect.innerHTML = `<option value="" disabled selected>Select your Country</option>`;
+            const countries = ['India', 'United States', 'Canada', 'Australia', 'Other'];
+            countries.forEach(country => {
+                const option = document.createElement("option");
+                option.value = country;
+                option.text = country;
+                countrySelect.appendChild(option);
+            });
+            inputContainer.appendChild(countrySelect);
+
+            countrySelect.addEventListener("change", function () {
+                if (countrySelect.value === "Other") {
+                    countrySelect.remove();
+                    const customCountryInput = document.createElement("input");
+                    customCountryInput.id = "customCountryInput";
+                    customCountryInput.type = "text";
+                    customCountryInput.placeholder = "Enter your Country";
+                    inputContainer.appendChild(customCountryInput);
+                }
+            });
+        }
+
+        function askCountry() {
+            const countrySelect = document.getElementById("countrySelect") || document.getElementById("customCountryInput");
+            const country = countrySelect ? countrySelect.value.trim() : "";
+
+            if (!country) {
+                document.getElementById("error-message").innerText = "Country cannot be empty.";
+                return;
+            }
+
+            candidateData.country = country;
+            document.getElementById("inputContainer").removeChild(countrySelect); // Remove the country dropdown/input
+            step++;
+            askLocation(); // Proceed to the next question
+        }
+
+        function askLocation() {
+            const inputContainer = document.getElementById("inputContainer");
+            const promptText = document.getElementById("promptText");
+
+            promptText.innerText = "Please select your location:";
+
+            // Create location dropdown
+            const locationSelect = document.createElement("select");
+            locationSelect.id = "locationSelect";
+            locationSelect.innerHTML = `<option value="" disabled selected>Select your Location</option>`;
+
+            const locations = [
+                'Agwār', 'Ahmedabad', 'Alīgarh', 'Ambattūr', 'Amritsar', 'Aurangābād', 'Bāli', 'Bānsbāria',
+                'Babura', 'Balasore', 'Bangalore', 'Bārākpur', 'Bāgalūr', 'Bendravādi', 'Bhālswa Jahangirpur',
+                'Bhayandar', 'Bhātpāra', 'Bhātinda', 'Bommayapālaiyam', 'Bhopāl', 'Bilāspur', 'Cawnpore',
+                'Chandannagar', 'Chandīgarh', 'Chennai', 'Chinchvad', 'Chinnasekkadu', 'Cāchohalli', 'Dāsarhalli',
+                'Dam Dam', 'Darbhanga', 'Delhi', 'Devanandapur', 'Dhanbād', 'Doddajīvanhalli', 'Farīdābād',
+                'Ghāziābād', 'Gundūr', 'Gwalior', 'Guwāhāti', 'Harna Buzurg', 'Harilādih', 'Hesarghatta', 'Herohalli',
+                'Hugli', 'Hunnasamaranhalli', 'Huttanhalli', 'Hyderābād', 'Indore', 'Jaipur', 'Jabalpur', 'Jalhalli',
+                'Jamshedpur', 'Jethuli', 'Jodhpur', 'Kammanhalli', 'Kasgatpur', 'Kedihāti', 'Kendrāparha',
+                'Kītānelli', 'Kodagihalli', 'Kolkāta', 'Kota', 'Krishnanagar', 'Kūkatpalli', 'Kādiganahalli',
+                'Kālkāji Devi', 'Lucknow', 'Ludhiāna', 'Madavaram', 'Mādavar', 'Mādnāikanhalli', 'Māīlānhalli',
+                'Madhavaram', 'Madipakkam', 'Mahuli', 'Mumbai', 'Muzaffarpur', 'Nāg̱pur', 'Nārāyanpur Kola', 'Nāsik',
+                'Nāngloi Jāt', 'Nāthupur', 'Nāgtala', 'New Delhi', 'Nerkunram', 'Oulgaret', 'Pāppākurichchi',
+                'Pakri', 'Pallāvaram', 'Patna', 'Puducherry', 'Pune', 'Punādih', 'Puri', 'Prayagraj', 'Raipur',
+                'Rājkot', 'Rānchi', 'Salt Lake City', 'Sabalpur', 'Saino', 'Santoshpur', 'Secunderābād', 'Shimla',
+                'Shrīrāmpur', 'Shrīnagar', 'Sijua', 'Simli Murārpur', 'Sondekoppa', 'Sūrat', 'Srīnagar',
+                'Sultānpur', 'Sultānpur Mazra', 'Thāne', 'Tiruvottiyūr', 'Tribeni', 'Vadodara', 'Vājarhalli',
+                'Vārānasi', 'Vasai', 'Vijayavāda', 'Vishākhapatnam', 'Yelahanka', 'Zeyādah Kot', 'Other'
+            ];
+
+            locations.forEach(location => {
+                const option = document.createElement("option");
+                option.value = location;
+                option.text = location;
+                locationSelect.appendChild(option);
+            });
+
+            inputContainer.appendChild(locationSelect);
+
+            locationSelect.addEventListener("change", function () {
+                if (locationSelect.value === "Other") {
+                    locationSelect.remove();
+                    const customLocationInput = document.createElement("input");
+                    customLocationInput.id = "customLocationInput";
+                    customLocationInput.type = "text";
+                    customLocationInput.placeholder = "Enter your Location";
+                    inputContainer.appendChild(customLocationInput);
+                }
+            });
+            step++;
+        }
+
+        function askGender() {
+            const locationSelect = document.getElementById("locationSelect") || document.getElementById("customLocationInput");
+            const location = locationSelect ? locationSelect.value.trim() : "";
+
+            if (!location) {
+                document.getElementById("error-message").innerText = "Location cannot be empty.";
+                return;
+            }
+
+            candidateData.location = location;
+            locationSelect.remove(); // Remove the location dropdown/input
+            const inputContainer = document.getElementById("inputContainer");
+            const promptText = document.getElementById("promptText");
+
+            promptText.innerText = "Please select your gender:";
+
+            // Create gender dropdown
+            const genderSelect = document.createElement("select");
+            genderSelect.id = "genderSelect";
+            genderSelect.innerHTML = `<option value="" disabled selected>Select your Gender</option>`;
+
+            const genders = ['Male', 'Female', 'Other'];
+            genders.forEach(gender => {
+                const option = document.createElement("option");
+                option.value = gender;
+                option.text = gender;
+                genderSelect.appendChild(option);
+            });
+
+            inputContainer.appendChild(genderSelect);
+
+            genderSelect.addEventListener("change", function () {
+                if (genderSelect.value === "Other") {
+                    genderSelect.remove();
+                    const customGenderInput = document.createElement("input");
+                    customGenderInput.id = "customGenderInput";
+                    customGenderInput.type = "text";
+                    customGenderInput.placeholder = "Enter your Gender";
+                    inputContainer.appendChild(customGenderInput);
+                }
+            });
+            step++;
+        }
+
+
+        function askDOB() {
+            const genderSelect = document.getElementById("genderSelect") || document.getElementById("customGenderInput");
+            const gender = genderSelect ? genderSelect.value.trim() : "";
+
+            if (!gender) {
+                document.getElementById("error-message").innerText = "Gender cannot be empty.";
+                return;
+            }
+
+            candidateData.gender = gender;
+            genderSelect.remove(); // Remove the gender dropdown/input
+
+            const inputField = document.getElementById("candidateInput");
+            inputField.type = "date"; // Change input type to date
+            inputField.placeholder = ""; // Clear placeholder
+            document.getElementById("promptText").innerText = "Please enter your date of birth:";
+            inputField.style.display = "block";
+            inputField.value = ""; // Clear input field
+            step++;
+        }
+        async function saveCandidateInfo() {
+            const dob = document.getElementById("candidateInput").value.trim();
+            const errorDiv = document.getElementById("error-message");
+
+            if (!dob) {
+                errorDiv.innerText = "Date of birth cannot be empty.";
+                return;
+            }
+
+            candidateData.DateOfBirth = dob;
+
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem('jwt');
+            console.log(token);
+            if (!token) {
+                document.getElementById("messageBox").innerText = "You are not logged in!";
+                return;
+            }
+
+
+            // Save candidate information
+            const response = await fetch('/api/CandidateInfo/save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(candidateData)
+            });
+
+
+            if (response.ok) {
+
+                document.getElementById("promptText").innerText = "<p>Information saved successfully!</p>";
+                checkScreenInfo();
+
+                // Call checkScreenInfo to decide the next action
+
+            } else {
+                document.getElementById("promptText").innerText = "<p>Error saving information.</p>";
+            }
+        }
+
+        async function checkScreenInfo() {
+            // Retrieve the token from localStorage
+            const token = localStorage.getItem('jwt');
+            if (!token) {
+                console.error("User is not authenticated.");
+                return;
+            }
+
+            try {
+                // Fetch screen info for the given test code
+                const testcode = localStorage.getItem('testcode'); // Ensure testcode is provided
+                const checkResponse = await fetch(`api/ScreenInfo/get?testcode=${testcode}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+
+                if (!checkResponse.ok) {
+                    console.error("Failed to fetch screen info:", await checkResponse.text());
+                    return;
+                }
+
+                const screenData = await checkResponse.json();
+
+                if (screenData.screen2 === "1") {
+                    // Redirect to the academic information page if screen2 is "1"
+                    window.location.href = "/candidate_academic_info";
+                } else {
+                    // Show a thank you message if screen2 is not "1"
+                    window.location.href = "/Test";
+                }
+            } catch (error) {
+                console.error("Error fetching screen info:", error);
+            }
+        }</script>
+</body>
+</html>

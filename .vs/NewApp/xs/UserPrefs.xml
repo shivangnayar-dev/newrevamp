@@ -1,17 +1,18 @@
 ﻿<Properties StartupConfiguration="{04DBDFAF-213F-4F8E-B933-A4E5BC335E5D}|https">
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.NewApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="970" column="1" />
-      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="1072" column="1" />
-      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/PexiticsscoreEmailService.cs" relfile="NewApp/Controllers/PexiticsscoreEmailService.cs" line="13" column="1" />
-      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/PexiticsscoreEmailService.cs" relfile="NewApp/Controllers/PexiticsscoreEmailService.cs" line="43" column="1" />
+      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/AuthController.cs" relfile="NewApp/Controllers/AuthController.cs" line="13" column="1" />
+      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/AuthController.cs" relfile="NewApp/Controllers/AuthController.cs" line="28" column="1" />
+      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Controllers/AuthController.cs" relfile="NewApp/Controllers/AuthController.cs" line="15" column="1" />
+      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/Program.cs" relfile="NewApp/Program.cs" line="24" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="NewApp/Controllers/PexiticsscoreEmailService.cs">
+  <MonoDevelop.Ide.ItemProperties.NewApp PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="NewApp/Program.cs">
     <Files>
-      <File FileName="NewApp/wwwroot/js/test.js" />
+      <File FileName="NewApp/wwwroot/js/test.js" Line="1610" Column="31" />
       <File FileName="NewApp/Models/ApplicationDbContext.cs" />
       <File FileName="NewApp/Models/CandidateDetails.cs" />
       <File FileName="NewApp/Models/CoreDbContext.cs" />
@@ -24,26 +25,26 @@
       <File FileName="NewApp/Models/QuestionAnsMap.cs" />
       <File FileName="NewApp/Models/ShortSignUp.cs" />
       <File FileName="NewApp/Models/ReportSubAttributeDbContext.cs" />
-      <File FileName="NewApp/Controllers/QualificationTypController.cs" />
-      <File FileName="NewApp/Program.cs" />
+      <File FileName="NewApp/Controllers/QualificationTypController.cs" Line="12" Column="44" />
+      <File FileName="NewApp/Program.cs" Line="147" Column="1" />
       <File FileName="NewApp/Controllers/TestCodeController.cs" />
       <File FileName="NewApp/wwwroot/js/site.js" />
       <File FileName="NewApp/Models/SubmittedQuestionData.cs" />
       <File FileName="NewApp/Models/TestCode.cs" />
       <File FileName="NewApp/Models/ReportSubAttribute.cs" />
-      <File FileName="NewApp/wwwroot/js/testt.js" />
+      <File FileName="NewApp/wwwroot/js/testt.js" Line="1" Column="1" />
       <File FileName="NewApp/wwwroot/js/EmptyJS.js" />
-      <File FileName="NewApp/Views/Home/Test.cshtml" />
+      <File FileName="NewApp/Views/Home/Test.cshtml" Line="957" Column="58" />
       <File FileName="NewApp/wwwroot/js/benchmarkChart.js" />
-      <File FileName="NewApp/Views/Home/Index.cshtml" />
+      <File FileName="NewApp/Views/Home/Index.cshtml" Line="2939" Column="2" />
       <File FileName="NewApp/Views/Home/graph.cshtml" />
       <File FileName="NewApp/wwwroot/js/career.js" />
       <File FileName="NewApp/Views/Home/Dashboard.cshtml" />
       <File FileName="NewApp/Views/Home/Councellor.cshtml" />
-      <File FileName="NewApp/Views/Home/career.cshtml" />
+      <File FileName="NewApp/Views/Home/career.cshtml" Line="1" Column="1" />
       <File FileName="NewApp/Views/Home/Astro.cshtml" />
       <File FileName="NewApp/Views/Home/AboutUs.cshtml" />
-      <File FileName="NewApp/Views/Home/Login.cshtml" />
+      <File FileName="NewApp/Views/Home/Login.cshtml" Line="962" Column="6" />
       <File FileName="NewApp/Models/QuestionData.cs" />
       <File FileName="NewApp/Models/QuestionDbContext.cs" />
       <File FileName="NewApp/Models/BenchmarkModel.cs" />
@@ -53,7 +54,7 @@
       <File FileName="NewApp/Views/_ViewImports.cshtml" />
       <File FileName="NewApp/Views/_ViewStart.cshtml" />
       <File FileName="NewApp/Views/Shared/_Layout.cshtml" />
-      <File FileName="NewApp/appsettings.json" />
+      <File FileName="NewApp/appsettings.json" Line="9" Column="111" />
       <File FileName="NewApp/Controllers/BenchmarkController.cs" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/test.js" />
       <File FileName="NewApp/Models/bechcomen.cs" />
@@ -89,7 +90,7 @@
       <File FileName="NewApp/Models/SpecializationDbContext.cs" />
       <File FileName="NewApp/wwwroot/site.js" />
       <File FileName="NewApp/Models/Specialization.cs" />
-      <File FileName="NewApp/Views/Home/Result1.html" />
+      <File FileName="NewApp/Views/Home/Result1.html" Line="1" Column="1" />
       <File FileName="NewApp/Result1.html" />
       <File FileName="NewApp/Properties/launchSettings.json" />
       <File FileName="../../../.nuget/packages/ironpdf/2024.9.3/readme.txt" />
@@ -99,18 +100,40 @@
       <File FileName="NewApp/Models/ErrorViewModel.cs" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/testt.js" />
       <File FileName="NewApp/wwwroot/js/site.js.save" />
-      <File FileName="NewApp/Controllers/PexiticsscoreEmailService.cs" Line="197" Column="12" />
+      <File FileName="NewApp/Controllers/PexiticsscoreEmailService.cs" Line="18" Column="1" />
       <File FileName="NewApp/Models/pexiticsscore.cs" />
       <File FileName="NewApp/Models/pexiticsscoreDbContext.cs" />
+      <File FileName="NewApp/wwwroot/js/Login.js" Line="315" Column="76" />
+      <File FileName="NewApp/Models/User.cs" Line="23" Column="1" />
+      <File FileName="NewApp/Models/UserToken.cs" />
+      <File FileName="NewApp/Models/UserDbContext.cs" Line="10" Column="1" />
+      <File FileName="NewApp/Controllers/AuthController.cs" Line="72" Column="1" />
+      <File FileName="NewApp/Models/CandidateInfo.cs" />
+      <File FileName="NewApp/Controllers/CandidateInfoController.cs" />
+      <File FileName="NewApp/Views/Home/candidate_info.cshtml" Line="1051" Column="1" />
+      <File FileName="NewApp/Views/Home/Privacy.cshtml" />
+      <File FileName="NewApp/wwwroot/js/candidateinfo.js" Line="25" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="NewApp" expanded="True" selected="True" />
+          <Node name="NewApp" expanded="True">
+            <Node name="NewApp">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Views" expanded="True">
+                <Node name="Home" expanded="True" />
+              </Node>
+              <Node name="wwwroot" expanded="True">
+                <Node name="js" expanded="True" />
+              </Node>
+              <Node name="Program.cs" selected="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
 </Properties>
