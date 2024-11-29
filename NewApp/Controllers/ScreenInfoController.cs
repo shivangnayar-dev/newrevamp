@@ -18,7 +18,7 @@ namespace NewApp.Controllers
         }
 
         // GET: api/ScreenInfo/get?testcode=yourTestCode
-        [Authorize]
+    
         [HttpGet("get")]
         public IActionResult GetScreenInfo([FromQuery] string testcode)
         {
@@ -43,7 +43,7 @@ namespace NewApp.Controllers
         }
 
         // POST: api/ScreenInfo/save
-        [Authorize]
+   
         [HttpPost("save")]
         public IActionResult SaveScreenInfo([FromBody] TestInfo screenData)
         {

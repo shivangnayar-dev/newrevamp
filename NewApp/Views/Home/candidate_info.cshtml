@@ -924,7 +924,12 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            checkIfCandidateExists();
+            const fromLogin = localStorage.getItem('fromLogin');
+            if (fromLogin === 'true') {
+                // Call the function only if the user came from login
+                checkIfCandidateExists();
+                localStorage.removeItem('fromLogin'); // Clear the flag after use
+            }
         });
 
         async function checkIfCandidateExists() {

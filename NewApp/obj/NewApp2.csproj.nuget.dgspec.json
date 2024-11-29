@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp.csproj": {}
+    "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj": {}
   },
   "projects": {
-    "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp.csproj": {
+    "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp.csproj",
-        "projectName": "NewApp",
-        "projectPath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp.csproj",
+        "projectUniqueName": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj",
+        "projectName": "NewApp2",
+        "projectPath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj",
         "packagesPath": "/Users/shivangnayar/.nuget/packages/",
         "outputPath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/",
         "projectStyle": "PackageReference",

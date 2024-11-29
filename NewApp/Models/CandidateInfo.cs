@@ -23,6 +23,8 @@ namespace NewApp.Models
         public string Gender { get; set; }  // Default to empty string
 
         public DateTime? DateOfBirth { get; set; } // Default is null, as DateTime? is nullable
+
+
    
 }
 }

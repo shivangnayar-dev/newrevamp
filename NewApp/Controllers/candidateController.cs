@@ -115,6 +115,7 @@ namespace NewApp.Controllers
             }
         }
 
+
         private async Task<(string? password, string? name, string? gender, DateTime? dob, string? country, string? location, string? organization, string? qualification)> GetPasswordAndNameByUserAsync(CandidateDetails candidate, string identifierType)
         {
             try
@@ -1272,7 +1273,7 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
                 // Add average percentage values to the result table
                 var processedReportSubAttributes = new HashSet<string>();
                 int i = 1;
-
+                var matrixPercentiles = new Dictionary<string, List<double>>();
                 foreach (var kvp in averageReportSubAttributePercentages)
                 {
                     var reportSubAttribute = kvp.Key;
@@ -1303,6 +1304,15 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
                     {
                         benchmarkValue = Math.Round(benchmarkValueDouble, 0).ToString();
                     }
+                    // Calculate percentile value (reportSubAttributeValue / benchmarkValue)
+                    double percentile = 0;
+                   
+                        percentile = (averagePercentage / benchmarkValueDouble) * 10;
+                    if (percentile > 10)
+                    {
+                        percentile = 10;
+                    }// Calculate as percentage
+
 
                     // Check if the reportSubAttribute has already been processed
                     if (!processedReportSubAttributes.Contains(reportSubAttribute))
@@ -1329,7 +1339,7 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
                         var filteredBenchmarkEntries = benchmarkEntries
                             .Where(b => IsPercentageInRange(averagePercentage, b.Score))
                             .ToList(); // Execute the filtering in memory
-
+                         
                         // Update AssessmentResults with the score from the benchmark entry
                         foreach (var filteredBenchmarkEntry in filteredBenchmarkEntries)
                         {
@@ -1354,10 +1364,27 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
                             AddToResultTable("AssessmentResult", $"Comment{i}", Comments2.ToString(), candidateId, "");
                             AddToResultTable("AssessmentResult", $"matrix{i}", matrix, candidateId, "");
                             AddToResultTable("Benchmark", $"benchmarkvalue{i}", benchmarkValue, candidateId, "");
+                            AddToResultTable("AssessmentResult", $"percentile{i}", percentile.ToString("F2"), candidateId, "");
+                            if (!matrixPercentiles.ContainsKey(matrix))
+                            {
+                                matrixPercentiles[matrix] = new List<double>();
+                            }
+                            matrixPercentiles[matrix].Add(percentile);
 
                             i++;
                         }
                     }
+                }
+                foreach (var matrix in matrixPercentiles.Keys)
+                {
+                    double totalPercentile = matrixPercentiles[matrix].Average();
+                    if (totalPercentile > 10)
+                    {
+                        totalPercentile = 10;
+                    }// Calculate as percentage
+
+
+                    AddToResultTable("AssessmentResult", $"totalPercentile{matrix}", totalPercentile.ToString("F2"), candidateId, "");
                 }
                 foreach (var kvp in matrixAverages)
                 {

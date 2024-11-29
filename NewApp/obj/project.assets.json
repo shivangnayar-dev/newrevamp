@@ -6894,11 +6894,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj",
-      "projectName": "NewApp",
-      "projectPath": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj",
+      "projectUniqueName": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj",
+      "projectName": "NewApp2",
+      "projectPath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj",
       "packagesPath": "/Users/shivangnayar/.nuget/packages/",
-      "outputPath": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/obj/",
+      "outputPath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/shivangnayar/.nuget/NuGet/NuGet.Config"

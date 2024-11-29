@@ -237,6 +237,7 @@
             padding: 0 15px;
             justify-content: space-between;
         }
+
         #progress-container {
             width: 70%;
             height: 10px;
@@ -255,14 +256,15 @@
             transition: background-color 1s ease-in-out;
         }
 
-@@keyframes fillProgressBar {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
+        @@keyframes fillProgressBar {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
 
 
         #internet-speed-indicator {
@@ -870,15 +872,6 @@
         .flex-content {
             margin: 10px;
         }
-        .message-box p {
-            background-color: #dcf8c6; /* Green background for original questions */
-        }
-
-        /* Style for translated questions */
-        .translated-question p {
-            background-color: #f0f0f0; /* Light grey background for translated questions */
-            font-style: italic; /* Italicize translated text to differentiate */
-        }
     </style>
 }
 
@@ -945,7 +938,7 @@
                 </div>
 
             </div>
-         
+
             <div class="img-text">
                 <div class="user-img">
 
@@ -960,10 +953,12 @@
         <!-- chat-container -->
         <div class="chat-container">
             <div class="message-box my-message">
-        
+                <p>Welcome! To get started, please choose an option for registration:</p>
             </div>
             <div class="message-box my-message astro-button-container">
-           
+                <button class="westernn-button" onclick="askemail()">Sign Up with Email</button>
+                <button class="western-button" onclick="askPhone()">Sign Up with Phone</button>
+                <button class="westernnn-button" onclick="askadhar()">Sign Up with AdharNo</button>
 
             </div>
 
@@ -974,51 +969,18 @@
 
             <input type="text" id="dobInput" placeholder="Type a message...">
             <button id="dobSubmitButton" onclick="handleMultipleSubmit()">Submit</button>
-	    <button id="skipButton" class="skip-button" style="display: none;">Skip</button>
-           
+            <button id="skipButton" class="skip-button" style="display: none;">Skip</button>
+
         </div>
     </div>
 </div>
 </div>
-
-<script type="text/javascript"> function googleTranslateElementInit() {
-        new google.translate.TranslateElement({
-            pageLanguage: 'en',  // Default language of the page
-            includedLanguages: 'es,fr,de,ja,ko', // Languages that you want to translate to (example: Spanish, French, etc.)
-            layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element');
+<script type="text/javascript">function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            { pageLanguage: 'en' },
+            'google_translate_element'
+        );
     }</script>
-
-
-<script type="text/javascript">function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
-        }
-    }
-
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation</script>
-
-<script type="text/javascript">
-    function translateOnlyQuestion() {
-        // This function will trigger Google Translate for the specific element
-        const translatedElement = document.getElementById("translated-question");
-        if (translatedElement) {
-            // Trigger the Google Translate translation for the translated question element
-            googleTranslateElementInit();  // Initialize Google Translate
-        }
-    }
-
-    // Example of calling translate on a specific question
-    translateOnlyQuestion();  // Trigger translation
-</script>
-<script>// Call asktesttt() function as soon as the page loads
-    window.onload = function () {
-        asktesttt();
-    };</script>
 
 <script type="text/javascript"
         src="https://translate.google.com/translate_a/element.js?

@@ -1101,6 +1101,7 @@
             console.log("Login response data:", data);
             if (data.token) {
                 localStorage.setItem('jwt', data.token);
+                localStorage.setItem('fromLogin', 'true'); // Set a flag to indicate login flow
                 window.location.href = "/candidate_info"; // Redirect to the Candidate Info page
             } else {
                 document.getElementById("message").innerText = "Login failed!";

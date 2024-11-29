@@ -5,7 +5,7 @@ namespace NewApp.Models
     public class CandidateDbContext : DbContext
     {
         public CandidateDbContext(DbContextOptions<CandidateDbContext> options) : base(options) { }
-
+        public DbSet<TestInfo> TestInfo { get; set; }
         public DbSet<CandidateDetails> Candidates { get; set; }
         public DbSet<TestCode> TestCodes { get; set; }
         public DbSet<TotalQuestion> TotalQuestions { get; set; } // Add this line
@@ -26,20 +26,21 @@ namespace NewApp.Models
         public DbSet<InterestAnswersIIA> InterestAnswersIIA { get; set; }
         public DbSet<StreamJobRole> StreamJobRole { get; set; }
         public DbSet<AcademicStream> AcademicStream { get; set; }
- 	public DbSet<pexiticsscore> pexiticsscore { get; set; }
-        public DbSet<TestInfo> TestInfo { get; set; }
-      
-
+        public DbSet<pexiticsscore> pexiticsscore { get; set; }
+        public DbSet<Validationtable> Validationtable { get; set; }
         public DbSet<IIAIndustriessub> IIAIndustriessub { get; set; }
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
+            modelBuilder.Entity<Validationtable>().ToTable("validation_table");
+            modelBuilder.Entity<Validationtable>().HasKey(qd => qd.id);
             modelBuilder.Entity<TestInfo>().HasNoKey();
             modelBuilder.Entity<pexiticsscore>().ToTable("pexiticsscore");
-            modelBuilder.Entity<pexiticsscore>().HasKey(qd => qd.id); 
-	   modelBuilder.Entity<StreamJobRole>().ToTable("streamjobrole");
+            modelBuilder.Entity<pexiticsscore>().HasKey(qd => qd.id);
+            modelBuilder.Entity<StreamJobRole>().ToTable("streamjobrole");
             modelBuilder.Entity<StreamJobRole>().HasNoKey();
             modelBuilder.Entity<IIAIndustriessub>().ToTable("IIAIndustriessub");
             modelBuilder.Entity<IIAIndustriessub>().HasNoKey();
@@ -53,6 +54,7 @@ namespace NewApp.Models
             modelBuilder.Entity<Core>().HasKey(qt => qt.Id);
             modelBuilder.Entity<AssessmentResults>().ToTable("AssessmentResults");
             modelBuilder.Entity<AssessmentResults>().HasKey(qd => qd.Id);
+
 
             modelBuilder.Entity<Result>().ToTable("Result");
             modelBuilder.Entity<Result>().HasKey(qd => qd.Id);

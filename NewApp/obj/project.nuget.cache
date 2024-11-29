@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+hB1Ko3jTBUzhjGZxgLTc3N375hnWNyubqXWITfzZsioxZMN5OjYuew4NG64q/HIVMSswwlWVr2YsUSLPpuqlg==",
+  "dgSpecHash": "Ja7c4yeJqpbyOtEX8EkRHcKvHYvf0HGM9s+J72HzASxxq26skSYOn5/by7Ov+2ugjzC/xYLC7a1gxNkuB+QBYw==",
   "success": true,
-  "projectFilePath": "/Users/shivangnayar/Projects/pexitest/pexibackup/NewApp/NewApp.csproj",
+  "projectFilePath": "/Users/shivangnayar/Projects/pexitest/app2/NewApp/NewApp2.csproj",
   "expectedPackageFiles": [
     "/Users/shivangnayar/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/Users/shivangnayar/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
