@@ -865,7 +865,7 @@ let testactivated = false;
 console.log('skippedQuestions:',)
 function callApiToStartTest(reportId) {
     const candidateId = FetchCandidateId(userData.Email_Address, userData.Adhar_No, userData.Mobile_No);
-    fetchTestStatus(candidateId);
+
     let preventLeave = true;
     userData.timestamp_start = new Date().toISOString();
     clearMessageBoxes();

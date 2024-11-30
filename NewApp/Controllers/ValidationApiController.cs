@@ -75,7 +75,7 @@ namespace NewApp.Controllers
             {
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-        }
+           }
         [HttpPost("updateScreenValidation")]
         public async Task<IActionResult> UpdateScreenValidation([FromBody] ValidationUpdateRequest updateRequest)
         {
@@ -319,10 +319,10 @@ namespace NewApp.Controllers
         }
         public class UpdateSectionRequest
         {
-      
+
             public int CandidateId { get; set; }
 
-  
+
             public string SectionIndex { get; set; }
         }
 
@@ -330,3 +330,4 @@ namespace NewApp.Controllers
 
     }
 }
+

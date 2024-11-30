@@ -1,3 +1,11 @@
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.AssemblyReference.cache
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.GeneratedMSBuildEditorConfig.editorconfig
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.AssemblyInfoInputs.cache
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.AssemblyInfo.cs
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.CoreCompileInputs.cache
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.MvcApplicationPartsAssemblyInfo.cache
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.RazorAssemblyInfo.cache
+/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.RazorAssemblyInfo.cs
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/appsettings.Development.json
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/appsettings.json
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/NewApp2.staticwebassets.runtime.json
@@ -63,14 +71,6 @@
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/runtimes/win/lib/net6.0/System.Runtime.Caching.dll
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/bin/Debug/net7.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.AssemblyReference.cache
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.GeneratedMSBuildEditorConfig.editorconfig
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.AssemblyInfoInputs.cache
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.AssemblyInfo.cs
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.CoreCompileInputs.cache
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.MvcApplicationPartsAssemblyInfo.cache
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.RazorAssemblyInfo.cache
-/Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/NewApp2.RazorAssemblyInfo.cs
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/staticwebassets/msbuild.NewApp2.Microsoft.AspNetCore.StaticWebAssets.props
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/staticwebassets/msbuild.build.NewApp2.props
 /Users/shivangnayar/Projects/pexitest/app2/NewApp/obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.NewApp2.props
