@@ -750,6 +750,7 @@
                             <th> YOU</th>
                             <th> Peer Score</th>
                             <th> Trend</th>
+                            <th>GPA</th> <!-- New column for Percentile -->
                         </tr>
                     </thead>
                     <tbody>
@@ -764,6 +765,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue3}}" data-peer="68"></div>
                                 </div>
                             </td>
+                            <td>{{percentile3}}</td> <!-- Percentile column for Creativity -->
                         </tr>
                         <tr>
                             <td>Emotional Stability</td>
@@ -775,6 +777,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue2}}" data-peer="47"></div>
                                 </div>
                             </td>
+                            <td>{{percentile2}}</td> <!-- Percentile column for Emotional Stability -->
                         </tr>
                         <tr>
                             <td>Fight vs. Flight</td>
@@ -786,6 +789,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue5}}" data-peer="52"></div>
                                 </div>
                             </td>
+                            <td>{{percentile5}}</td> <!-- Percentile column for Fight vs. Flight -->
                         </tr>
                         <tr>
                             <td>Morality</td>
@@ -797,6 +801,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue1}}" data-peer="54"></div>
                                 </div>
                             </td>
+                            <td>{{percentile1}}</td> <!-- Percentile column for Morality -->
                         </tr>
                         <tr>
                             <td>Openness to Learning</td>
@@ -808,7 +813,9 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue4}}" data-peer="61"></div>
                                 </div>
                             </td>
+                            <td>{{percentile4}}</td> <!-- Percentile column for Openness to Learning -->
                         </tr>
+
                         <tr>
                             <td class="total-label">Behaviour Total</td>
                             <td class="total" colspan="3">{{matrixTotal_Behaviour}}%</td>
@@ -824,6 +831,8 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue6}}" data-peer="55"></div>
                                 </div>
                             </td>
+                            <td>{{percentile6}}</td> <!-- Percentile column for Comprehension -->
+
                         </tr>
                         <tr>
                             <td>Logical thinking</td>
@@ -835,6 +844,9 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue9}}" data-peer="49"></div>
                                 </div>
                             </td>
+                            <td>{{percentile9}}</td> <!-- Percentile column for Logical thinking -->
+
+
                         </tr>
                         <tr>
                             <td>Numeracy</td>
@@ -846,6 +858,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue10}}" data-peer="62"></div>
                                 </div>
                             </td>
+                            <td>{{percentile10}}</td> <!-- Percentile column for Numeracy -->
                         </tr>
                         <tr>
                             <td>Resourcefulness</td>
@@ -857,6 +870,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue8}}" data-peer="55"></div>
                                 </div>
                             </td>
+                            <td>{{percentile8}}</td> <!-- Percentile column for Resourcefulness -->
                         </tr>
                         <tr>
                             <td>Situational Judgment</td>
@@ -868,6 +882,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue11}}" data-peer="49"></div>
                                 </div>
                             </td>
+                            <td>{{percentile11}}</td> <!-- Percentile column for Situational Judgment -->
                         </tr>
                         <tr>
                             <td>Communication</td>
@@ -879,6 +894,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue7}}" data-peer="61"></div>
                                 </div>
                             </td>
+                            <td>{{percentile7}}</td> <!-- Percentile column for Communication -->
                         </tr>
                         <tr>
                             <td class="total-label">Cognitive Total</td>
@@ -895,6 +911,8 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue16}}" data-peer="57"></div>
                                 </div>
                             </td>
+                            <td>{{percentile16}}</td> <!-- Percentile column for Decision Making -->
+
                         </tr>
                         <tr>
                             <td>Openness</td>
@@ -906,6 +924,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue18}}" data-peer="55"></div>
                                 </div>
                             </td>
+                            <td>{{percentile18}}</td> <!-- Percentile column for Openness -->
                         </tr>
                         <tr>
                             <td>Vision Approach</td>
@@ -917,6 +936,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue17}}" data-peer="50"></div>
                                 </div>
                             </td>
+                            <td>{{percentile17}}</td> <!-- Percentile column for Vision Approach -->
                         </tr>
                         <tr>
                             <td class="total-label">Leadership Total</td>
@@ -934,6 +954,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue12}}" data-peer="47"></div>
                                 </div>
                             </td>
+                            <td>{{percentile12}}</td> <!-- Percentile column for Handling Conflict -->
                         </tr>
                         <tr>
                             <td>Negotiation</td>
@@ -945,6 +966,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue15}}" data-peer="46"></div>
                                 </div>
                             </td>
+                            <td>{{percentile15}}</td> <!-- Percentile column for Negotiation -->
                         </tr>
                         <tr>
                             <td>Self Esteem</td>
@@ -956,6 +978,7 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue13}}" data-peer="56"></div>
                                 </div>
                             </td>
+                            <td>{{percentile13}}</td> <!-- Percentile column for Self Esteem -->
                         </tr>
                         <tr>
                             <td>Team Management</td>
@@ -967,6 +990,8 @@
                                     <div class="trend-peer" data-you="{{reportSubAttributeValue14}}" data-peer="48"></div>
                                 </div>
                             </td>
+                            <td>{{percentile14}}</td> <!-- Percentile column for Team Management -->
+                        </tr>
                         </tr>
                         <tr>
                             <td class="total-label"> People Total</td>

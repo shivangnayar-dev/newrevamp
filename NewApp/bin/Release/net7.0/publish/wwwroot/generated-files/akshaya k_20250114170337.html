@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Report</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style type="text/css">
+    @media print {
+	  .download-btn {
+                display: none;
+            }
+
+        .matrix-table th, .matrix-table td {
+            padding: 6px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+        .page {
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+         
+            margin-bottom: 20px;
+            page-break-after: always;
+            min-height: 95vh; /* Ensures a new page starts after each .page */
+        }
+
+        /* Body reset for print */
+
+
+        /* Ensure full width for tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+            margin-bottom: 20px;
+        }
+
+        /* Table cells - consistent layout */
+        th, td {
+            word-wrap: break-word;
+            text-align: left;
+            padding: 8px;
+            border: 1px solid black;
+        }
+
+        /* Optional table header styling */
+        th {
+            background-color: #6A1B9A; /* Purple for table header */
+            color: white;
+        }
+
+        /* Consistent padding for content sections */
+        .content-section, .notes-section, .quote-section {
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Headings styling for sections */
+        h1, h2, h3 {
+            color: #6A1B9A;
+            margin: 10px 0;
+        }
+
+        /* Paragraphs */
+        p {
+            margin: 10px 0;
+        }
+
+        /* Info box styling */
+        .info-box {
+            background-color: #6A1B9A;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        /* Styling for bar charts in tables */
+        .trend-bar {
+            width: 100px;
+            height: 20px;
+            display: flex;
+            position: relative;
+            background-color: #E0E0E0;
+        }
+
+        /* Color for peer data in trend bar */
+        .trend-peer {
+            height: 100%;
+            background-color: #4F81BD;
+        }
+
+        /* Color for your data in trend bar */
+        .trend-you {
+            height: 100%;
+            background-color: #A9C4E2;
+        }
+
+        /* Page margins */
+        @page {
+            size: A4; /* Standard A4 size */
+            margin: 1cm; /* 1cm margin */
+        }
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        color: #333;
+    }
+
+    .footer {
+        text-align: center;
+        font-size: 12px;
+        color: #777;
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f8f8f8;
+    }
+
+    .logo {
+        width: 100px; /* Adjust the width as needed */
+        height: auto; /* Maintain aspect ratio */
+        margin-bottom: 10px; /* Space below the logo */
+    }
+
+    .container {
+        width: 80%; /* Adjust the width of the container as needed */
+        max-width: 900px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .page {
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    
+        margin-bottom: 20px;
+        page-break-after: always; /* Ensures a new page starts after each .page */
+    }
+
+    .header {
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .classified {
+        font-size: 14px;
+        font-weight: bold;
+        color: #6A1B9A;
+    }
+
+    .title-bar {
+        background-color: #6A1B9A; /* Purple background */
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 0; /* No margin to align with the purple margins */
+        position: relative;
+    }
+
+        .title-bar::before,
+        .title-bar::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background-color: #6A1B9A;
+        }
+
+        .title-bar::before {
+            left: -10px;
+        }
+
+        .title-bar::after {
+            right: -10px;
+        }
+
+    .quote-section {
+        text-align: center;
+        margin: 40px 0;
+    }
+
+    .quote {
+        font-size: 18px;
+        color: #6A1B9A;
+        font-weight: bold;
+    }
+
+    .quote-author, .quote-details {
+        font-size: 14px;
+        color: #333;
+    }
+
+    .info-box {
+        background-color: #6A1B9A;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+
+        .info-box table {
+            width: 100%;
+            border-collapse: collapse;
+            color: white;
+        }
+
+        .info-box td {
+            padding: 10px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+    .report-info {
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .content-section {
+        margin: 20px 0;
+        font-size: 16px;
+    }
+
+        .content-section h3 {
+            color: #6A1B9A;
+            margin-bottom: 10px;
+        }
+
+        .content-section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+    .temperament-section {
+        background-color: #6A1B9A;
+        color: white;
+        padding: 20px;
+        margin: 0; /* Remove margin to align with edges */
+        text-align: justify;
+    }
+
+        .temperament-section h3 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+    .temperament-logo {
+        display: block;
+        margin: 20px auto;
+        max-width: 100px; /* Adjust size as needed */
+    }
+
+    .temperament-description,
+    .temperament-quote {
+        margin: 10px 0;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .temperament-quote {
+        font-style: italic;
+        text-align: center;
+    }
+
+    .motivation-section {
+        margin: 20px 0;
+        font-size: 16px;
+    }
+
+        .motivation-section ol {
+            padding-left: 20px;
+        }
+
+        .motivation-section li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+    .image-section {
+        text-align: center;
+        margin: 30px 0;
+    }
+
+    .motivation-image,
+    .swot-image {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .notes-section {
+        margin-top: 30px;
+    }
+
+        .notes-section h3 {
+            color: #6A1B9A;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .notes-section p {
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .notes-section ol {
+            margin-left: 20px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+            .notes-section ol li {
+                margin-bottom: 10px;
+            }
+
+    .matrix-section {
+        margin-top: 20px;
+    }
+
+    .matrix-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .matrix-table th {
+            background-color: #6A1B9A;
+            color: white;
+        }
+
+            .matrix-table td:nth-child(3),
+            .matrix-table th:nth-child(3) {
+                text-align: center;
+            }
+
+        .matrix-table td.you,
+        .matrix-table td.peer {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .matrix-table td.trend {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+    .trend-bar {
+        position: relative;
+        width: 40%;
+        height: 50px; /* Height of the bars */
+        background-color: #f1f1f1;
+        margin: 5px 0;
+        display: flex;
+        align-items: flex-end; /* Align bars to the bottom */
+        justify-content: space-between; /* Ensure bars are on opposite sides */
+    }
+
+    .trend-you {
+        width: 45%; /* Slightly less than half to allow space between the bars */
+        background-color: #A9C4E2; /* Darker blue for YOU */
+        z-index: 1;
+    }
+
+    .trend-peer {
+        width: 45%; /* Slightly less than half to allow space between the bars */
+        background-color: #4F81BD; /* Lighter blue for Peer */
+        z-index: 2;
+    }
+
+
+
+    .total-label {
+        font-weight: bold;
+        color: #6A1B9A;
+    }
+
+    .attributes-section {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .attribute-box {
+        width: 100%;
+        background-color: #F3F3F3;
+        padding: 15px;
+        border-radius: 5px;
+    }
+
+        .attribute-box h3 {
+            color: #6A1B9A;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .attribute-box p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+    .section {
+        margin: 20px 0;
+    }
+
+        .section h3 {
+            color: #6A1B9A;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+    .info-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .info-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+            .info-table td:first-child {
+                font-weight: bold;
+                color: #333;
+            }
+
+    .advisory-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .advisory-table th {
+            background-color: #6A1B9A;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .advisory-table td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+        }
+
+            .advisory-table td:first-child {
+                font-weight: bold;
+                color: #333;
+                width: 30%; /* Adjust as necessary for layout */
+            }
+
+    .question-section {
+        margin: 20px 0;
+    }
+
+        .question-section h3 {
+            color: #6A1B9A;
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+    .motivation {
+        margin: 5px 0;
+    }
+
+        .motivation strong {
+            color: #333;
+        }
+
+    .section h3 {
+        color: #6A1B9A;
+        font-size: 16px;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    .section p,
+    .section ul {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .section ul {
+        padding-left: 20px;
+    }
+
+        .section ul li {
+            margin-bottom: 8px;
+        }
+
+    .temperament-section {
+        background-color: #6A1B9A;
+        color: white;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: justify;
+    }
+
+    .temperament-quote {
+        font-style: italic;
+        font-size: 18px;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .content-section {
+        margin-top: 20px;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: justify;
+    }
+
+    .career-choices {
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+        .career-choices h3 {
+            color: #6A1B9A;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .career-choices ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+ .download-btn {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #6A1B9A;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+
+        .download-btn:hover {
+            background-color: #4A148C;
+        }
+</style>
+<body>
+ <button class="download-btn" onclick="downloadPDF()">Download PDF</button>   
+ <div class="container">
+        <!-- Page 1 -->
+        <div class="page">
+            <div class="header">
+                <img src="https://github.com/shivangnayar-dev/img/blob/main/CareerTests.PNG?raw=true" alt="CareerGraph Logo" class="logo">
+
+
+            </div>
+
+            <div class="quote-section">
+                <p class="quote">
+                    "Success doesn't just happen. It's the result of deliberate planning, hard work, and persistence in pursuing your goals."
+                </p>
+                <p class="quote-author"> This quote is by American entrepreneur and motivational speaker, Conrad Hilton.</p>
+                <p class="quote-details"> He was the founder of the Hilton Hotels chain and is known for his insights into business and success.</p>
+            </div>
+
+            <div class="info-box">
+                <table>
+                    <tr>
+                        <td> Name</td>
+                        <td> Akshaya k</td>
+                    </tr>
+                    <tr>
+                        <td> Age</td>
+                        <td> 46 years</td>
+                    </tr>
+                    <tr>
+                        <td> Location</td>
+                        <td> India</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="report-info">
+                <p> This report is created on the basis of the test taken online on <a href="https://www.CareerTests.in"> www.CareerTests.in</a> </p>
+                <p> For any advisory, queries, and consulting, please reach Subhashini at +91 7349662320</p>
+            </div>
+        </div>
+        <!-- Page 2 -->
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="content-section">
+                <p><strong>Name of Report:</strong> Careergraph role strength</p>
+                <p><strong>Purpose of Report:</strong> <span id="report-purpose"></span></p>
+
+
+                <p> <strong> Specialisation you may want to pursue:</strong> </p>
+                <p>Data analytics</p>
+                <p>Entrepreneurship</p>
+                <p>Management</p>
+                <p></p>
+                <p></p>
+                <p> <strong> Industries You Like:</strong> </p>
+                <p> Science and technology</p>
+                <p>Education and training</p>
+                <p>Services</p>
+                <p></p>
+                <p></p>
+            </div>
+
+            <div class="notes-section">
+                <h3> Notes</h3>
+                <p> To achieve success in life, it's important to pursue careers and jobs that play to our strengths while addressing any weaknesses that may hold us back. Understanding our competition is also crucial, especially in a world where the population is increasing and artificial intelligence (AI) is becoming prevalent across various sectors. By preparing for a successful future and embracing the opportunities presented by this new age, we can strive towards achieving our goals and thriving in the evolving professional landscape.</p>
+            </div>
+        </div>
+        <!-- Page 3 -->
+        <div class="page">
+
+
+            <div class="header">
+                <div class="title-bar">Your Temperament</div>
+
+            </div>
+
+            <div class="temperament-section">
+                <div class="temperament-quote">
+                    "Success is not the key to happiness. Happiness is the key to success. If you love what you are doing, you will be successful." - Albert Schweitzer
+                </div>
+                <p>Temperament is like the blueprint of who we are from the moment we're born. It shapes how we react to things and what we're naturally drawn to. Think of it as the foundation of your personality, influenced by both your genes and early experiences. But as we go through life, things like how we're raised, the culture we're part of, and the people we're around, all play a part in shaping and refining our temperament. Even though it changes over time, those core traits stick with us, guiding how we see the world and how we handle different situations. Understanding our temperament helps us understand ourselves better and grow as individuals.</p>
+                <p id="text">Your compassion, imagination, creative and artistic skills are your bag of core talent. your approach of a strong, defining career path is core to your temperament. you have an old school approach to tasks and hence often do not fit into new-age industries. however you will excel where your creative and artistic approach is used to create new values and processes to older systems and processes; this is particular to it & engineering fields in the r&d desk where you carry the tradition of core knowledge with a blend of new delivery mechanisms.</p>
+            </div>
+
+            <div class="career-choices">
+                <h3>Career Choices for your Temperament:</h3>
+                <ul>
+                    <li>Engineering</li>
+                    <li>Agriculture</li>
+                    <li>Arts & crafts</li>
+                </ul>
+            </div>
+        </div>
+        <!-- Page 4 -->
+        <div class="page">
+
+            <div class="header">
+                <div class="title-bar"> Motivation of work</div>
+
+            </div>
+
+            <div class="motivation-section">
+                <ol>
+                    <li> Core motivation: Service/functional excellence</li>
+                    <li> Primary Motivation: Power/wealth creation</li>
+                    <li> Primary Motivation: Security</li>
+                </ol>
+                <br />
+                <div class="temperament-section">
+                 
+                    <p>
+                        Different people are motivated by different things. Some want to be liked and
+                        accepted by others, so they work hard to fit in and be recognized. Others value
+                        their independence and creativity, preferring to do things their own way and
+                        express themselves freely. Then there are those who strive for excellence in what
+                        they do, aiming to make a positive impact and be the best they can be. Finally,
+                        some are driven by the desire for power and wealth, wanting to achieve success
+                        and control their own destiny. Figuring out what motivates you can help you set
+                        goals and find satisfaction in your work and life.
+                    </p>
+                  
+                </div>
+            </div>
+            <!-- Image Section -->
+            <div class="image-section">
+
+            </div>
+
+
+        </div>
+        <!-- Page 5 -->
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+
+            <div class="notes-section">
+                <h3> Your Strengths (SWOT analysis)</h3>
+                <p> Careers transcend mere jobs, encompassing behavioural, cognitive, people, and leadership skills alongside employability traits. Aligning with industry demands ensures success and fulfilment in chosen paths.</p>
+                <p> When selecting a career, consider four vital aspects:</p>
+                <!-- Image Section -->
+                <div class="image-section">
+
+                </div>
+
+                <ol>
+                    <li> <strong> Behavioral Skills:</strong>Manage stress, encourage creativity, embrace continuous learning, uphold strong ethics, and maintain resilience.</li>
+                    <li> <strong> Cognitive Abilities:</strong>Analyse situations, reason logically, understand complexity, innovate solutions, and communicate effectively.</li>
+                    <li> <strong> People Skills:</strong>Build strong relationships, collaborate, and empathize with others.</li>
+                    <li> <strong> Leadership Skills:</strong>Inspire, motivate, and guide teams towards achieving goals.</li>
+                </ol>
+                <p> Assess yourself across these dimensions to align with industry demands and maximize your potential for success and fulfilment.</p>
+            </div>
+
+
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+            <div class="title-bar"> 4 Matrix Attributes</div>
+
+            <div class="matrix-section">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th> Attribute</th>
+                            <th> YOU</th>
+                            <th> Peer Score</th>
+                            <th> Trend</th>
+                            <th>GPA</th> <!-- New column for Percentile -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Behavior Attributes -->
+                        <tr>
+                            <td>Creativity</td>
+                            <td class="you" data-you="65" data-peer="68">65%</td>
+                            <td>68%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="65" data-peer="68"></div>
+                                    <div class="trend-peer" data-you="65" data-peer="68"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Creativity -->
+                        </tr>
+                        <tr>
+                            <td>Emotional Stability</td>
+                            <td class="you" data-you="60" data-peer="47">60%</td>
+                            <td>47%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="47"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="47"></div>
+                                </div>
+                            </td>
+                            <td>9.80</td> <!-- Percentile column for Emotional Stability -->
+                        </tr>
+                        <tr>
+                            <td>Fight vs. Flight</td>
+                            <td class="you" data-you="75" data-peer="52">75%</td>
+                            <td>52%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="52"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="52"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Fight vs. Flight -->
+                        </tr>
+                        <tr>
+                            <td>Morality</td>
+                            <td class="you" data-you="85" data-peer="54">85%</td>
+                            <td>54%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="85" data-peer="54"></div>
+                                    <div class="trend-peer" data-you="85" data-peer="54"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Morality -->
+                        </tr>
+                        <tr>
+                            <td>Openness to Learning</td>
+                            <td class="you" data-you="60" data-peer="61">60%</td>
+                            <td>61%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="61"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="61"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Openness to Learning -->
+                        </tr>
+
+                        <tr>
+                            <td class="total-label">Behaviour Total</td>
+                            <td class="total" colspan="3">69%</td>
+                        </tr>
+                        <!-- Cognitive Attributes -->
+                        <tr>
+                            <td>Comprehension</td>
+                            <td class="you" data-you="25" data-peer="55">25%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="25" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="25" data-peer="55"></div>
+                                </div>
+                            </td>
+                            <td>4.81</td> <!-- Percentile column for Comprehension -->
+
+                        </tr>
+                        <tr>
+                            <td>Logical thinking</td>
+                            <td class="you" data-you="50" data-peer="49">50%</td>
+                            <td>49%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="50" data-peer="49"></div>
+                                    <div class="trend-peer" data-you="50" data-peer="49"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Logical thinking -->
+
+
+                        </tr>
+                        <tr>
+                            <td>Numeracy</td>
+                            <td class="you" data-you="75" data-peer="62">75%</td>
+                            <td>62%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="62"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="62"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Numeracy -->
+                        </tr>
+                        <tr>
+                            <td>Resourcefulness</td>
+                            <td class="you" data-you="60" data-peer="55">60%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="55"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Resourcefulness -->
+                        </tr>
+                        <tr>
+                            <td>Situational Judgment</td>
+                            <td class="you" data-you="50" data-peer="49">50%</td>
+                            <td>49%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="50" data-peer="49"></div>
+                                    <div class="trend-peer" data-you="50" data-peer="49"></div>
+                                </div>
+                            </td>
+                            <td>9.62</td> <!-- Percentile column for Situational Judgment -->
+                        </tr>
+                        <tr>
+                            <td>Communication</td>
+                            <td class="you" data-you="75" data-peer="61">75%</td>
+                            <td>61%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="61"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="61"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Communication -->
+                        </tr>
+                        <tr>
+                            <td class="total-label">Cognitive Total</td>
+                            <td class="total" colspan="3">56%</td>
+                        </tr>
+                        <!-- Leadership Attributes -->
+                        <tr>
+                            <td>Decision Making</td>
+                            <td class="you" data-you="75" data-peer="57">75%</td>
+                            <td>57%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="57"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="57"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Decision Making -->
+
+                        </tr>
+                        <tr>
+                            <td>Openness</td>
+                            <td class="you" data-you="87" data-peer="55">87%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="87" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="87" data-peer="55"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Openness -->
+                        </tr>
+                        <tr>
+                            <td>Vision Approach</td>
+                            <td class="you" data-you="60" data-peer="50">60%</td>
+                            <td>50%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="50"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="50"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Vision Approach -->
+                        </tr>
+                        <tr>
+                            <td class="total-label">Leadership Total</td>
+                            <td class="total" colspan="3">74%</td>
+                        </tr>
+
+                        <!-- People Attributes -->
+                        <tr>
+                            <td>Handling Conflict</td>
+                            <td class="you" data-you="70" data-peer="47">70%</td>
+                            <td>47%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="70" data-peer="47"></div>
+                                    <div class="trend-peer" data-you="70" data-peer="47"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Handling Conflict -->
+                        </tr>
+                        <tr>
+                            <td>Negotiation</td>
+                            <td class="you" data-you="65" data-peer="46">65%</td>
+                            <td>46%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="65" data-peer="46"></div>
+                                    <div class="trend-peer" data-you="65" data-peer="46"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Negotiation -->
+                        </tr>
+                        <tr>
+                            <td>Self Esteem</td>
+                            <td class="you" data-you="55" data-peer="56">55%</td>
+                            <td>56%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="55" data-peer="56"></div>
+                                    <div class="trend-peer" data-you="55" data-peer="56"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Self Esteem -->
+                        </tr>
+                        <tr>
+                            <td>Team Management</td>
+                            <td class="you" data-you="95" data-peer="48">95%</td>
+                            <td>48%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="95" data-peer="48"></div>
+                                    <div class="trend-peer" data-you="95" data-peer="48"></div>
+                                </div>
+                            </td>
+                            <td>10.00</td> <!-- Percentile column for Team Management -->
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td class="total-label"> People Total</td>
+                            <td class="total" colspan="3">72%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="notes-section">
+                <p> Notes</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="title-bar"> People Attributes</div>
+            <!-- People Attributes Table -->
+            <div class="matrix-section">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th> Attribute</th>
+                            <th> YOU</th>
+                            <th> Peer Score</th>
+                            <th> Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Handling Conflict</td>
+                            <td class="you" data-you="70" data-peer="48">70%</td>
+                            <td>48%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="70" data-peer="48"></div>
+                                    <div class="trend-peer" data-you="70" data-peer="48"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Negotiation</td>
+                            <td class="you" data-you="65" data-peer="51">65%</td>
+                            <td>51%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="65" data-peer="51"></div>
+                                    <div class="trend-peer" data-you="65" data-peer="51"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Self Esteem</td>
+                            <td class="you" data-you="55" data-peer="55">55%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="55" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="55" data-peer="55"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Team Management</td>
+                            <td class="you" data-you="95" data-peer="49">95%</td>
+                            <td>49%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="95" data-peer="49"></div>
+                                    <div class="trend-peer" data-you="95" data-peer="49"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="total-label"> People Total</td>
+                            <td class="total" colspan="3">72%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- People Attributes Description -->
+            <div class="attributes-section">
+                <div class="attribute-box">
+                    <h3> People Attributes</h3>
+                    <p> You're really adept at negotiating and handling conflict. keep up the momentum and stay positive!</p>
+                    <p> You're self-motivated, but don't hesitate to take action.</p>
+                    <p> You're confident in managing teams and meeting their expectations.</p>
+                    <p> You seem confident in persuading others and reaching agreements, but there's room for improvement.</p>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+
+            <div class="title-bar"> Leadership Attributes</div>
+            <!-- Leadership Attributes Table -->
+            <div class="matrix-section">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th> Attribute</th>
+                            <th> YOU</th>
+                            <th> Peer Score</th>
+                            <th> Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Decision Making</td>
+                            <td class="you" data-you="75" data-peer="56">75%</td>
+                            <td>56%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="56"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="56"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Openness</td>
+                            <td class="you" data-you="87" data-peer="53">87%</td>
+                            <td>53%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="87" data-peer="53"></div>
+                                    <div class="trend-peer" data-you="87" data-peer="53"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Vision Approach</td>
+                            <td class="you" data-you="60" data-peer="52">60%</td>
+                            <td>52%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="52"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="52"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="total-label"> Leadership Total</td>
+                            <td class="total" colspan="3"> 74%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- Leadership Attributes Description -->
+            <div class="attributes-section">
+                <div class="attribute-box">
+                    <h3> Leadership Attributes</h3>
+                    <p> You're confident in making decisions, even when faced with multiple options. that'll pay off in the long run!</p>
+                    <p> You adapt well to new environments but could be more actively involved. try to engage more.</p>
+                    <p> Take active steps to visualize and solve long-term issues. finding more alternatives will help you reach your career goals.</p>
+
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p> Notes</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="title-bar"> Cognitive Attributes</div>
+            <!-- Cognitive Attributes Table -->
+            <div class="matrix-section">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th> Attribute</th>
+                            <th> YOU</th>
+                            <th> Peer Score</th>
+                            <th> Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Comprehension</td>
+                            <td class="you" data-you="25" data-peer="55">25%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="25" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="25" data-peer="55"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Logical thinking</td>
+                            <td class="you" data-you="50" data-peer="51">50%</td>
+                            <td>51%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="50" data-peer="51"></div>
+                                    <div class="trend-peer" data-you="50" data-peer="51"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Numeracy</td>
+                            <td class="you" data-you="50" data-peer="61">50%</td>
+                            <td>61%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="50" data-peer="61"></div>
+                                    <div class="trend-peer" data-you="50" data-peer="61"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Resourcefulness</td>
+                            <td class="you" data-you="60" data-peer="55">60%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="55"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Situational Judgment</td>
+                            <td class="you" data-you="50" data-peer="49">50%</td>
+                            <td>49%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="50" data-peer="49"></div>
+                                    <div class="trend-peer" data-you="50" data-peer="49"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Communication</td>
+                            <td class="you" data-you="75" data-peer="60">75%</td>
+                            <td>60%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="60"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="60"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="total-label"> Cognitive Total</td>
+                            <td class="total" colspan="3">56%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="page">
+            <!-- Cognitive Attributes Description -->
+            <div class="attributes-section">
+                <div class="attribute-box">
+                    <h3> Cognitive Attributes</h3>
+                    <p> You may need to work on your english comprehension and speaking skills to improve.</p>
+                    <p> You're great at public speaking and expressing ideas confidently. keep it going!</p>
+                    <p> While you're proactive in problem-solving, you may struggle at times. try more problem-solving exercises.</p>
+
+                    <p> You're average at using logical thinking to make decisions. try to think more logically.</p>
+                    <p> You're really good at basic math. you're like a math whiz!</p>
+                    <p> You struggle a bit with analyzing facts and making judgments when faced with a lot of information. work on that.</p>
+
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p> Notes</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="title-bar"> Behaviour Attributes</div>
+            <!-- Behaviour Attributes Table -->
+            <div class="matrix-section">
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th> Attribute</th>
+                            <th> YOU</th>
+                            <th> Peer Score</th>
+                            <th> Trend</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Creativity</td>
+                            <td class="you" data-you="65" data-peer="66">65%</td>
+                            <td>66%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="65" data-peer="66"></div>
+                                    <div class="trend-peer" data-you="65" data-peer="66"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Emotional Stability</td>
+                            <td class="you" data-you="60" data-peer="49">60%</td>
+                            <td>49%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="49"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="49"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Fight vs. Flight</td>
+                            <td class="you" data-you="75" data-peer="51">75%</td>
+                            <td>51%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="75" data-peer="51"></div>
+                                    <div class="trend-peer" data-you="75" data-peer="51"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Morality</td>
+                            <td class="you" data-you="85" data-peer="55">85%</td>
+                            <td>55%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="85" data-peer="55"></div>
+                                    <div class="trend-peer" data-you="85" data-peer="55"></div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Openness to Learning</td>
+                            <td class="you" data-you="60" data-peer="60">60%</td>
+                            <td>60%</td>
+                            <td class="trend">
+                                <div class="trend-bar">
+                                    <div class="trend-you" data-you="60" data-peer="60"></div>
+                                    <div class="trend-peer" data-you="60" data-peer="60"></div>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="total-label"> Behaviour Total</td>
+                            <td class="total" colspan="3">69%</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+        <div class="page">
+            <!-- Behaviour Attributes Description -->
+            <div class="attributes-section">
+                <div class="attribute-box">
+                    <h3> Behaviour Attributes</h3>
+                    <p> Your commitment to remaining moral in challenging situations is admirable.</p>
+                    <p> You need to work on staying calm under stress. don't stress out too much!</p>
+                    <p> You're average when it comes to being open to new ideas and innovation. try to be more creative!</p>
+                    <p> Keep learning new tools and resources regularly.</p>
+                    <p> You're confident in making tough decisions. that's exactly what's needed in today's jobs!</p>
+                </div>
+            </div>
+
+            <div class="notes-section">
+                <p> Notes</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="title-bar"> Advisory</div>
+            <!-- Education Section -->
+            <div class="section">
+
+                <table class="advisory-table">
+                    <thead>
+                        <tr>
+                            <th> Education</th>
+
+                            <th> Self Declared</th>
+                            <th> AI Calculated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> Highest Qualification</td>
+                            <td> Masters</td>
+
+                        </tr>
+                        <tr>
+                            <td> Academic Area</td>
+
+                            <td>Science</td>
+                        </tr>
+                        <tr>
+                            <td> Core Stream</td>
+
+                            <td> Business</td>
+                        </tr>
+                        <tr>
+                            <td> Secondary Stream</td>
+
+                            <td> Data analytics,entrepreneurship,management</td>
+                        </tr>
+                        <tr>
+                            <td> Maths</td>
+                            <td> Yes</td>
+
+                        </tr>
+                        <tr>
+                            <td> Science</td>
+                            <td> Yes</td>
+
+                        </tr>
+                        <tr>
+                            <td> Broad Area of Occupation</td>
+                            <td> </td>
+                            <td>Sales & business dev</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Interests Section -->
+            <div class="section">
+
+                <table class="advisory-table">
+                    <thead>
+                        <tr>
+                            <th> Industries</th>
+                            <th> Self Declared</th>
+                            <th> AI Calculated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> Job Roles</td>
+                            <td> </td>
+                            <td>
+                                Sales manager<br>
+                                Business development executive<br>
+                                Sales manager<br>
+                                Business development manager<br>
+                                Sales manager
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Industries</td>
+                            <td> Science and technology Education and training Services  </td>
+
+                            <td> Business & management, Manufacturing,Technology</td>
+                        </tr>
+                        <tr>
+                            <td> Sub Industries</td>
+                            <td> </td>
+
+                            <td> Banking, Financial services, It & ites, Retail,Services,Steel,Power,Consumer durables,Auto components,Textiles,It & ites,Telecommunications,Services,Science and technology,Ecommerce</td>
+                        </tr>
+                        <tr>
+                            <td> Types of Jobs for Maximum Success</td>
+                            <td> </td>
+                            <td> Consulting firm, Services firm, Specialist</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="notes-section">
+
+                    <p> You are open to a Gvernment job: No</p>
+                    <p> You are open to a Armed forces job: No</p>
+                    <p> You are open to a Sports career: No</p>
+                </div>
+            </div>
+
+
+
+            <div class="header">
+
+            </div>
+
+            <div class="title-bar"> FAQ</div>
+            <div class="motivation">
+                <strong> Core Motivation:</strong> Service/functional excellence
+            </div>
+            <div class="motivation">
+                <strong> Primary Motivation:</strong> Power/wealth creation
+            </div>
+            <div class="motivation">
+                <strong> Primary Motivation:</strong> Security
+            </div>
+
+
+
+            <!-- Entrepreneur Section -->
+            <!-- Entrepreneur Section -->
+            <div class="question-section" id="entrepreneur-section" style="display: none;">
+                <h3>Will you become an entrepreneur?</h3>
+                <p id="entrepreneur-job-message"></p>
+            </div>
+
+            <!-- Government Job Section -->
+            <div class="question-section" id="government-job-section" style="display: none;">
+                <h3>Will you join a Government job?</h3>
+                <p id="government-job-message"></p>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="notes-section">
+
+                <p> Let's discuss more in the Counselling session!</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+                <div class="title-bar">DIY with Chat GPT</div>
+            </div>
+
+            <div class="section">
+                <h3> To find out the best employers for you</h3>
+                <p> <strong> Which are the best employers in India for:</strong> </p>
+                <ul>
+                    <li> Business & management</li>
+                    <li> Manufacturing</li>
+                    <li> Technology</li>
+                </ul>
+                <p> <strong> Note:</strong> The Sub industries include:</p>
+                <p> Banking, Financial services, It & ites, Retail, Services</p>
+            </div>
+
+            <div class="section">
+                <h3> More about the job roles</h3>
+                <p> <strong> What is the average salary for the jobs mentioned in USD and INR:</strong> </p>
+                <p> Sales manager</p>
+                <p>Business development executive</p>
+                <p>Sales manager</p>
+            </div>
+
+            <div class="section">
+                <h3> To Know more about the Core stream and jobs recommended</h3>
+                <p> <strong> What is the Job not affected by AI?</strong> </p>
+                <p> Sales manager</p>
+                <p>Business development executive</p>
+                <p>Sales manager</p>
+            </div>
+
+            <div class="section">
+                <p> <strong> Let's Talk More - in the Counselling session :)</strong></p>
+                <p> Reach Subhashini at +91 7349662320 for any queries.</p>
+            </div>
+        </div>
+        <div class="page">
+            <div class="header">
+
+            </div>
+
+            <div class="section">
+                <h3> Some Facts about CareerTests.in</h3>
+                <ul>
+                    <li> <strong> Personalized Approach:</strong> Tailored advice based on individual strengths and interests.</li>
+                    <li> <strong> Expert Advisors:</strong> Access to experienced career advisors and educators.</li>
+                    <li> <strong> International Methodology:</strong> A 2-step program designed for maximum impact.</li>
+                    <li> <strong> AI Enabled:</strong> Tools of this generation for New age Careers</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h3> Reach us:</h3>
+                <p> <strong> Website:</strong> <a href="https://careertests.in/"> https://careertests.in/</a> </p>
+                <p> <strong> LinkedIn:</strong> <a href="https://www.linkedin.com/showcase/careertests/"> https://www.linkedin.com/showcase/careertests/</a> </p>
+                <p> <strong> YouTube:</strong> <a href="https://www.youtube.com/@careergraph_ai"> https://www.youtube.com/@careergraph_ai</a> </p>
+                <p> <strong> WhatsApp / Call:</strong> 7349662320 (India)</p>
+                <p> <strong> Email:</strong> <a href="mailto:career.tests.ai@gmail.com"> career.tests.ai@gmail.com</a> </p>
+            </div>
+            <div class="footer">
+                <p>&copy;2025 <a href="https://careertests.in/">careertests.in</a>. All Rights Reserved.</p>
+            </div>
+        </div>
+
+    </div>
+  
+
+</body>
+</html>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".you").forEach(function (td) {
+            const you = parseInt(td.getAttribute("data-you"));
+            const peer = parseInt(td.getAttribute("data-peer"));
+
+            if (you > peer) {
+                td.style.backgroundColor = "#C6EFCE";
+                td.style.color = "#006100";
+            } else if (you < peer) {
+                td.style.backgroundColor = "#FFC7CE";
+                td.style.color = "#9C0006";
+            } else {
+                td.style.backgroundColor = "#FFEB9C";
+                td.style.color = "#9C6500";
+            }
+        });
+
+        document.querySelectorAll(".trend-bar").forEach(function (bar) {
+            const youElement = bar.querySelector(".trend-you");
+            const peerElement = bar.querySelector(".trend-peer");
+
+            const youValue = parseInt(youElement.getAttribute("data-you"));
+            const peerValue = parseInt(peerElement.getAttribute("data-peer"));
+
+            const total = Math.max(youValue, peerValue); // Use the maximum value for scaling
+            const youHeight = (youValue / total) * 100; // Convert to percentage of the max height
+            const peerHeight = (peerValue / total) * 100;
+
+            youElement.style.height = youHeight + "%";
+            peerElement.style.height = peerHeight + "%";
+        });
+    });
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const motivationSuggestions = [
+        "Service/functional excellence",
+    ];
+
+    const govtJobKeywords = ["Security", "Power/Wealth creation"];
+    const entrepreneurshipKeywords = ["Creative/Independence", "Service/Functional Excellence"];
+
+    const includesGovtJob = motivationSuggestions.some(suggestion =>
+        govtJobKeywords.some(keyword => suggestion.includes(keyword))
+    );
+    const includesEntrepreneurship = motivationSuggestions.some(suggestion =>
+        entrepreneurshipKeywords.some(keyword => suggestion.includes(keyword))
+    );
+
+    const entrepreneurSection = document.getElementById("entrepreneur-section");
+    const governmentJobSection = document.getElementById("government-job-section");
+    const entrepreneurMessageElement = document.getElementById("entrepreneur-job-message");
+    const governmentJobMessageElement = document.getElementById("government-job-message");
+
+    entrepreneurSection.style.display = "block";
+    governmentJobSection.style.display = "block";
+
+    if (includesGovtJob) {
+        governmentJobMessageElement.textContent = "Since your motivation includes Job Security or Power/Wealth creation, and you are open to Government jobs, this is a good career choice for you.";
+
+        if (includesEntrepreneurship) {
+            entrepreneurMessageElement.textContent = "Given your interest in Government jobs, becoming an entrepreneur may not be the best path for you at the moment.";
+            governmentJobMessageElement.textContent += " However, with your entrepreneurial inclinations, you may want to explore opportunities that allow for innovation within government roles.";
+        } else {
+            entrepreneurMessageElement.textContent = "Given your interest in Government jobs, becoming an entrepreneur may not be the best path for you.";
+        }
+    } else if (includesEntrepreneurship) {
+        entrepreneurMessageElement.textContent = "Since you have Creativity/Independence or Service/Functional Excellence as your motivation, you will do well as an entrepreneur, especially after gaining some work experience.";
+        governmentJobMessageElement.textContent = "Considering your motivation towards entrepreneurship, a traditional government job may not align well with your goals.";
+    } else {
+        entrepreneurMessageElement.textContent = "Consider exploring entrepreneurship if you're looking for an alternative career path.";
+        governmentJobMessageElement.textContent = "Government jobs can offer stability and security, consider it as a viable option.";
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const reportName = "Careergraph role strength";
+    const reportPurposeElement = document.getElementById("report-purpose");
+
+    if (reportName === "Careergraph Role Strength") {
+        reportPurposeElement.textContent = "Jobs to focus … Today and in the Future.";
+    } else {
+        reportPurposeElement.textContent = "Streams of Study .. For Jobs in the Future";
+    }
+});
+
+    function toProperCase(text) {
+        return text
+            .toLowerCase()
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ');
+    }
+       function downloadPDF() {
+            var element = document.querySelector('.container'); // Select the container or specific element
+            var opt = {
+                margin:       0.5,
+                filename:     'report.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().from(element).set(opt).save();
+        }
+
+</script>
+
+
+

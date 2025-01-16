@@ -24,6 +24,7 @@ using static System.Formats.Asn1.AsnWriter;
 using DinkToPdf;
 using DinkToPdf.Contracts;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace NewApp.Controllers
 {
@@ -257,22 +258,26 @@ namespace NewApp.Controllers
 		  
                     List<string> selectedOptionsList = GetSelectedOptionsList(candidateidd, candidate.name, candidate.SelectedOptions, candidate.testProgress, candidate.rating, candidate.dob, candidate.mathScience);
 
+
+                    await GetTop5Motivations(candidate.SelectedOptions, candidateidd);
+
+                    List<string> IndustryList = new List<string>();
+
+                    await MapAnswerIdToIIAFitmentAsync();
+                    await SubIndustries();
+
+
+                    await AddDataToDatabaseTable(candidateidd, candidate.dob);
+                    await GetCareerChoicesFromTemperamentTable(candidate.dob, candidateidd);
+
+                    await GetJobStream(candidate.selectedSpecializations, candidate.mathScience, candidate.science, selectedOrganisation, candidate.selectedIndustries);
+
+                    AddDataFromSelectedTables(candidateidd, candidate.storedTestCode);
+                    var reportHtml = await GenerateReport(candidateidd);
                     if (candidate.testProgress != "0")
                     {
-                        await GetTop5Motivations(candidate.SelectedOptions, candidateidd);
-
-                        List<string> IndustryList = new List<string>();
-
-                        await MapAnswerIdToIIAFitmentAsync();
-                        await SubIndustries();
-
-
-                        await AddDataToDatabaseTable(candidateidd, candidate.dob);
-                        await GetCareerChoicesFromTemperamentTable(candidate.dob, candidateidd);
-
-                        await GetJobStream(candidate.selectedSpecializations, candidate.mathScience, candidate.science, selectedOrganisation, candidate.selectedIndustries);
-                        AddDataFromSelectedTables(candidateidd, candidate.storedTestCode);
-                        var reportHtml = await GenerateReport(candidateidd);
+                      
+                        
 
                         if (string.IsNullOrEmpty(reportHtml))
                         {
@@ -454,16 +459,27 @@ namespace NewApp.Controllers
 
             return combinedHtmlBuilder.ToString();
         }
+private string InsertCandidateDataIntoHtml(string htmlTemplate, List<Result> candidateResults)
+{
+    // Replace placeholders with matching values from candidateResults
+    foreach (var result in candidateResults)
+    {
+        string replacementValue = result.Value == "0" ? "No" : result.Value;
+        htmlTemplate = htmlTemplate.Replace($"{{{{{result.FieldName}}}}}", replacementValue);
+    }
 
-        private string InsertCandidateDataIntoHtml(string htmlTemplate, List<Result> candidateResults)
-        {
-            foreach (var result in candidateResults)
-            {
-                htmlTemplate = htmlTemplate.Replace($"{{{{{result.FieldName}}}}}", result.Value);
-            }
+    // Find all placeholders in the HTML template using a regex
+    var placeholders = Regex.Matches(htmlTemplate, @"\{\{(.+?)\}\}");
 
-            return htmlTemplate;
-        }
+    // Replace any remaining placeholders with an empty string
+    foreach (Match placeholder in placeholders)
+    {
+        string fieldName = placeholder.Value; // Placeholder in format {{FieldName}}
+        htmlTemplate = htmlTemplate.Replace(fieldName, string.Empty);
+    }
+
+    return htmlTemplate;
+}
 
 private async Task<string> GenerateReport(int candidateId)
 {
@@ -496,11 +512,11 @@ private async Task<string> GenerateReport(int candidateId)
 if (candidate != null && 
     (candidate.storedTestCode == "PEX4IT2312H1003" || candidate.storedTestCode == "PEX4ITP2312H1003" || candidate.storedTestCode == "PEXHLS2312S1004"))
 {
-    templatePath = "/root/pexibackup/NewApp/Result2.html";
+    templatePath = "/root/app2/NewApp/Result2.html";
 }
 else
 {
-    templatePath = "/root/pexibackup/NewApp/Result1.html";
+    templatePath = "/root/app2/NewApp/Result1.html";
 }
 
         logMessage = $"Template path: {templatePath}";
@@ -896,7 +912,7 @@ else
 
 
     // Check the testProgress value
-    if (rating > 0)
+
     {
         // Split the selectedOptions string into a list of distinct options
         optionsList = selectedOptions.Split(',').Distinct().ToList();
@@ -1648,7 +1664,7 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
         }
 
 
- private void AddToResultTable(string tableName, string fieldName, object value, int candidateId, string testName)
+        private void AddToResultTable(string tableName, string fieldName, object value, int candidateId, string testName)
         {
             try
             {
@@ -1674,26 +1690,46 @@ foreach (var reportSubAttribute in reportSubAttributeToPercentageMap.Keys)
                     formattedValue = char.ToUpper(strValue[0]) + strValue.Substring(1).ToLower();
                 }
 
-                var resultEntry = new Result
-                {
-                    CandidateId = candidateId,
-                    TableName = tableName,
-                    FieldName = fieldName,
-                    Value = formattedValue, // Use formattedValue, which is either empty or formatted string
-                    ReportName = testName,
-                    timestamp_start = timestart,
-                    timestamp_end = timeend
-                };
+                // Check if an entry for the given CandidateId and FieldName already exists
+                var existingEntry = _context.Result.FirstOrDefault(r =>
+                    r.CandidateId == candidateId &&
+                    r.FieldName == fieldName);
 
-                // Add the entry to the Result table
-                _context.Result.Add(resultEntry);
+                if (existingEntry != null)
+                {
+                    // Update the existing entry
+                    existingEntry.Value = formattedValue;
+                    existingEntry.TableName = tableName;
+                    existingEntry.ReportName = testName;
+                    existingEntry.timestamp_start = timestart;
+                    existingEntry.timestamp_end = timeend;
+                }
+                else
+                {
+                    // Add a new entry if it doesn't exist
+                    var resultEntry = new Result
+                    {
+                        CandidateId = candidateId,
+                        TableName = tableName,
+                        FieldName = fieldName,
+                        Value = formattedValue, // Use formattedValue, which is either empty or formatted string
+                        ReportName = testName,
+                        timestamp_start = timestart,
+                        timestamp_end = timeend
+                    };
+
+                    _context.Result.Add(resultEntry);
+                }
+
+                // Save changes to the database
                 _context.SaveChanges();
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error adding data to result table: {ex.Message}");
+                _logger.LogError($"Error adding or updating data in the result table: {ex.Message}");
             }
         }
+
 
         private string GetTestName(string storedTestCode)
         {

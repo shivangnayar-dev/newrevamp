@@ -1,3 +1,4 @@
+
 let currentSectionIndex = 0;
 let HeadingSection = 0;
 console.log('HeadingSection', HeadingSection);
@@ -8,6 +9,7 @@ let testProgress = "0";
 
 
 let userDataSelected = {};
+
 let onNext = false;
 function highlightBasicInfoChatBox() {
     // Get all chat boxes
@@ -174,6 +176,8 @@ function closeModal() {
 }
 let timerInterval; // Declare timer interval variable globally
 let totalSecondsRemaining; // Declare total seconds remaining globally
+let previousSectionIndex = null; // Track previous section index
+let isTimerInitialized = false;
 
 function showLeftContainer(totalQuestions, currentQuestionIndex, storedReportId) {
     const maxQuestionsPerSection = totalQuestions;
@@ -198,10 +202,6 @@ function showLeftContainer(totalQuestions, currentQuestionIndex, storedReportId)
     sectionHeading.textContent = "Section: " + (HeadingSection + 1) + " / " + filteredSections.length;
     console.log('HeadingSection', HeadingSection);
     sectionHeading.style.textAlign = '-webkit-center';
-
-    const styleElement = document.createElement('style');
-    styleElement.textContent = ".h3, h3 { text-align: -webkit-center; font-size: calc(1.3rem + .6vw); }";
-    document.head.appendChild(styleElement);
 
     sectionContainer.appendChild(sectionHeading);
 
@@ -239,8 +239,6 @@ function showLeftContainer(totalQuestions, currentQuestionIndex, storedReportId)
     countContainer.appendChild(createCountBox(submittedCount, 'green', 'submitted'));
     countContainer.appendChild(createCountBox(skippedCount, 'orange', 'skipped'));
 
-    const submittedQuestionIndexes = submittedQuestions.map(question => question.questionIndex);
-
     for (let questionIndex = startQuestionIndex; questionIndex < endQuestionIndex; questionIndex++) {
         const questionBox = document.createElement('div');
         questionBox.className = 'question-box';
@@ -249,7 +247,7 @@ function showLeftContainer(totalQuestions, currentQuestionIndex, storedReportId)
             moveToQuestion(questionIndex);
         });
 
-        if (submittedQuestionIndexes.includes(questionIndex + 1)) {
+        if (submittedQuestions.some(question => question.questionIndex === questionIndex + 1)) {
             questionBox.style.backgroundColor = 'green';
         } else if (skippedQuestions.includes(questionIndex + 1)) {
             questionBox.style.backgroundColor = 'orange';
@@ -274,19 +272,25 @@ function showLeftContainer(totalQuestions, currentQuestionIndex, storedReportId)
         document.querySelector('.left-container').insertBefore(timerContainer, questionGridContainer);
     }
 
-    // Reset the timer for the section
-    totalSecondsRemaining = 1200; // Set timer to 20 minutes (1200 seconds)
-    startTimer(timerContainer); // Start the timer for the section
+    // Timer logic: 30s per question + 10 minutes
+    if (!isTimerInitialized || previousSectionIndex !== currentSectionIndex) {
+        const dynamicTimerInSeconds = (totalQuestions * 30) + 600; // 30s per question + 10 minutes
+        totalSecondsRemaining = dynamicTimerInSeconds;
+
+        console.log(`Timer set to ${Math.floor(dynamicTimerInSeconds / 60)} minutes and ${dynamicTimerInSeconds % 60} seconds.`);
+
+        startTimer(timerContainer);
+        isTimerInitialized = true;
+        previousSectionIndex = currentSectionIndex;
+    }
 }
 
 function startTimer(timerContainer) {
     // Clear previous timer elements if any
     timerContainer.innerHTML = '';
 
-    // Create minute and second elements
     let minutesElement = document.createElement('div');
     minutesElement.className = 'minutes';
-    minutesElement.textContent = '20'; // Start from 20 minutes
     timerContainer.appendChild(minutesElement);
 
     let separatorElement = document.createElement('div');
@@ -296,13 +300,10 @@ function startTimer(timerContainer) {
 
     let secondsElement = document.createElement('div');
     secondsElement.className = 'seconds';
-    secondsElement.textContent = '00'; // Set timer to start from 20:00
     timerContainer.appendChild(secondsElement);
 
-    // Clear any existing interval before starting a new one
     clearInterval(timerInterval);
 
-    // Start a new interval
     timerInterval = setInterval(function () {
         totalSecondsRemaining--;
 
@@ -312,14 +313,13 @@ function startTimer(timerContainer) {
         minutesElement.textContent = minutes < 10 ? '0' + minutes : minutes;
         secondsElement.textContent = seconds < 10 ? '0' + seconds : seconds;
 
-        // If time runs out, move to the next section
         if (totalSecondsRemaining <= 0) {
-            clearInterval(timerInterval); // Clear the interval
-            moveToNextSection(); // Move to the next section
+	      currentSectionIndex++;
+            clearInterval(timerInterval);
+            moveToNextSection();
         }
-    }, 1000); // Decrease time every second
+    }, 1000);
 }
-
 
 function checkOrientation() {
     if (window.innerWidth < window.innerHeight && /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -347,23 +347,45 @@ let testInProgress = false;
 
 let storedReportId = "76DD3251-3A3F-48DE-8D0D-CBAE60047743";
 function askConsent() {
+    const chatContainer = document.querySelector(".chat-container");
 
-    // Ask the user for consent using a confirm dialog
-    const hasConsent = confirm('Do you consent to provide information required for the assessment to Pexitics.com? Click OK for Yes, Cancel for No.');
+    // Clear the chat container
+    chatContainer.innerHTML = "";
 
-    if (hasConsent) {
-        // User has provided consent, proceed with further actions
-        // Call the function or perform the actions you need after consent
-        // ...
+    // Create a message box asking for consent
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box my-message";
+    messageBox.innerHTML = `<p>Do you consent to provide information required for the assessment to Pexitics.com?</p>`;
+    chatContainer.appendChild(messageBox);
+
+    // Create a button container for Yes and No options
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "message-box my-message astro-button-container";
+
+    // Add Yes button
+    const yesButton = document.createElement("button");
+    yesButton.className = "western-button";
+    yesButton.textContent = "Yes";
+    yesButton.onclick = () => {
+        // User provided consent, proceed with further actions
         askName();
-        // Clear the message box after proceeding
+    };
+    buttonContainer.appendChild(yesButton);
 
-    } else {
-        // User has not provided consent, inform them and prevent further actions
+    // Add No button
+    const noButton = document.createElement("button");
+    noButton.className = "western-button";
+    noButton.textContent = "No";
+    noButton.onclick = () => {
+        // User did not provide consent, show alert
         alert('We cannot proceed without your consent. Please check the consent box.');
-        // Optionally, you can reset the form or take other actions
-    }
+    };
+    buttonContainer.appendChild(noButton);
+
+    // Append the button container to the chat container
+    chatContainer.appendChild(buttonContainer);
 }
+
 document.addEventListener('DOMContentLoaded', function () {
     const openBtn = document.getElementById('openbtn');
     const leftContainer = document.getElementById('left-container');
@@ -492,31 +514,54 @@ function submitAmountPaid() {
 }
 
 function asktesttt() {
-
     setTimeout(() => {
+        // Remove existing genderSelect if present
         const genderSelect = document.getElementById("genderSelect");
         if (genderSelect) {
             genderSelect.parentNode.removeChild(genderSelect);
         }
-        // Ask the user for consent using a confirm dialog
-        const hasTest = confirm('Do you want to start the test? Click OK for Yes, Cancel for No.');
 
-        if (hasTest) {
-            // User has provided consent, proceed with further actions
-            // Call the function or perform the actions you need after consent
-            // ...
-            const reportId = storedReportId;
-            callApiToStartTest(reportId);
-            // Clear the message box after proceeding
+        // Create a dynamic message box for asking consent to start the test
+        const chatContainer = document.querySelector(".chat-container");
 
-        } else {
-            // User has not provided consent, inform them and prevent further actions
+        // Clear previous content
+        chatContainer.innerHTML = "";
+
+        // Create a message box
+        const messageBox = document.createElement("div");
+        messageBox.className = "message-box my-message";
+        messageBox.innerHTML = `<p>Do you want to start the test?</p>`;
+        chatContainer.appendChild(messageBox);
+
+        // Create a button container
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "message-box my-message astro-button-container";
+
+        // Add Yes button
+        const yesButton = document.createElement("button");
+        yesButton.className = "western-button";
+        yesButton.textContent = "Yes";
+        yesButton.onclick = () => {
+            const reportId = storedReportId; // Retrieve the reportId
+            callApiToStartTest(reportId); // Call API to start the test
+        };
+        buttonContainer.appendChild(yesButton);
+
+        // Add No button
+        const noButton = document.createElement("button");
+        noButton.className = "western-button";
+        noButton.textContent = "No";
+        noButton.onclick = () => {
             alert('We cannot proceed without your consent. Please check the consent box.');
-            askDobAfterGender();
-            // Optionally, you can reset the form or take other actions
-        }
-    }, 0); // Ensure the confirm dialog is shown after the clearMessageBoxes function is done
+            askDobAfterGender(); // Call the fallback function
+        };
+        buttonContainer.appendChild(noButton);
+
+        // Append the button container to the chat container
+        chatContainer.appendChild(buttonContainer);
+    }, 0); // Ensure the dialog is shown after other actions are completed
 }
+
 let userData = {};
 function askDobAfterGender() {
 
@@ -973,13 +1018,13 @@ function callApiToStartTest(reportId) {
                 });
 
                 const moveToNextSection = () => {
-               
-               
+
+
                     const candidateId = FetchCandidateId(userData.Email_Address, userData.Adhar_No, userData.Mobile_No);
                     updateTestStatus(candidateId, currentSectionIndex)
                     console.log(candidateId);
                     console.log(currentSectionIndex);
-                
+
 
                     HeadingSection++;
                     submitUserDataToDatabase(userData);
@@ -1315,28 +1360,59 @@ function gfg(n) {
 function submitRating(rating) {
     let preventLeave = false;
 
+    // Add timestamp and update user data
     userData.timestamp_end = new Date().toISOString();
     console.log(userData);
 
     userData.testProgress = "1";
-    // Submit the rating to user data
     userData.rating = rating;
     console.log(userData);
     submitUserDataToDatabase(userData);
 
     // Remove the modal from the DOM
     let modal = document.querySelector('.custom-modal');
-    modal.parentNode.removeChild(modal);
-    let confirmation = confirm("Thank you for your feedback! You can exit or close the page now. Press OK to close the page or Cancel to stay.");
-
-    // If user presses OK, close the page
-    if (confirmation) {
-        window.close();
+    if (modal) {
+        modal.parentNode.removeChild(modal);
     }
 
+    // Create a dynamic message box to thank the user and ask for confirmation to close the page
+    const chatContainer = document.querySelector(".chat-container");
 
-    // You can remove this line if not needed
-    // You can add code here to further process the submitted rating
+    // Clear the chat container
+    chatContainer.innerHTML = "";
+
+    // Create a message box
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box my-message";
+    messageBox.innerHTML = `<p>Thank you for your feedback! You can exit or close the page now. Do you want to close the page?</p>`;
+    chatContainer.appendChild(messageBox);
+
+    // Create a button container
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "message-box my-message astro-button-container";
+
+    // Add Yes button
+    const yesButton = document.createElement("button");
+    yesButton.className = "western-button";
+    yesButton.textContent = "Yes";
+    yesButton.onclick = () => {
+        // Close the page
+        window.close();
+    };
+    buttonContainer.appendChild(yesButton);
+
+    // Add No button
+    const noButton = document.createElement("button");
+    noButton.className = "western-button";
+    noButton.textContent = "No";
+    noButton.onclick = () => {
+        // User chooses to stay
+        alert("You chose to stay on the page.");
+    };
+    buttonContainer.appendChild(noButton);
+
+    // Append the button container to the chat container
+    chatContainer.appendChild(buttonContainer);
 }
 
 console.log('Submitted Questions:', submittedQuestions);
@@ -2089,72 +2165,81 @@ function submitQualification() {
     const qualification = qualificationSelect.value;
 
     if (qualification) {
-        // Check if the test code contains "PEXCGR" before asking the additional questions
-        if (storedTestCode && storedTestCode.includes("PEXCGR")) {
-            const confirmed = window.confirm("Are you pursuing this qualification? Click 'OK' if yes and 'Cancel' if no.");
-            userData.pursuing = confirmed ? "Yes" : "No";
+        // Always ask qualification-related questions
+        askYesNoQuestion("Are you pursuing this qualification?", (response) => {
+            userData.pursuing = response;
+            askYesNoQuestion("Have you studied Math / Statistics as part of this qualification?", (response) => {
+                userData.mathStats = response;
+                askYesNoQuestion("Have you studied Science as part of this qualification?", (response) => {
+                    userData.science = response;
+                    askYesNoQuestion("Are you open to Government Jobs?", (response) => {
+                        userData.govJobs = response;
+                        askYesNoQuestion("Are you open to Armed Forces Jobs?", (response) => {
+                            userData.armedForcesJobs = response;
+                            askYesNoQuestion("Do you want to take a career in sports?", (response) => {
+                                userData.SportsJobs = response;
+                                console.log("Final User Data:", userData);
 
-            const studiedMathStats = window.confirm("Have you studied Math / Statistics as part of this qualification? Click 'OK' if yes and 'Cancel' if no.");
-            userData.mathStats = studiedMathStats ? "Yes" : "No";
-
-            const studiedScience = window.confirm("Have you studied Science as part of this qualification? Click 'OK' if yes and 'Cancel' if no.");
-            userData.science = studiedScience ? "Yes" : "No";
-
-            const openToGovJobs = window.confirm("Are you open to Government Jobs? Click 'OK' if yes and 'Cancel' if no.");
-            userData.govJobs = openToGovJobs ? "Yes" : "No";
-
-            const openToArmedForces = window.confirm("Are you open to Armed Forces Jobs? Click 'OK' if yes and 'Cancel' if no.");
-            userData.armedForcesJobs = openToArmedForces ? "Yes" : "No";
-
-            const openToSports = window.confirm("Do you want to take a career in sports? Click 'OK' if yes and 'Cancel' if no.");
-            userData.SportsJobs = openToSports ? "Yes" : "No";
-        }
-
-        // Fetch the ID corresponding to the selected qualification
-        fetch(`/api/QualificationTyp/GetIdByName?name=${encodeURIComponent(qualification)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data) {
-                    // Process the submitted qualification and ID, and proceed to the next step
-                    userData.qualification = qualification;
-                    if (userData.qualification === "below 10th") {
-                        below10th = "1234";
-                    }
-                    console.log(below10th);
-                    displaySubmittedInput("Qualification", qualification, true);
-                    qualificationSelect.removeEventListener("change", submitQualification);
-                    console.log(userData);
-
-                    // Clear the dropdown menu
-                    qualificationSelect.value = "";
-
-                    // Check if storedTestCode contains "PEX4ITP" or "HLSHLS"
-                    if (storedTestCode.includes("PEX4ITP2312H1003") || storedTestCode.includes("PEXHLS")) {
-                        // If true, call askIndustry()
-                        askGender();
-                        console.log(userData);
-                    } else if (storedTestCode.includes("PEXCGR")) {
-                        // If test code contains "PEXCGR", call askAcademicStream()
-                        askAcademicStream();
-                        console.log(userData);
-                    } else {
-                        // If none of the conditions are met, call askNextStep()
-                        askNextStep();
-                        console.log(userData);
-                    }
-                } else {
-                    // Handle the case where the ID is not found for the selected qualification
-                    alert('Error: ID not found for the selected qualification.');
-                }
-            })
-            .catch(error => {
-                console.error('Error fetching qualification ID:', error);
+                                // After collecting all responses, proceed to fetch data
+                                fetchQualificationData(qualification);
+                            });
+                        });
+                    });
+                });
             });
-
+        });
     } else {
-        // Handle the case where the qualification is not selected
-        alert('Please select your qualification.');
+        alert("Please select your qualification.");
     }
+}
+
+function fetchQualificationData(qualification) {
+    fetch(`/api/QualificationTyp/GetIdByName?name=${encodeURIComponent(qualification)}`)
+        .then(response => response.json())
+        .then(() => {
+            // Directly call askAcademicStream without any conditions
+            askAcademicStream();
+        })
+        .catch(error => {
+            console.error("Error fetching qualification ID:", error);
+        });
+}
+
+function askYesNoQuestion(question, callback) {
+    const chatContainer = document.querySelector(".chat-container");
+
+    // Clear previous content
+    chatContainer.innerHTML = "";
+
+    // Create a message box for the question
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box my-message";
+    messageBox.innerHTML = `<p>${question}</p>`;
+    chatContainer.appendChild(messageBox);
+
+    // Create a container for Yes and No buttons
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "message-box my-message astro-button-container";
+
+    // Add Yes button
+    const yesButton = document.createElement("button");
+    yesButton.className = "western-button";
+    yesButton.textContent = "Yes";
+    yesButton.onclick = () => {
+        callback("Yes");
+    };
+    buttonContainer.appendChild(yesButton);
+
+    // Add No button
+    const noButton = document.createElement("button");
+    noButton.className = "western-button";
+    noButton.textContent = "No";
+    noButton.onclick = () => {
+        callback("No");
+    };
+    buttonContainer.appendChild(noButton);
+
+    chatContainer.appendChild(buttonContainer);
 }
 
 function askAcademicStream() {
@@ -2241,7 +2326,7 @@ function submitAcademicStream() {
         }
         else {
             // If false, call askCoreStream()
-            askOrganization();
+            askCoreStream();
             console.log(userData);
             // Submit data to the server or handle the completion of the form
             // You can call the next function or submit the entire form here
@@ -2591,7 +2676,7 @@ function askInterest() {
     // Add interest options
     for (const interest of interestOptions) {
         const option = document.createElement("option");
-        option.value = interest.toLowerCase();
+        option.value = interest;
         option.text = interest;
         interestSelect.appendChild(option);
     }
@@ -3049,7 +3134,7 @@ function askTestCode() {
     if (testCodeFromUrl) {
         // If testcode is present in the URL, automatically fill in the input
         const input = document.getElementById("dobInput");
-        input.value = testCodeFromUrl;  // Set the test code directly from the URL
+        input.value = testCodeFromUrl; // Set the test code directly from the URL
         console.log('Test code from URL:', testCodeFromUrl);
 
         // Skip the prompt and call submitTestCode directly
@@ -3057,29 +3142,54 @@ function askTestCode() {
 
         console.log(userData);
 
-
         document.querySelector(".astro-button-container").style.display = "none";
-        input.removeEventListener("change", submitPassword);  // Ensure previous listeners are removed
+        input.removeEventListener("change", submitPassword); // Ensure previous listeners are removed
     } else {
-        // Ask the user if they have a test code
-        const hasTestCode = confirm('Do you have a test code? Click OK for Yes, Cancel for No.');
+        // Ask the user dynamically if they have a test code
+        const chatContainer = document.querySelector(".chat-container");
 
-        if (hasTestCode) {
-            console.log(userData);
+        // Clear the chat container
+        chatContainer.innerHTML = "";
 
+        // Create a message box
+        const messageBox = document.createElement("div");
+        messageBox.className = "message-box my-message";
+        messageBox.innerHTML = `<p>Do you have a test code?</p>`;
+        chatContainer.appendChild(messageBox);
+
+        // Create a button container
+        const buttonContainer = document.createElement("div");
+        buttonContainer.className = "message-box my-message astro-button-container";
+
+        // Add Yes button
+        const yesButton = document.createElement("button");
+        yesButton.className = "western-button";
+        yesButton.textContent = "Yes";
+        yesButton.onclick = () => {
             const input = document.getElementById("dobInput");
             input.placeholder = "Enter the test code";
             createMessageBox("You're almost there! Please enter the test code:");
 
             document.querySelector(".astro-button-container").style.display = "none";
-            input.removeEventListener("change", submitPassword);  // Ensure previous listeners are removed
-            input.addEventListener("change", submitTestCode);  // Attach the submitTestCode listener
+            input.removeEventListener("change", submitPassword); // Ensure previous listeners are removed
+            input.addEventListener("change", submitTestCode); // Attach the submitTestCode listener
 
             console.log('askTestCode - Current input value:', input.value);
-        } else {
+        };
+        buttonContainer.appendChild(yesButton);
+
+        // Add No button
+        const noButton = document.createElement("button");
+        noButton.className = "western-button";
+        noButton.textContent = "No";
+        noButton.onclick = () => {
             istextcodeInvalid = true;
             askConsent(); // If the user doesn't have a test code, display a message to connect on WhatsApp and email
-        }
+        };
+        buttonContainer.appendChild(noButton);
+
+        // Append the button container to the chat container
+        chatContainer.appendChild(buttonContainer);
     }
 }
 
@@ -3138,7 +3248,7 @@ function verifyTestCode(testCode) {
                 document.getElementById("dobInput").removeEventListener("change", submitTestCode);
                 document.getElementById("dobInput").value = "";
                 isAskTestCodeCalled = false;
-            
+
 
                 storedReportId = reportId;
                 if (testCode === "PEXHLS2312S1004") {
@@ -3700,31 +3810,56 @@ function createPassword() {
     const input = document.getElementById("dobInput");
     input.placeholder = "Create your password";
 
-    // Use a confirm dialog to ask if the user wants to create a default password
-    const createDefaultPassword = confirm("Do you want to create a default password (Career@123#)? Click 'Ok' to continue with the default password or 'Cancel' to create a new one.");
+    // Create a dynamic message box to ask if the user wants a default password
+    const chatContainer = document.querySelector(".chat-container");
 
-    if (createDefaultPassword) {
+    // Clear the chat container
+    chatContainer.innerHTML = "";
+
+    // Create a message box
+    const messageBox = document.createElement("div");
+    messageBox.className = "message-box my-message";
+    messageBox.innerHTML = `<p>Do you want to create a default password (Career@123#)?</p>`;
+    chatContainer.appendChild(messageBox);
+
+    // Create a button container
+    const buttonContainer = document.createElement("div");
+    buttonContainer.className = "message-box my-message astro-button-container";
+
+    // Add Yes button
+    const yesButton = document.createElement("button");
+    yesButton.className = "western-button";
+    yesButton.textContent = "Yes";
+    yesButton.onclick = () => {
         // Set the default password
         const defaultPassword = "Career@123#";
         userData.Password = defaultPassword;
         displaySubmittedInput("Password", defaultPassword, true);
-        askTestCode();
+        askTestCode(); // Proceed to ask the test code
         isSubmitnewPasswordEnabled = false;
 
-        // Additional actions for using default password
-        // ...
-
-        // Reset the input or clear the data
+        // Reset the input
         input.value = "";
-    } else {
+    };
+    buttonContainer.appendChild(yesButton);
+
+    // Add No button
+    const noButton = document.createElement("button");
+    noButton.className = "western-button";
+    noButton.textContent = "No";
+    noButton.onclick = () => {
+        // Prompt user to create a new password
         createMessageBox("You're creating a new account. Please create your password");
 
-        // Assuming you have a function to handle password creation
-        // For example, a function named submitnewPassword
+        // Attach event listener for password creation
         input.addEventListener("change", function () {
-            submitnewPassword();
+            submitnewPassword(); // Call the function to handle the new password submission
         });
-    }
+    };
+    buttonContainer.appendChild(noButton);
+
+    // Append the button container to the chat container
+    chatContainer.appendChild(buttonContainer);
 }
 
 let isSubmitnewPasswordEnabled = true;
@@ -3747,15 +3882,15 @@ function submitnewPassword() {
     }
 }
 async function updateLoginStatus(candidateId) {
-   
+
     try {
-       
+
 
         // Define the API endpoint and the payload
         const apiEndpoint = '/api/Validation/updateLoginStatus';
         const payload = {
             CandidateId: candidateId,
-      
+
         };
 
         // Make the POST request
@@ -3783,7 +3918,7 @@ async function updateLoginStatus(candidateId) {
         }
     } catch (error) {
         console.error('Error updating login status:', error);
-        alert('An error occurred while updating the login status. Please try again.');
+
     }
 }
 
@@ -3823,10 +3958,11 @@ function submitPassword(existingPassword) {
     const passwordInput = document.getElementById("dobInput");
     const enteredPassword = passwordInput.value;
 
-    console.log('submitPassword - Function called');  // Log a message
+    console.log('submitPassword - Function called'); // Log a message
 
     if (isSubmitPasswordEnabled && enteredPassword) {
         userData.Password = enteredPassword;
+
         if (enteredPassword === existingPassword) {
             console.log("Password is correct. Proceed with additional actions if needed.");
             displaySubmittedInput("Password", enteredPassword, true);
@@ -3836,12 +3972,28 @@ function submitPassword(existingPassword) {
             isSubmitPasswordEnabled = false;
 
             // Call the function to perform additional actions
-            // ...
         } else {
-            // Display an error message or take other actions
-            const useDefaultPassword = confirm("Incorrect password. Do you want to use the default password Career@123#?");
+            // Display a message box for incorrect password
+            const chatContainer = document.querySelector(".chat-container");
 
-            if (useDefaultPassword) {
+            // Clear the chat container
+            chatContainer.innerHTML = "";
+
+            // Create a message box
+            const messageBox = document.createElement("div");
+            messageBox.className = "message-box my-message";
+            messageBox.innerHTML = `<p>Incorrect password. Do you want to use the default password Career@123#?</p>`;
+            chatContainer.appendChild(messageBox);
+
+            // Create a button container
+            const buttonContainer = document.createElement("div");
+            buttonContainer.className = "message-box my-message astro-button-container";
+
+            // Add Yes button
+            const yesButton = document.createElement("button");
+            yesButton.className = "western-button";
+            yesButton.textContent = "Yes";
+            yesButton.onclick = () => {
                 // Set the default password
                 userData.Password = "Career@123#";
 
@@ -3851,12 +4003,21 @@ function submitPassword(existingPassword) {
 
                 // Set the flag to false to prevent further calls to submitPassword
                 isSubmitPasswordEnabled = false;
-            } else {
-                createPassword();
+            };
+            buttonContainer.appendChild(yesButton);
 
-                // Allow the user to try entering the password again or take other actions
-                // ...
-            }
+            // Add No button
+            const noButton = document.createElement("button");
+            noButton.className = "western-button";
+            noButton.textContent = "No";
+            noButton.onclick = () => {
+                // Allow the user to create a new password
+                createPassword();
+            };
+            buttonContainer.appendChild(noButton);
+
+            // Append the button container to the chat container
+            chatContainer.appendChild(buttonContainer);
         }
 
         // Reset the input or clear the data
@@ -4308,3 +4469,4 @@ function generatePDF() {
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
     });
 }
+
