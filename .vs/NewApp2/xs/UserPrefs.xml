@@ -1,17 +1,11 @@
 ﻿<Properties StartupConfiguration="{04DBDFAF-213F-4F8E-B933-A4E5BC335E5D}|https">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/shivangnayar/Projects/pexitest/app2/NewApp/Controllers/ValidationApiController.cs" relfile="NewApp/Controllers/ValidationApiController.cs" line="77" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="NewApp/Controllers/ValidationApiController.cs">
     <Files>
-      <File FileName="NewApp/wwwroot/js/test.js" Line="3749" Column="16" />
+      <File FileName="NewApp/wwwroot/js/test.js" Line="1589" Column="15" />
       <File FileName="NewApp/Models/ApplicationDbContext.cs" />
-      <File FileName="NewApp/Models/CandidateDetails.cs" />
+      <File FileName="NewApp/Models/CandidateDetails.cs" Line="79" Column="1" />
       <File FileName="NewApp/Models/CoreDbContext.cs" />
-      <File FileName="NewApp/Models/CandidateDbContext.cs" />
+      <File FileName="NewApp/Models/CandidateDbContext.cs" Line="7" Column="1" />
       <File FileName="NewApp/Controllers/CoreController.cs" />
       <File FileName="NewApp/Controllers/HomeController.cs" />
       <File FileName="NewApp/Controllers/ReportSubAttributeController.cs" />
@@ -21,15 +15,15 @@
       <File FileName="NewApp/Models/ShortSignUp.cs" />
       <File FileName="NewApp/Models/ReportSubAttributeDbContext.cs" />
       <File FileName="NewApp/Controllers/QualificationTypController.cs" />
-      <File FileName="NewApp/Program.cs" />
-      <File FileName="NewApp/Controllers/TestCodeController.cs" />
+      <File FileName="NewApp/Program.cs" Line="17" Column="1" />
+      <File FileName="NewApp/Controllers/TestCodeController.cs" Line="48" Column="1" />
       <File FileName="NewApp/wwwroot/js/site.js" />
       <File FileName="NewApp/Models/SubmittedQuestionData.cs" />
-      <File FileName="NewApp/Models/TestCode.cs" />
+      <File FileName="NewApp/Models/TestCode.cs" Line="1" Column="1" />
       <File FileName="NewApp/Models/ReportSubAttribute.cs" />
       <File FileName="NewApp/wwwroot/js/testt.js" />
       <File FileName="NewApp/wwwroot/js/EmptyJS.js" />
-      <File FileName="NewApp/Views/Home/Test.cshtml" Line="990" Column="1" />
+      <File FileName="NewApp/Views/Home/Test.cshtml" />
       <File FileName="NewApp/wwwroot/js/benchmarkChart.js" />
       <File FileName="NewApp/Views/Home/Index.cshtml" />
       <File FileName="NewApp/Views/Home/graph.cshtml" />
@@ -45,11 +39,11 @@
       <File FileName="NewApp/Models/BenchmarkModel.cs" />
       <File FileName="NewApp/Models/ApplicationUser.cs" />
       <File FileName="NewApp/Models/LoginViewModel.cs" />
-      <File FileName="NewApp/Controllers/candidateController.cs" />
+      <File FileName="NewApp/Controllers/candidateController.cs" Line="256" Column="1" />
       <File FileName="NewApp/Views/_ViewImports.cshtml" />
       <File FileName="NewApp/Views/_ViewStart.cshtml" />
       <File FileName="NewApp/Views/Shared/_Layout.cshtml" />
-      <File FileName="NewApp/appsettings.json" Line="1" Column="1" />
+      <File FileName="NewApp/appsettings.json" Line="16" Column="5" />
       <File FileName="NewApp/Controllers/BenchmarkController.cs" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/test.js" />
       <File FileName="NewApp/Models/bechcomen.cs" />
@@ -88,7 +82,6 @@
       <File FileName="NewApp/Views/Home/Result1.html" />
       <File FileName="NewApp/Result1.html" />
       <File FileName="NewApp/Properties/launchSettings.json" />
-      <File FileName="../../../.nuget/packages/ironpdf/2024.9.3/readme.txt" />
       <File FileName="NewApp/Controllers/QuestionDataController.cs" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/EmptyJS.js" />
       <File FileName="NewApp/Models/DatabaseTableDbContext.cs" />
@@ -104,20 +97,21 @@
       <File FileName="NewApp/Models/UserDbContext.cs" />
       <File FileName="NewApp/Controllers/AuthController.cs" />
       <File FileName="NewApp/Models/CandidateInfo.cs" />
-      <File FileName="NewApp/Controllers/CandidateInfoController.cs" />
+      <File FileName="NewApp/Controllers/CandidateInfoController.cs" Line="1" Column="1" />
       <File FileName="NewApp/Views/Home/candidate_info.cshtml" />
       <File FileName="NewApp/Views/Home/Privacy.cshtml" />
       <File FileName="NewApp/wwwroot/js/candidateinfo.js" />
       <File FileName="NewApp/Views/Home/candidate_academic_info.cshtml" />
       <File FileName="NewApp/Controllers/ScreenInfoController.cs" />
-      <File FileName="NewApp/Controllers/ValidationApiController.cs" Line="75" Column="8" />
-      <File FileName="NewApp/Models/Validationtable.cs" />
+      <File FileName="NewApp/Controllers/ValidationApiController.cs" Line="77" Column="12" />
+      <File FileName="NewApp/Models/Validationtable.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/TestInfo.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="NewApp2" selected="True">
-            <Node name="NewApp2">
+          <Node name="NewApp2">
+            <Node name="NewApp2" selected="True">
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Home" expanded="True" />
@@ -128,7 +122,15 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.NewApp2 PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.NewApp2 PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/ValidationApiController.cs" relfile="NewApp/Controllers/ValidationApiController.cs" line="77" column="1" />
+      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/TestCodeController.cs" relfile="NewApp/Controllers/TestCodeController.cs" line="36" column="1" />
+      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/TestCodeController.cs" relfile="NewApp/Controllers/TestCodeController.cs" line="48" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>
