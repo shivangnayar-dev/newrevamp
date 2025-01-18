@@ -613,7 +613,7 @@ async function submitDobAfterGender() {
         }
 
         // Update user data and display the submitted input
-        userData.Dob = formattedDob;
+        userData.dob = formattedDob;
         displaySubmittedInput("Date of Birth", dob, true);
 
         console.log("User data updated:", userData);
@@ -1584,12 +1584,12 @@ const higherSecondaryOrAbove = [
 
 function submitGender() {
     const genderSelect = document.getElementById("genderSelect");
-    const selectedGender = genderSelect.value;
+    const gender = genderSelect.value;
 
-    if (selectedGender) {
+    if (gender) {
         // Process the submitted gender and proceed to the next step
-        userData.gender = selectedGender;
-        displaySubmittedInput("Gender", selectedGender, true);
+        userData.gender = gender;
+        displaySubmittedInput("Gender", gender, true);
 
         // Remove the event listener for the previous function
         genderSelect.removeEventListener("change", submitGender);
@@ -2163,8 +2163,15 @@ let below10th = "";
 function submitQualification() {
     const qualificationSelect = document.getElementById("qualificationSelect");
     const qualification = qualificationSelect.value;
+    userData.qualification = qualification;
+ 
+  
 
     if (qualification) {
+        qualificationSelect.parentNode.removeChild(qualificationSelect);
+        const dobInput = document.getElementById("dobInput");
+        dobInput.placeholder = "Select Yes or No";
+
         // Always ask qualification-related questions
         askYesNoQuestion("Are you pursuing this qualification?", (response) => {
             userData.pursuing = response;
@@ -2248,9 +2255,7 @@ function askAcademicStream() {
     const messageBox = document.getElementById("messageBox");
 
     // Remove the existing gender select if it exists
-    if (qualificationSelect) {
-        genderSelect.parentNode.removeChild(qualificationSelect);
-    }
+
 
     // Update placeholder and message
     const dobInput = document.getElementById("dobInput");
@@ -3209,6 +3214,7 @@ function submitTestCode() {
         userData.storedTestCode = storedTestCode;
 
         // Verify the test code against the database
+        getCompanyName(testCode);
         verifyTestCode(testCode);
 
         inputElement.removeEventListener("change", submitTestCode);
@@ -3275,6 +3281,29 @@ function verifyTestCode(testCode) {
         },
         error: function (error) {
             console.error('Error verifying test code:', error.responseJSON);
+        }
+    });
+}
+function getCompanyName(testCode) {
+    $.ajax({
+        type: 'POST',
+        url: '/api/TestCode/GetCompanyName',
+        contentType: 'application/json',
+        data: JSON.stringify({ Code: testCode }),
+        success: function (response) {
+            if (response.isValid) {
+                console.log('API Response:', response); 
+                console.log('Company Name:', response.companyName);
+                // Use the company name as needed
+                userData.organization = response.companyName;
+                console.log(userData);
+            } else {
+                console.error(response.Message);
+                alert('Invalid test code or company name not found.');
+            }
+        },
+        error: function (error) {
+            console.error('Error fetching company name:', error.responseJSON);
         }
     });
 }
@@ -3701,7 +3730,7 @@ function handleMultipleSubmit() {
         askInterest();
     }
     if (Indusry && !onNext && !testInProgress) {
-        askDobAfterGender();
+        askGender();
     }
     if (onNext && testInProgress) {
         onNextQuestion();

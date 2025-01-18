@@ -1,0 +1,501 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/scopedcss/projectbundle/NewApp2.bundle.scp.css",
+      "PackagePath": "staticwebassets/NewApp2.bundle.scp.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/.DS_Store",
+      "PackagePath": "staticwebassets/.DS_Store"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/css/site.css",
+      "PackagePath": "staticwebassets/css/site.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/favicon.ico",
+      "PackagePath": "staticwebassets/favicon.ico"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_048996ba-6c51-4227-9a55-bcc6a81be998.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_048996ba-6c51-4227-9a55-bcc6a81be998.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_0ba2389e-857f-4c7d-b82f-1186cb212eac.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_0ba2389e-857f-4c7d-b82f-1186cb212eac.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_0fd13c81-233e-40f5-bfeb-79aa74942711.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_0fd13c81-233e-40f5-bfeb-79aa74942711.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_11882c5e-9e0a-4159-aa54-79aca6bc2497.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_11882c5e-9e0a-4159-aa54-79aca6bc2497.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_11fd9344-b0d6-4196-ac85-b78271dcd3fe.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_11fd9344-b0d6-4196-ac85-b78271dcd3fe.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_175af856-b138-4aa1-8d4b-fbf37d51136e.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_175af856-b138-4aa1-8d4b-fbf37d51136e.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_1b071077-bcd5-4e94-95fa-369a882c53e6.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_1b071077-bcd5-4e94-95fa-369a882c53e6.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_27b0c813-2435-44b2-8deb-1ae05d62df7e.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_27b0c813-2435-44b2-8deb-1ae05d62df7e.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_3059e1b5-8227-45bf-a5f9-b1ae7fe0a2d6.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_3059e1b5-8227-45bf-a5f9-b1ae7fe0a2d6.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_33132590-bed8-452d-b368-bfa2f3fb1b29.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_33132590-bed8-452d-b368-bfa2f3fb1b29.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_37146191-dc6f-4d9b-a9d5-bee34e974657.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_37146191-dc6f-4d9b-a9d5-bee34e974657.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_4265199e-01c7-4139-a526-5759e104ffe4.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_4265199e-01c7-4139-a526-5759e104ffe4.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_4e7aad9b-23a1-4056-8dbd-b9270b789b45.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_4e7aad9b-23a1-4056-8dbd-b9270b789b45.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_5e1bf61f-40be-4ac9-ae16-00db7b6b34a5.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_5e1bf61f-40be-4ac9-ae16-00db7b6b34a5.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_78b16cb4-5178-4258-a553-4b4ac291576c.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_78b16cb4-5178-4258-a553-4b4ac291576c.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_7b5e2dc1-27b5-4732-9ec3-3f953cd74b27.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_7b5e2dc1-27b5-4732-9ec3-3f953cd74b27.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_7b6ddc25-3450-4cba-8e94-b8c6126de7db.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_7b6ddc25-3450-4cba-8e94-b8c6126de7db.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_80e66983-1045-4978-9359-40295c2c81ba.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_80e66983-1045-4978-9359-40295c2c81ba.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_841b82b2-c60b-46c3-b887-1012bdea8bba.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_841b82b2-c60b-46c3-b887-1012bdea8bba.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_8da8332f-9322-45bb-9014-4ed9aeb28a4c.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_8da8332f-9322-45bb-9014-4ed9aeb28a4c.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_8e16f92a-ed0f-47f7-9986-77426c6724d9.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_8e16f92a-ed0f-47f7-9986-77426c6724d9.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_a0e35e4b-6516-4dcc-b6ce-3d9e0155d647.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_a0e35e4b-6516-4dcc-b6ce-3d9e0155d647.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_ab5ec1e1-8a6b-4cc2-9914-8a1d3fbb188b.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_ab5ec1e1-8a6b-4cc2-9914-8a1d3fbb188b.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_b690c527-a975-4f59-94a8-3f6e1784aeed.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_b690c527-a975-4f59-94a8-3f6e1784aeed.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_bf8d3096-5d0b-4d1b-82ec-f4264b05494f.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_bf8d3096-5d0b-4d1b-82ec-f4264b05494f.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_c752e11d-8281-4b0d-88a9-fc4f542841a6.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_c752e11d-8281-4b0d-88a9-fc4f542841a6.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_ca737330-746e-4f3c-ad1c-4faba59207be.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_ca737330-746e-4f3c-ad1c-4faba59207be.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_cf1208ff-d4ac-489d-a1de-276561c4095f.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_cf1208ff-d4ac-489d-a1de-276561c4095f.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_d9a04371-4f99-4e00-aa3a-053329b70c9d.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_d9a04371-4f99-4e00-aa3a-053329b70c9d.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_dea71162-e1c0-4778-a1e5-405040e209c4.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_dea71162-e1c0-4778-a1e5-405040e209c4.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_e07cc266-fe7d-43a9-b8db-194bc4129b90.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_e07cc266-fe7d-43a9-b8db-194bc4129b90.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_e1d2bc70-6c2a-46a0-91f0-37c32f845bf8.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_e1d2bc70-6c2a-46a0-91f0-37c32f845bf8.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_e81fda65-2b34-49e1-89dc-a7a63cb3b5ec.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_e81fda65-2b34-49e1-89dc-a7a63cb3b5ec.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_e82f3d14-0ad4-42df-a500-471a30e4d157.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_e82f3d14-0ad4-42df-a500-471a30e4d157.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_f30289ee-c38c-4d34-a486-6d2de33bb0aa.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_f30289ee-c38c-4d34-a486-6d2de33bb0aa.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_f39ab0a1-ced4-4b24-ae33-efae918fb0fd.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_f39ab0a1-ced4-4b24-ae33-efae918fb0fd.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_f664e9fd-cb1e-469e-bced-88869272458e.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_f664e9fd-cb1e-469e-bced-88869272458e.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_f74348cf-ec2d-47da-acee-dcf6902bd292.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_f74348cf-ec2d-47da-acee-dcf6902bd292.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_f8678d32-ef01-4099-a35e-a81c99065731.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_f8678d32-ef01-4099-a35e-a81c99065731.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_fb9d91bb-af75-4098-9017-fe170a08cfd5.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_fb9d91bb-af75-4098-9017-fe170a08cfd5.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_fbf89461-4362-41dc-9667-f7bc3a5b1cfb.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_fbf89461-4362-41dc-9667-f7bc3a5b1cfb.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_fe0d817c-3dd8-464e-a0f1-33c8e2b7db1a.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_fe0d817c-3dd8-464e-a0f1-33c8e2b7db1a.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/generated-files/CombinedReport_ff798b75-bec2-478e-8cc8-7d8e83f7cdf7.html",
+      "PackagePath": "staticwebassets/generated-files/CombinedReport_ff798b75-bec2-478e-8cc8-7d8e83f7cdf7.html"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/Councellor.js",
+      "PackagePath": "staticwebassets/js/Councellor.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/EmptyJS.js",
+      "PackagePath": "staticwebassets/js/EmptyJS.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/Index.js",
+      "PackagePath": "staticwebassets/js/Index.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/Login.js",
+      "PackagePath": "staticwebassets/js/Login.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/benchmarkChart.js",
+      "PackagePath": "staticwebassets/js/benchmarkChart.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/candidateinfo.js",
+      "PackagePath": "staticwebassets/js/candidateinfo.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/career.js",
+      "PackagePath": "staticwebassets/js/career.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/code.js",
+      "PackagePath": "staticwebassets/js/code.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/site.js",
+      "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/site.js.save",
+      "PackagePath": "staticwebassets/js/site.js.save"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/site.js.save.1",
+      "PackagePath": "staticwebassets/js/site.js.save.1"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/site.js.save.2",
+      "PackagePath": "staticwebassets/js/site.js.save.2"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/test.js",
+      "PackagePath": "staticwebassets/js/test.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/test.js.save",
+      "PackagePath": "staticwebassets/js/test.js.save"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/js/testt.js",
+      "PackagePath": "staticwebassets/js/testt.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/LICENSE",
+      "PackagePath": "staticwebassets/lib/bootstrap"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-grid.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-reboot.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap-utilities.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/css/bootstrap.rtl.min.css.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.esm.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.esm.min.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map",
+      "PackagePath": "staticwebassets/lib/bootstrap/dist/js/bootstrap.min.js.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation/LICENSE.md",
+      "PackagePath": "staticwebassets/lib/jquery-validation/LICENSE.md"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation/dist/additional-methods.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/additional-methods.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery-validation/dist/jquery.validate.min.js",
+      "PackagePath": "staticwebassets/lib/jquery-validation/dist/jquery.validate.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery/LICENSE.txt",
+      "PackagePath": "staticwebassets/lib/jquery/LICENSE.txt"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery/dist/jquery.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery/dist/jquery.min.js",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.js"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/lib/jquery/dist/jquery.min.map",
+      "PackagePath": "staticwebassets/lib/jquery/dist/jquery.min.map"
+    },
+    {
+      "Id": "/Users/shivangnayar/app2/NewApp/wwwroot/site.js",
+      "PackagePath": "staticwebassets/site.js"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.NewApp2.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.build.NewApp2.props",
+      "PackagePath": "build\\NewApp2.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildMultiTargeting.NewApp2.props",
+      "PackagePath": "buildMultiTargeting\\NewApp2.props"
+    },
+    {
+      "Id": "obj/Debug/net7.0/staticwebassets/msbuild.buildTransitive.NewApp2.props",
+      "PackagePath": "buildTransitive\\NewApp2.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

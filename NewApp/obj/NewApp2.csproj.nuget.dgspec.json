@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/root/app2/NewApp/NewApp2.csproj": {}
+    "/Users/shivangnayar/app2/NewApp/NewApp2.csproj": {}
   },
   "projects": {
-    "/root/app2/NewApp/NewApp2.csproj": {
+    "/Users/shivangnayar/app2/NewApp/NewApp2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/root/app2/NewApp/NewApp2.csproj",
+        "projectUniqueName": "/Users/shivangnayar/app2/NewApp/NewApp2.csproj",
         "projectName": "NewApp2",
-        "projectPath": "/root/app2/NewApp/NewApp2.csproj",
-        "packagesPath": "/root/.nuget/packages/",
-        "outputPath": "/root/app2/NewApp/obj/",
+        "projectPath": "/Users/shivangnayar/app2/NewApp/NewApp2.csproj",
+        "packagesPath": "/Users/shivangnayar/.nuget/packages/",
+        "outputPath": "/Users/shivangnayar/app2/NewApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/root/.nuget/NuGet/NuGet.Config"
+          "/Users/shivangnayar/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
@@ -106,7 +106,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.119/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.410/RuntimeIdentifierGraph.json"
         }
       }
     }

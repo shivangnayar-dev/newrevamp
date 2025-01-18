@@ -30,6 +30,31 @@ namespace NewApp.Controllers
         {
             return _context.TestCodes.Any(tc => tc.Code == testCode);
         }
+        [HttpPost]
+        [Route("GetCompanyName")]
+        public IActionResult GetCompanyName([FromBody] TestCode testCode)
+        {
+            // Check if the test code exists in the database
+            var companyName = GetCompanyNameByTestCode(testCode.Code);
+
+            if (!string.IsNullOrEmpty(companyName))
+            {
+                return Json(new { isValid = true, CompanyName = companyName });
+            }
+
+            return Json(new { isValid = false, Message = "Invalid test code or company name not found." });
+        }
+        private string? GetCompanyNameByTestCode(string code)
+        {
+            var testCode = _context.TestCodes.FirstOrDefault(tc => tc.Code == code);
+
+            if (testCode != null)
+            {
+                return testCode.Name_of_Company;
+            }
+
+            return null;
+        }
 
         // Get the reportId for the given code
         private string? GetReportIdByCode(string code)
