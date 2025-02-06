@@ -84,6 +84,18 @@ app.UseEndpoints(endpoints =>
         pattern: "candidate_info",
         defaults: new { controller = "Home", action = "candidate_info" });
     endpoints.MapControllerRoute(
+     name: "OrganizationForm",
+     pattern: "OrganizationForm",
+     defaults: new { controller = "Home", action = "OrganizationForm" });
+    endpoints.MapControllerRoute(
+ name: "SuperAdminDashboard",
+ pattern: "SuperAdminDashboard",
+ defaults: new { controller = "Home", action = "SuperAdminDashboard" });
+    endpoints.MapControllerRoute(
+    name: "loginsuperadmin",
+    pattern: "loginsuperadmin",
+    defaults: new { controller = "Home", action = "loginsuperadmin" });
+    endpoints.MapControllerRoute(
         name: "code",
         pattern: "code",
         defaults: new { controller = "Home", action = "Login" });

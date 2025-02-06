@@ -31,6 +31,16 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult OrganizationForm()
+    {
+        return View();
+    }
+    public IActionResult SuperAdminDashboard()
+    {
+        return View();
+    }
+    
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -72,9 +82,13 @@ public class HomeController : Controller
     {
         return View();
     }
- 
+    public IActionResult loginsuperadmin()
+    {
+        return View();
+    }
 
-        public IActionResult candidate_info()
+
+    public IActionResult candidate_info()
     {
         return View();
     }

@@ -80,9 +80,9 @@
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/scopedcss/Views/Shared/_Layout.cshtml.rz.scp.css
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/scopedcss/bundle/NewApp2.styles.css
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/scopedcss/projectbundle/NewApp2.bundle.scp.css
-/Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.CopyComplete
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/NewApp2.dll
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/refint/NewApp2.dll
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/NewApp2.pdb
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/NewApp2.genruntimeconfig.cache
 /Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/ref/NewApp2.dll
+/Users/shivangnayar/app2/NewApp/obj/Debug/net7.0/NewApp2.csproj.CopyComplete

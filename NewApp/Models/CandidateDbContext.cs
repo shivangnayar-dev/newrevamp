@@ -29,17 +29,28 @@ namespace NewApp.Models
         public DbSet<pexiticsscore> pexiticsscore { get; set; }
         public DbSet<Validationtable> Validationtable { get; set; }
         public DbSet<IIAIndustriessub> IIAIndustriessub { get; set; }
-
+        public DbSet<OrganizationData> OrganizationData { get; set; }
+        public DbSet<OrgLevelAccessData> OrgLevelAccessData { get; set; }
+        public DbSet<OrganizationReportData> OrganizationReportData { get; set; }
+        public DbSet<InvoiceData> InvoiceData { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
+            modelBuilder.Entity<InvoiceData>().ToTable(" invoicedata");
+            modelBuilder.Entity<InvoiceData>().HasKey(tm => tm.InvoiceGUID);
+            modelBuilder.Entity<OrganizationReportData>().ToTable("organizationreportdata");
+            modelBuilder.Entity<OrganizationReportData>().HasKey(tm => tm.OrganizationReportId);
             modelBuilder.Entity<Validationtable>().ToTable("validation_table");
             modelBuilder.Entity<Validationtable>().HasKey(qd => qd.id);
+            modelBuilder.Entity<OrgLevelAccessData>().ToTable("OrgLevelAccessData");
+            modelBuilder.Entity<OrgLevelAccessData>().HasKey(tm => tm.OrgLevelAccess1Id);
             modelBuilder.Entity<TestInfo>().HasNoKey();
             modelBuilder.Entity<pexiticsscore>().ToTable("pexiticsscore");
             modelBuilder.Entity<pexiticsscore>().HasKey(qd => qd.id);
+            modelBuilder.Entity<OrganizationData>().ToTable("organizationdata");
+            modelBuilder.Entity<OrganizationData>().HasKey(qd => qd.OrganizationId);
             modelBuilder.Entity<StreamJobRole>().ToTable("streamjobrole");
             modelBuilder.Entity<StreamJobRole>().HasNoKey();
             modelBuilder.Entity<IIAIndustriessub>().ToTable("IIAIndustriessub");

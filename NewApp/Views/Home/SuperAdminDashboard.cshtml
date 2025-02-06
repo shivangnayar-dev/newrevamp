@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Super Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Dashboard Container -->
+    <div class="container mx-auto py-10 px-6">
+
+        <h1 class="text-3xl font-bold text-gray-700 mb-8 text-center">Super Admin Dashboard</h1>
+
+        <!-- Create New Organization Button -->
+        <div class="flex justify-end mb-6">
+            <button id="createOrganizationBtn" class="bg-blue-600 text-white py-2 px-4 rounded-lg shadow-md hover:bg-blue-700 transition">
+                + Create New Organization
+            </button>
+        </div>
+
+        <!-- Organizations Table -->
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 text-left text-gray-600 font-medium text-sm uppercase">Organization Name</th>
+                        <th class="py-3 px-6 text-left text-gray-600 font-medium text-sm uppercase">Super Admin Email</th>
+                        <th class="py-3 px-6 text-left text-gray-600 font-medium text-sm uppercase">Registration Number</th>
+                        <th class="py-3 px-6 text-left text-gray-600 font-medium text-sm uppercase">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="organizationsTableBody" class="text-gray-700">
+                    <!-- Placeholder for dynamic organization rows -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>$(document).ready(function () {
+            // Load organizations when the page loads
+            loadOrganizations();
+
+            // Redirect to OrganizationForm on create button click
+            $('#createOrganizationBtn').on('click', function () {
+                window.location.href = '/OrganizationForm';
+            });
+
+            // Load organizations and populate the table
+    function loadOrganizations() {
+        $.ajax({
+            url: '/api/OrganizationData/GetAll',
+            type: 'GET',
+            success: function (organizations) {
+                $('#organizationsTableBody').empty();
+
+                organizations.forEach(org => {
+                    $('#organizationsTableBody').append(
+                        `<tr>
+                        <td class="py-3 px-6">${org.organizationName}</td>
+                        <td class="py-3 px-6">${org.cG_SuperAdminEmailId}</td>
+                        <td class="py-3 px-6">${org.registration_number}</td>
+                        <td class="py-3 px-6">
+                            <button class="bg-green-600 text-white py-1 px-3 rounded hover:bg-green-700 transition edit-btn" data-id="${org.organizationId}">
+                                Edit
+                            </button>
+                        </td>
+                    </tr>`
+                    );
+                });
+
+                // Attach click event to edit buttons
+                $('.edit-btn').on('click', function () {
+                    const organizationId = $(this).data('id');
+                    editOrganization(organizationId);
+                });
+            },
+            error: function () {
+                alert('Error loading organizations.');
+            }
+        });
+    }
+
+            // Edit organization (navigate to edit form)
+            function editOrganization(organizationId) {
+                window.location.href = `/OrganizationForm?organizationId=${organizationId}`;
+            }
+        });</script>
+</body>
+</html>

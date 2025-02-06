@@ -1,0 +1,195 @@
+﻿@{
+    ViewData["Title"] = "Organization Management";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <!-- Container -->
+    <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 space-y-6">
+        <h1 class="text-3xl font-semibold text-gray-700 text-center">Organization Setup</h1>
+
+        <!-- Organization Details Section -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <button id="toggleOrganizationDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                Organization Details <span id="orgDetailsArrow">▼</span>
+            </button>
+            <div id="organizationDetails" class="p-4 hidden space-y-4">
+                <input type="text" id="OrganizationName" placeholder="Organization Name" class="w-full p-3 border rounded-lg">
+                <input type="email" id="CG_SuperAdminEmailId" placeholder="CG Super Admin Email" class="w-full p-3 border rounded-lg">
+                <input type="email" id="Customer_SuperAdminEmailId" placeholder="Customer Super Admin Email" class="w-full p-3 border rounded-lg">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="email" id="Customer_AdminEmailId1" placeholder="Customer Admin Email 1" class="p-3 border rounded-lg">
+                    <input type="email" id="Customer_AdminEmailId2" placeholder="Customer Admin Email 2" class="p-3 border rounded-lg">
+                    <input type="email" id="Customer_AdminEmailId3" placeholder="Customer Admin Email 3" class="p-3 border rounded-lg">
+                    <input type="email" id="Customer_AdminEmailId4" placeholder="Customer Admin Email 4" class="p-3 border rounded-lg">
+                    <input type="email" id="Customer_AdminEmailId5" placeholder="Customer Admin Email 5" class="p-3 border rounded-lg">
+                </div>
+                <input type="text" id="organization_type" placeholder="Organization Type" class="w-full p-3 border rounded-lg">
+                <input type="text" id="registration_number" placeholder="Registration Number" class="w-full p-3 border rounded-lg">
+                <button id="saveOrganizationDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Organization Details</button>
+            </div>
+        </div>
+
+        <!-- Organization Access Level Section -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <button id="toggleAccessDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                Organization Access Levels <span id="accessDetailsArrow">▼</span>
+            </button>
+            <div id="accessDetails" class="p-4 hidden space-y-4">
+                <input type="text" id="OrganizationId" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="email" id="AccessEmail_Core" placeholder="Access Email Core" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail1" placeholder="Access Email 1" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail2" placeholder="Access Email 2" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail3" placeholder="Access Email 3" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail4" placeholder="Access Email 4" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail5" placeholder="Access Email 5" class="p-3 border rounded-lg">
+                    <input type="email" id="AccessEmail6" placeholder="Access Email 6" class="p-3 border rounded-lg">
+                </div>
+                <input type="text" id="Levels_Core" placeholder="Core Access Level" class="w-full p-3 border rounded-lg">
+                <label class="flex items-center space-x-2">
+                    <input type="checkbox" id="Enabled_Core" class="h-5 w-5">
+                    <span>Enabled Core</span>
+                </label>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" id="Startdate_Core" class="p-3 border rounded-lg">
+                    <input type="date" id="Enddate_Core" class="p-3 border rounded-lg">
+                </div>
+                <input type="text" id="Username_Core" placeholder="Username Core" class="w-full p-3 border rounded-lg">
+                <button id="saveAccessDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Access Details</button>
+            </div>
+        </div>
+
+        <!-- Link Reports to Organization -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <button id="toggleReportDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                Link Reports to Organization <span id="reportDetailsArrow">▼</span>
+            </button>
+            <div id="reportDetails" class="p-4 hidden space-y-4">
+                <input type="text" id="OrganizationReportId" placeholder="Organization Report ID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="OrganizationId_Report" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="ReportId" placeholder="Report ID" class="w-full p-3 border rounded-lg">
+                <input type="number" id="MinimumCostOfReport" placeholder="Minimum Cost of Report" class="w-full p-3 border rounded-lg">
+                <input type="number" id="MarkupOnMinimumCost" placeholder="Markup on Minimum Cost (%)" class="w-full p-3 border rounded-lg">
+                <input type="number" id="TotalCost" placeholder="Total Cost" class="w-full p-3 border rounded-lg">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" id="ContractStartDate" class="p-3 border rounded-lg">
+                    <input type="date" id="ContractEndDate" class="p-3 border rounded-lg">
+                </div>
+                <button id="saveReportDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Report Details</button>
+            </div>
+        </div>
+
+        <!-- Invoice Details Section -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <button id="toggleInvoiceDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                Invoice Details <span id="invoiceDetailsArrow">▼</span>
+            </button>
+            <div id="invoiceDetails" class="p-4 hidden space-y-4">
+                <input type="text" id="InvoiceGUID" placeholder="Invoice GUID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="Invoice_OrganizationId" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="Invoice_ReportId" placeholder="Report ID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="CodeOfReport" placeholder="Code of Report" class="w-full p-3 border rounded-lg">
+                <input type="number" id="CountOfTest" placeholder="Count of Test" class="w-full p-3 border rounded-lg">
+                <input type="number" id="CountOfReports" placeholder="Count of Reports" class="w-full p-3 border rounded-lg">
+                <input type="number" id="InvoiceTotalCost" placeholder="Total Cost" class="w-full p-3 border rounded-lg">
+                <input type="number" id="SumOfCost" placeholder="Sum of Cost" class="w-full p-3 border rounded-lg">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" id="Invoice_CreatedDate" class="p-3 border rounded-lg">
+                    <input type="date" id="Invoice_UpdatedDate" class="p-3 border rounded-lg">
+                </div>
+                <input type="text" id="Invoice_CreatedBy" placeholder="Created By" class="w-full p-3 border rounded-lg">
+                <input type="text" id="Invoice_UpdatedBy" placeholder="Updated By" class="w-full p-3 border rounded-lg">
+                <input type="text" id="InvoiceStatus" placeholder="Status" class="w-full p-3 border rounded-lg">
+                <input type="number" id="DiscountAmount" placeholder="Discount Amount" class="w-full p-3 border rounded-lg">
+                <button id="saveInvoiceDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Invoice Details</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to handle toggling and saving -->
+    <script>
+        $(document).ready(function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const organizationId = urlParams.get('organizationId');
+
+            if (organizationId) {
+                fetchOrganizationDetails(organizationId);
+            }
+
+            function toggleSection(button, section, arrow) {
+                $(button).on('click', function () {
+                    $(section).toggle();
+                    $(arrow).text($(section).is(':hidden') ? '▼' : '▲');
+                });
+            }
+
+            toggleSection('#toggleOrganizationDetails', '#organizationDetails', '#orgDetailsArrow');
+            toggleSection('#toggleAccessDetails', '#accessDetails', '#accessDetailsArrow');
+            toggleSection('#toggleReportDetails', '#reportDetails', '#reportDetailsArrow');
+            toggleSection('#toggleInvoiceDetails', '#invoiceDetails', '#invoiceDetailsArrow');
+
+            function fetchOrganizationDetails(orgId) {
+                $.ajax({
+                    url: `/api/OrganizationData/GetById/${orgId}`,
+                    type: 'GET',
+                    success: function (organization) {
+                        $('#OrganizationName').val(organization.organizationName || '');
+                        $('#CG_SuperAdminEmailId').val(organization.cG_SuperAdminEmailId || '');
+                        $('#Customer_SuperAdminEmailId').val(organization.customer_SuperAdminEmailId || '');
+                        $('#Customer_AdminEmailId1').val(organization.customer_AdminEmailId1 || '');
+                        $('#Customer_AdminEmailId2').val(organization.customer_AdminEmailId2 || '');
+                        $('#Customer_AdminEmailId3').val(organization.customer_AdminEmailId3 || '');
+                        $('#Customer_AdminEmailId4').val(organization.customer_AdminEmailId4 || '');
+                        $('#Customer_AdminEmailId5').val(organization.customer_AdminEmailId5 || '');
+                        $('#organization_type').val(organization.organization_type || '');
+                        $('#registration_number').val(organization.registration_number || '');
+                    },
+                    error: function () {
+                        alert('Error fetching organization details.');
+                    }
+                });
+            }
+
+            $('#saveOrganizationDetails').on('click', function () {
+                const organizationData = {
+                    OrganizationName: $('#OrganizationName').val(),
+                    CG_SuperAdminEmailId: $('#CG_SuperAdminEmailId').val(),
+                    Customer_SuperAdminEmailId: $('#Customer_SuperAdminEmailId').val(),
+                    Customer_AdminEmailId1: $('#Customer_AdminEmailId1').val(),
+                    Customer_AdminEmailId2: $('#Customer_AdminEmailId2').val(),
+                    Customer_AdminEmailId3: $('#Customer_AdminEmailId3').val(),
+                    Customer_AdminEmailId4: $('#Customer_AdminEmailId4').val(),
+                    Customer_AdminEmailId5: $('#Customer_AdminEmailId5').val(),
+                    organization_type: $('#organization_type').val(),
+                    registration_number: $('#registration_number').val()
+                };
+
+                $.ajax({
+                    url: '/api/OrganizationData/CreateOrUpdate',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(organizationData),
+                    success: function () {
+                        alert('Organization details saved successfully!');
+                    },
+                    error: function () {
+                        alert('Error saving organization details.');
+                    }
+                });
+            });
+
+            // Implement save actions for other sections similarly
+        });
+    </script>
+</body>
+</html>

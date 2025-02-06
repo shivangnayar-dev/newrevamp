@@ -1396,8 +1396,11 @@ function submitRating(rating) {
     yesButton.className = "western-button";
     yesButton.textContent = "Yes";
     yesButton.onclick = () => {
-        // Close the page
-        window.close();
+        if (window.open("", "_self")) {  // Check if a window can be opened with the current context
+            window.close();             // Attempt to close the window
+        } else {
+            alert("Your browser does not allow the page to close automatically. Please close this tab manually."); // Inform the user if the window cannot be closed
+        }
     };
     buttonContainer.appendChild(yesButton);
 
@@ -2650,8 +2653,8 @@ function askInterest() {
 
     // Update placeholder and message
     const dobInput = document.getElementById("dobInput");
-    dobInput.placeholder = "Select your interests";
-    createMessageBox("Great! Please select your Interests:");
+    dobInput.placeholder = "What do you want to do next";
+    createMessageBox("Great! what do you want to do next:");
 
     // Create a select element for interests
     const interestSelect = document.createElement("select");
@@ -2660,7 +2663,7 @@ function askInterest() {
     // Add placeholder option
     const placeholderOption = document.createElement("option");
     placeholderOption.value = "";
-    placeholderOption.text = "Select your interests";
+    placeholderOption.text = "What do you want to do next";
     placeholderOption.disabled = true;
     placeholderOption.selected = true;
     interestSelect.appendChild(placeholderOption);
@@ -2769,11 +2772,13 @@ if (nameAndPhone) {
 function checkboxselectIndustries(optionsData, onNextQuestion) {
     // Create a new message box
     let newMessageBox = document.createElement("div");
+    newMessageBox.classList.add('checkbox-container'); // Adding class for styling
 
     // Create checkboxes for each industry option
     for (const optionData of optionsData) {
         // Create a div to group each checkbox and label
         const optionContainer = document.createElement("div");
+        optionContainer.classList.add('checkbox-option'); // Adding class for styling
 
         // Create a checkbox
         const checkboxOption = document.createElement("input");
@@ -2791,12 +2796,6 @@ function checkboxselectIndustries(optionsData, onNextQuestion) {
         optionContainer.appendChild(checkboxOption);
         optionContainer.appendChild(label);
 
-        // Add some space between options
-        optionContainer.style.marginBottom = "10px";
-
-        // Set the display property to "block" for vertical layout
-        optionContainer.style.display = "block";
-
         // Append the optionContainer to the message box
         newMessageBox.appendChild(optionContainer);
     }
@@ -2812,17 +2811,22 @@ function checkboxselectIndustries(optionsData, onNextQuestion) {
             userData.selectedIndustries = Array.from(selectedCheckboxes).map(checkbox => checkbox.value).join(",");
             console.log(userData);
 
-            // You may choose to keep or remove the current message box based on your requirements
-            // If you want to keep it visible, comment out or remove the following line
+            // Disable unchecked checkboxes after 5 selections
+            const checkboxes = newMessageBox.querySelectorAll('input[name="industryCheckbox"]');
+            checkboxes.forEach(checkbox => {
+                const optionContainer = checkbox.parentElement; // The div container around each checkbox
 
-            //newMessageBox.parentNode.removeChild(newMessageBox);
+                if (selectedCheckboxes.length >= 5 && !checkbox.checked) {
+                    checkbox.disabled = true;
+                    optionContainer.classList.add('disabled'); // Apply 'disabled' styling to the box
+                } else {
+                    checkbox.disabled = false;
+                    optionContainer.classList.remove('disabled'); // Remove 'disabled' styling if enabled
+                }
+            });
 
             Indusry = true;
-
-            // Call the onNextQuestion function after setting Indusry to true
-
         } else if (selectedCheckboxes.length > 5) {
-            // If more than 5 checkboxes are selected, uncheck the last checkboxes
             alert('You can select a maximum of five industries.');
         }
     });

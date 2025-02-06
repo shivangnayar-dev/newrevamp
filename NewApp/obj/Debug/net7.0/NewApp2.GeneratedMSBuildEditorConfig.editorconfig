@@ -60,12 +60,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Mb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/shivangnayar/app2/NewApp/Views/Home/loginsuperadmin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9sb2dpbnN1cGVyYWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/shivangnayar/app2/NewApp/Views/Home/OrganizationForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Pcmdhbml6YXRpb25Gb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/shivangnayar/app2/NewApp/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/shivangnayar/app2/NewApp/Views/Home/RefundPolicy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9SZWZ1bmRQb2xpY3kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/shivangnayar/app2/NewApp/Views/Home/SuperAdminDashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TdXBlckFkbWluRGFzaGJvYXJkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/shivangnayar/app2/NewApp/Views/Home/Test.cshtml]

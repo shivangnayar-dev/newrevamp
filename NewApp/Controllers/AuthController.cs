@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,7 +16,7 @@ namespace NewApp.Controllers
     {
         private readonly IConfiguration _configuration;
         private readonly UserDbContext _context;
-
+         
         public AuthController(IConfiguration configuration, UserDbContext context)
         {
             _configuration = configuration;
@@ -60,35 +60,23 @@ namespace NewApp.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] User user)
         {
-            var existingUser = _context.User.FirstOrDefault(u => u.Email == user.Email);
-            if (existingUser != null && BCrypt.Net.BCrypt.Verify(user.PasswordHash, existingUser.PasswordHash))
+            // Hardcoded credentials for super admin login
+            string adminEmail = "score@pexitics.com";
+            string adminPassword = "India@123";
+
+            // Check if the input matches the hardcoded credentials
+            if (user.Email == adminEmail && user.PasswordHash == adminPassword)
             {
-                // Pass both user ID and email to GenerateJwtToken
-                var token = GenerateJwtToken(existingUser.Id, existingUser.Email);
+                // Generate JWT token
+                var token = GenerateJwtToken(1, adminEmail); // User ID can be arbitrary here since it's hardcoded
 
-                // Save the token in the database
-                var userToken = new UserToken
-                {
-                    UserId = existingUser.Id,
-                    Token = token,
-                    ExpiryDate = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:ExpiryDuration"]))
-                };
-
-                _context.UserToken.Add(userToken);
-                _context.SaveChanges();
-
-                // Check if CandidateInfo exists
-                var candidateInfo = _context.CandidateInfo.FirstOrDefault(ci => ci.UserId == existingUser.Id);
-                if (candidateInfo == null)
-                {
-                    return Ok(new { Token = token, ProfileStatus = "Incomplete" });
-                }
-
-                return Ok(new { Token = token, ProfileStatus = "Complete" });
+                // Return the token in the response without saving it to the database
+                return Ok(new { Token = token });
             }
 
             return Unauthorized("Invalid credentials.");
         }
+
 
         private string GenerateJwtToken(int userId, string email)
         {

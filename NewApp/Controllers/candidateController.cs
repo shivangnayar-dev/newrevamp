@@ -756,7 +756,7 @@ else
 
                 // Fetch temperament records
                 var temperamentRecords = _context.TemperamentTable.ToList();
-
+               
                 // Filter records based on the condition
                 var temperamentRecord = temperamentRecords.FirstOrDefault(tt =>
                     (int.Parse(tt.StartMonth) < dobMonth || (int.Parse(tt.StartMonth) == dobMonth && int.Parse(tt.StartDate) <= dobDay)) &&
@@ -769,8 +769,19 @@ else
                     careerChoice3 = temperamentRecord.CareerChoice3;
                     TempramentComments = temperamentRecord.Comment;
                 }
+                else
+                {
+                    // Log that no matching temperament record was found
+                    Console.WriteLine($"No matching temperament record found for DOB: {dob.ToString("yyyy-MM-dd")}.");
+                    Console.WriteLine($"Month: {dobMonth}, Day: {dobDay}");
+                    foreach (var tt in temperamentRecords)
+                    {
+                        Console.WriteLine($"Comparing: StartMonth: {tt.StartMonth}, StartDate: {tt.StartDate}, EndMonth: {tt.EndMonth}, EndDate: {tt.EndDate}");
+                    }
+                }
 
             }
+            
             AddToResultTable("Temprament", "careerChoice1", careerChoice1, candidateidd, "");
             AddToResultTable("Temprament", "careerChoice2", careerChoice2, candidateidd, "");
             AddToResultTable("Temprament", "careerChoice3", careerChoice3, candidateidd, "");
