@@ -31,7 +31,8 @@
         </form>
     </div>
 
-    <script>$(document).ready(function () {
+    <script>
+        $(document).ready(function () {
             $('#login-form').on('submit', function (event) {
                 event.preventDefault();
 
@@ -44,15 +45,23 @@
                     contentType: 'application/json',
                     data: JSON.stringify({ email: username, passwordHash: password }),
                     success: function (response) {
-                        localStorage.setItem('token', response.token);
-                        window.location.href = '/dashboard'; // Redirect to dashboard after login
+                        // ✅ Store user details in Local Storage
+                        localStorage.setItem('Email', response.Email);
+                        localStorage.setItem('UserLevel', response.UserLevel);
+
+                        // ✅ Determine redirect URL based on user level
+                        const redirectUrl = response.UserLevel === "1" ? "/SuperAdminDashboard" : "/Organization";
+
+                        // ✅ Redirect user
+                        window.location.href = redirectUrl;
                     },
                     error: function () {
                         $('#error-message').text('Invalid username or password').removeClass('d-none');
                     }
                 });
             });
-        });</script>
+        });
+    </script>
 
 
 </body>

@@ -33,12 +33,24 @@ namespace NewApp.Models
         public DbSet<OrgLevelAccessData> OrgLevelAccessData { get; set; }
         public DbSet<OrganizationReportData> OrganizationReportData { get; set; }
         public DbSet<InvoiceData> InvoiceData { get; set; }
+        public DbSet<ReportData> ReportData { get; set; }
+        public DbSet<LevelAccess> LevelAccess { get; set; }
+        public DbSet<PasswordAndAccess> PasswordAndAccess { get; set; }
+        public DbSet<OrganizationTestDetails> OrganizationTestDetails { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
 
         {
-            modelBuilder.Entity<InvoiceData>().ToTable(" invoicedata");
+            modelBuilder.Entity<OrganizationTestDetails>().ToTable("OrganizationTestDetails");
+            modelBuilder.Entity<OrganizationTestDetails>().HasKey(tm => tm.TestCodeId);
+            modelBuilder.Entity<PasswordAndAccess>().ToTable("PasswordAndAccess");
+            modelBuilder.Entity<PasswordAndAccess>().HasKey(tm => tm.Id);
+            modelBuilder.Entity<LevelAccess>().ToTable("LevelAccessTable");
+            modelBuilder.Entity<LevelAccess>().HasKey(tm => tm.Id);
+            modelBuilder.Entity<ReportData>().ToTable("report_table");
+            modelBuilder.Entity<ReportData>().HasNoKey();
+            modelBuilder.Entity<InvoiceData>().ToTable("invoicedata");
             modelBuilder.Entity<InvoiceData>().HasKey(tm => tm.InvoiceGUID);
             modelBuilder.Entity<OrganizationReportData>().ToTable("organizationreportdata");
             modelBuilder.Entity<OrganizationReportData>().HasKey(tm => tm.OrganizationReportId);

@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "Create/Edit Test Code";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+
+    <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 space-y-6">
+        <h1 class="text-3xl font-semibold text-gray-700 text-center">Create / Edit Test Code</h1>
+
+        <!-- Select Test Linked to Organization -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">Choose Test Linked to Organization</label>
+            <select id="TestDropdown" class="w-full p-3 border rounded-lg"></select>
+        </div>
+
+        <!-- Organization/Consultant Details -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">Organization / Consultant Comments</label>
+            <textarea id="ConsultantComments" class="w-full p-3 border rounded-lg" placeholder="Enter any comments"></textarea>
+        </div>
+
+        <!-- Upload Logo -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">Upload Logo (Max 2MB, PNG/JPG)</label>
+            <input type="file" id="LogoUpload" accept="image/png, image/jpeg" class="w-full p-3 border rounded-lg">
+            <img id="LogoPreview" class="mt-4 hidden w-32 h-32 object-cover rounded-lg border">
+        </div>
+
+        <!-- Start & End Date -->
+        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block">
+                <span class="text-gray-700">Start Date</span>
+                <input type="datetime-local" id="StartDate" class="w-full p-3 border rounded-lg">
+            </label>
+            <label class="block">
+                <span class="text-gray-700">End Date</span>
+                <input type="datetime-local" id="EndDate" class="w-full p-3 border rounded-lg">
+            </label>
+        </div>
+
+        <!-- Report Sharing Options -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">Should CareerTests.in share the report?</label>
+            <select id="ReportSharingOption" class="w-full p-3 border rounded-lg">
+                <option value="realtime">Yes - Realtime</option>
+                <option value="scheduled">Yes - Schedule</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+
+        <!-- Additional Options -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm space-y-4">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" id="VideoProctoring" class="h-5 w-5">
+                <span>Enable Video Proctoring (Feature not live yet)</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" id="CandidatePhoneNumber" class="h-5 w-5">
+                <span>Candidate Phone Number Required</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" id="FitmentRequired" class="h-5 w-5">
+                <span>Is Fitment Required?</span>
+            </label>
+        </div>
+
+        <!-- Extra Questions -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm space-y-4">
+            <label class="block text-gray-700">Extra Questions</label>
+            <input type="text" id="ExtraQuestion1" placeholder="Question 1" class="w-full p-3 border rounded-lg">
+            <input type="text" id="ExtraQuestion2" placeholder="Question 2" class="w-full p-3 border rounded-lg">
+            <input type="text" id="ExtraQuestion3" placeholder="Question 3" class="w-full p-3 border rounded-lg">
+            <input type="text" id="ExtraQuestion4" placeholder="Question 4" class="w-full p-3 border rounded-lg">
+            <input type="text" id="ExtraQuestion5" placeholder="Question 5" class="w-full p-3 border rounded-lg">
+        </div>
+
+        <!-- Test Purpose -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">What is this test for?</label>
+            <select id="TestPurpose" class="w-full p-3 border rounded-lg">
+                <option value="CareerGuidance">Career Guidance</option>
+                <option value="Hiring">Hiring</option>
+                <option value="Testing">Testing</option>
+            </select>
+        </div>
+
+        <!-- Payment Details -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm space-y-4">
+            <label class="flex items-center space-x-2">
+                <input type="checkbox" id="PaymentRequired" class="h-5 w-5">
+                <span>Is Payment Required?</span>
+            </label>
+            <input type="number" id="Price" placeholder="Price" class="w-full p-3 border rounded-lg">
+            <select id="Currency" class="w-full p-3 border rounded-lg">
+                <option value="USD">USD</option>
+                <option value="INR">INR</option>
+                <option value="EUR">EUR</option>
+            </select>
+            <input type="number" id="Discount" placeholder="Discount (%)" class="w-full p-3 border rounded-lg">
+            <input type="number" id="FinalPrice" placeholder="Final Price" class="w-full p-3 border rounded-lg" readonly>
+        </div>
+
+        <!-- Save Button -->
+        <button id="SaveTestCode" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+            Save Test Code
+        </button>
+    </div>
+
+    <!-- JavaScript -->
+    <script>$(document).ready(function () {
+            $('#TestDropdown').on('change', function () {
+                $('#SelectedTestId').val($(this).val());
+            });
+
+            $('#Discount').on('input', function () {
+                const price = parseFloat($('#Price').val()) || 0;
+                const discount = parseFloat($('#Discount').val()) || 0;
+                $('#FinalPrice').val(price - (price * discount / 100));
+            });
+
+            $('#LogoUpload').on('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#LogoPreview').attr('src', e.target.result).removeClass('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });</script>
+
+</body>
+</html>

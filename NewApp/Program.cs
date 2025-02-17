@@ -8,7 +8,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHostedService<PexiticsscoreEmailService>();
-
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Configuration.AddJsonFile("appsettings.json");
 var configuration = builder.Configuration;
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
@@ -83,6 +89,10 @@ app.UseEndpoints(endpoints =>
         name: "candidate_info",
         pattern: "candidate_info",
         defaults: new { controller = "Home", action = "candidate_info" });
+    endpoints.MapControllerRoute(
+   name: "Organization",
+   pattern: "Organization",
+   defaults: new { controller = "Home", action = "Organization" });
     endpoints.MapControllerRoute(
      name: "OrganizationForm",
      pattern: "OrganizationForm",

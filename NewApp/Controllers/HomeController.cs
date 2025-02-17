@@ -86,7 +86,10 @@ public class HomeController : Controller
     {
         return View();
     }
-
+    public IActionResult Organization()
+    {
+        return View();
+    }
 
     public IActionResult candidate_info()
     {

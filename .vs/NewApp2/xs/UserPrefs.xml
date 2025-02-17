@@ -1,149 +1,162 @@
 ﻿<Properties StartupConfiguration="{04DBDFAF-213F-4F8E-B933-A4E5BC335E5D}|https">
-  <MonoDevelop.Ide.Workbench ActiveDocument="NewApp/Views/Home/Test.cshtml">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/OrganizationDataController.cs" relfile="NewApp/Controllers/OrganizationDataController.cs" line="92" column="1" />
+      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/OrganizationDataController.cs" relfile="NewApp/Controllers/OrganizationDataController.cs" line="177" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="NewApp/Views/Home/OrganizationForm.cshtml">
     <Files>
-      <File FileName="NewApp/wwwroot/js/test.js" Line="1" Column="1" />
+      <File FileName="NewApp/wwwroot/js/test.js" Line="3294" Column="43" />
       <File FileName="NewApp/Models/ApplicationDbContext.cs" />
-      <File FileName="NewApp/Models/CandidateDetails.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/CoreDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/CandidateDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Controllers/CoreController.cs" />
-      <File FileName="NewApp/Controllers/HomeController.cs" />
-      <File FileName="NewApp/Controllers/ReportSubAttributeController.cs" />
+      <File FileName="NewApp/Models/CandidateDetails.cs" Line="46" Column="1" />
+      <File FileName="NewApp/Models/CoreDbContext.cs" />
+      <File FileName="NewApp/Models/CandidateDbContext.cs" Line="20" Column="38" />
+      <File FileName="NewApp/Controllers/CoreController.cs" Line="17" Column="1" />
+      <File FileName="NewApp/Controllers/HomeController.cs" Line="11" Column="1" />
+      <File FileName="NewApp/Controllers/ReportSubAttributeController.cs" Line="1" Column="1" />
       <File FileName="NewApp/Controllers/SpecializationController.cs" />
-      <File FileName="NewApp/Models/QuestionAnsMapDb.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/QuestionAnsMapDb.cs" />
       <File FileName="NewApp/Models/QuestionAnsMap.cs" />
       <File FileName="NewApp/Models/ShortSignUp.cs" />
-      <File FileName="NewApp/Models/ReportSubAttributeDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Controllers/QualificationTypController.cs" />
-      <File FileName="NewApp/Program.cs" />
-      <File FileName="NewApp/Controllers/TestCodeController.cs" />
-      <File FileName="NewApp/wwwroot/js/site.js" />
-      <File FileName="NewApp/Models/SubmittedQuestionData.cs" />
-      <File FileName="NewApp/Models/TestCode.cs" />
-      <File FileName="NewApp/Models/ReportSubAttribute.cs" />
-      <File FileName="NewApp/wwwroot/js/testt.js" />
-      <File FileName="NewApp/wwwroot/js/EmptyJS.js" />
-      <File FileName="NewApp/Views/Home/Test.cshtml" Line="26" Column="31" />
+      <File FileName="NewApp/Models/ReportSubAttributeDbContext.cs" Line="19" Column="1" />
+      <File FileName="NewApp/Controllers/QualificationTypController.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Program.cs" Line="17" Column="1" />
+      <File FileName="NewApp/Controllers/TestCodeController.cs" Line="35" Column="73" />
+      <File FileName="NewApp/wwwroot/js/site.js" Line="1" Column="1" />
+      <File FileName="NewApp/Models/SubmittedQuestionData.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/TestCode.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/ReportSubAttribute.cs" Line="1" Column="1" />
+      <File FileName="NewApp/wwwroot/js/testt.js" Line="12" Column="1" />
+      <File FileName="NewApp/wwwroot/js/EmptyJS.js" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/Test.cshtml" Line="70" Column="21" />
       <File FileName="NewApp/wwwroot/js/benchmarkChart.js" />
-      <File FileName="NewApp/Views/Home/Index.cshtml" />
-      <File FileName="NewApp/Views/Home/graph.cshtml" />
-      <File FileName="NewApp/wwwroot/js/career.js" />
-      <File FileName="NewApp/Views/Home/Dashboard.cshtml" />
-      <File FileName="NewApp/Views/Home/Councellor.cshtml" />
-      <File FileName="NewApp/Views/Home/career.cshtml" />
+      <File FileName="NewApp/Views/Home/Index.cshtml" Line="2939" Column="30" />
+      <File FileName="NewApp/Views/Home/graph.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/wwwroot/js/career.js" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/Dashboard.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/Councellor.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/career.cshtml" Line="1" Column="1" />
       <File FileName="NewApp/Views/Home/Astro.cshtml" />
       <File FileName="NewApp/Views/Home/AboutUs.cshtml" />
-      <File FileName="NewApp/Views/Home/Login.cshtml" />
+      <File FileName="NewApp/Views/Home/Login.cshtml" Line="1094" Column="2" />
       <File FileName="NewApp/Models/QuestionData.cs" />
       <File FileName="NewApp/Models/QuestionDbContext.cs" />
       <File FileName="NewApp/Models/BenchmarkModel.cs" />
-      <File FileName="NewApp/Models/ApplicationUser.cs" />
-      <File FileName="NewApp/Models/LoginViewModel.cs" />
-      <File FileName="NewApp/Controllers/candidateController.cs" />
+      <File FileName="NewApp/Models/ApplicationUser.cs" Line="13" Column="11" />
+      <File FileName="NewApp/Models/LoginViewModel.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Controllers/candidateController.cs" Line="65" Column="14" />
       <File FileName="NewApp/Views/_ViewImports.cshtml" />
       <File FileName="NewApp/Views/_ViewStart.cshtml" />
       <File FileName="NewApp/Views/Shared/_Layout.cshtml" />
-      <File FileName="NewApp/appsettings.json" Line="9" Column="1" />
-      <File FileName="NewApp/Controllers/BenchmarkController.cs" />
+      <File FileName="NewApp/appsettings.json" Line="20" Column="1" />
+      <File FileName="NewApp/Controllers/BenchmarkController.cs" Line="1" Column="1" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/test.js" />
       <File FileName="NewApp/Models/bechcomen.cs" Line="1" Column="1" />
       <File FileName="NewApp/Models/CandidateSelectedOptionsDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/DatabaseTable.cs" />
-      <File FileName="NewApp/Models/BenchmarkDbContext.cs" Line="11" Column="75" />
-      <File FileName="NewApp/Models/bechcomenDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/QualificationTypes.cs" />
+      <File FileName="NewApp/Models/DatabaseTable.cs" Line="9" Column="23" />
+      <File FileName="NewApp/Models/BenchmarkDbContext.cs" />
+      <File FileName="NewApp/Models/bechcomenDbContext.cs" />
+      <File FileName="NewApp/Models/QualificationTypes.cs" Line="1" Column="1" />
       <File FileName="NewApp/Models/TemperamentTable.cs" />
-      <File FileName="NewApp/Models/InterestAnswersIIA.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/InterestAnswersIIADbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/InterestAnswersIIA.cs" Line="4" Column="18" />
+      <File FileName="NewApp/Models/InterestAnswersIIADbContext.cs" Line="18" Column="1" />
       <File FileName="NewApp/Models/IIAIndustriessub.cs" />
-      <File FileName="NewApp/Models/IIAIndustriessubDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/IIAIndustriessubDbContext.cs" />
       <File FileName="NewApp/Models/StreamJobRole.cs" />
       <File FileName="NewApp/Models/StreamJobRoleDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/CandidateSelectedOptions.cs" />
-      <File FileName="NewApp/Models/AssessmentResults.cs" Line="6" Column="35" />
+      <File FileName="NewApp/Models/CandidateSelectedOptions.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/AssessmentResults.cs" />
       <File FileName="NewApp/Models/Core.cs" />
-      <File FileName="NewApp/wwwroot/js/Index.js" />
+      <File FileName="NewApp/wwwroot/js/Index.js" Line="1" Column="1" />
       <File FileName="NewApp/Views/Shared/_ValidationScriptsPartial.cshtml" />
       <File FileName="NewApp/Views/Shared/Error.cshtml" />
       <File FileName="NewApp/Models/Result.cs" />
-      <File FileName="NewApp/Views/Home/RefundPolicy.cshtml" />
+      <File FileName="NewApp/Views/Home/RefundPolicy.cshtml" Line="1" Column="1" />
       <File FileName="NewApp/Views/Home/code.cshtml" />
-      <File FileName="NewApp/Models/AcademicStreamDbContext.cs" />
-      <File FileName="NewApp/Models/AssessmentResultsDbContext.cs" />
-      <File FileName="NewApp/Controllers/AcademicStream.cs" />
+      <File FileName="NewApp/Models/AcademicStreamDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/AssessmentResultsDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Controllers/AcademicStream.cs" Line="40" Column="17" />
       <File FileName="NewApp/LBRB" />
       <File FileName="NewApp/Models/TotalQuestions.cs" />
-      <File FileName="NewApp/Models/TotalQuestionDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/TotalQuestionDbContext.cs" />
       <File FileName="NewApp/Models/TestCodeDbContext.cs" />
       <File FileName="NewApp/Models/TemperamentTableDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Models/SpecializationDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/wwwroot/site.js" />
+      <File FileName="NewApp/Models/SpecializationDbContext.cs" />
+      <File FileName="NewApp/wwwroot/site.js" Line="1" Column="1" />
       <File FileName="NewApp/Models/Specialization.cs" />
-      <File FileName="NewApp/Views/Home/Result1.html" />
-      <File FileName="NewApp/Result1.html" />
+      <File FileName="NewApp/Views/Home/Result1.html" Line="1" Column="1" />
+      <File FileName="NewApp/Result1.html" Line="764" Column="35" />
       <File FileName="NewApp/Properties/launchSettings.json" />
-      <File FileName="NewApp/Controllers/QuestionDataController.cs" />
+      <File FileName="NewApp/Controllers/QuestionDataController.cs" Line="123" Column="22" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/EmptyJS.js" />
-      <File FileName="NewApp/Models/DatabaseTableDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/DatabaseTableDbContext.cs" />
       <File FileName="NewApp/Models/ErrorViewModel.cs" />
       <File FileName="NewApp/bin/Release/net7.0/publish/wwwroot/js/testt.js" />
       <File FileName="NewApp/wwwroot/js/site.js.save" />
-      <File FileName="NewApp/Controllers/PexiticsscoreEmailService.cs" />
+      <File FileName="NewApp/Controllers/PexiticsscoreEmailService.cs" Line="1" Column="1" />
       <File FileName="NewApp/Models/pexiticsscore.cs" />
-      <File FileName="NewApp/Models/pexiticsscoreDbContext.cs" />
+      <File FileName="NewApp/Models/pexiticsscoreDbContext.cs" Line="22" Column="1" />
       <File FileName="NewApp/wwwroot/js/Login.js" />
-      <File FileName="NewApp/Models/User.cs" />
-      <File FileName="NewApp/Models/UserToken.cs" />
+      <File FileName="NewApp/Models/User.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/UserToken.cs" Line="1" Column="1" />
       <File FileName="NewApp/Models/UserDbContext.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Controllers/AuthController.cs" />
-      <File FileName="NewApp/Models/CandidateInfo.cs" Line="1" Column="1" />
-      <File FileName="NewApp/Controllers/CandidateInfoController.cs" />
-      <File FileName="NewApp/Views/Home/candidate_info.cshtml" />
-      <File FileName="NewApp/Views/Home/Privacy.cshtml" />
-      <File FileName="NewApp/wwwroot/js/candidateinfo.js" />
-      <File FileName="NewApp/Views/Home/candidate_academic_info.cshtml" />
-      <File FileName="NewApp/Controllers/ScreenInfoController.cs" />
+      <File FileName="NewApp/Controllers/AuthController.cs" Line="78" Column="1" />
+      <File FileName="NewApp/Models/CandidateInfo.cs" />
+      <File FileName="NewApp/Controllers/CandidateInfoController.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/candidate_info.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/Privacy.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/wwwroot/js/candidateinfo.js" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/candidate_academic_info.cshtml" Line="1" Column="1" />
+      <File FileName="NewApp/Controllers/ScreenInfoController.cs" Line="1" Column="1" />
       <File FileName="NewApp/Controllers/ValidationApiController.cs" />
-      <File FileName="NewApp/Models/Validationtable.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/Validationtable.cs" />
       <File FileName="NewApp/Models/TestInfo.cs" />
-      <File FileName="NewApp/Models/AcademicStream.cs" Line="6" Column="32" />
-      <File FileName="NewApp/Models/QualificationTypeDbContext.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Views/Home/loginsuperadmin.cshtml" Line="8" Column="13" />
+      <File FileName="NewApp/Models/LoginSuperAdminModel.cs" Line="1" Column="1" />
+      <File FileName="NewApp/Models/AcademicStream.cs" Line="1" Column="1" />
+      <File FileName="NewApp/wwwroot/js/code.js" Line="1" Column="1" />
+      <File FileName="NewApp/Models/OrganizationData.cs" Line="7" Column="2" />
+      <File FileName="NewApp/Views/Home/OrganizationForm.cshtml" Line="477" Column="21" />
+      <File FileName="NewApp/Views/Home/SuperAdminDashboard.cshtml" Line="86" Column="16" />
+      <File FileName="NewApp/Models/Organization.cs" Line="18" Column="1" />
+      <File FileName="NewApp/Models/OrganizationDataDbContext.cs" Line="22" Column="1" />
+      <File FileName="NewApp/Controllers/OrganizationDataController.cs" Line="367" Column="10" />
+      <File FileName="NewApp/Models/OrgLevelAccessData.cs" Line="22" Column="1" />
+      <File FileName="NewApp/Models/OrgLevelAccessDataDbContext.cs" Line="22" Column="1" />
+      <File FileName="NewApp/Models/OrganizationReportData.cs" Line="21" Column="1" />
+      <File FileName="NewApp/Models/OrganizationReportDataDbContext.cs" Line="15" Column="13" />
+      <File FileName="NewApp/Models/InvoiceData.cs" Line="21" Column="6" />
+      <File FileName="NewApp/Models/InvoiceDataDbContext.cs" Line="14" Column="1" />
+      <File FileName="NewApp/Models/ReportData.cs" Line="11" Column="2" />
+      <File FileName="NewApp/Models/ReportDataDbContext.cs" Line="20" Column="1" />
+      <File FileName="NewApp/Models/ResultDbContext.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="NewApp2" expanded="True">
-            <Node name="NewApp2" expanded="True">
-              <Node name="Models" expanded="True" />
-              <Node name="Views" expanded="True">
-                <Node name="Home" expanded="True" />
+          <Node name="NewApp2">
+            <Node name="NewApp2">
+              <Node name="Views">
+                <Node name="Home">
+                  <Node name="OrganizationForm.cshtml" selected="True" />
+                </Node>
               </Node>
               <Node name="wwwroot" expanded="True">
-                <Node name="js" expanded="True">
-                  <Node name="test.js" selected="True" />
-                </Node>
+                <Node name="js" expanded="True" />
+                <Node name="lib" expanded="True" />
               </Node>
             </Node>
           </Node>
         </State>
       </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.NewApp2 PreferredExecutionTarget="/Applications/Google Chrome.app" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MultiItemStartupConfigurations />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/ValidationApiController.cs" relfile="NewApp/Controllers/ValidationApiController.cs" line="77" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/TestCodeController.cs" relfile="NewApp/Controllers/TestCodeController.cs" line="36" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/TestCodeController.cs" relfile="NewApp/Controllers/TestCodeController.cs" line="48" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="906" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="988" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="1040" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="1176" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="1266" column="1" />
-      <Breakpoint file="/Users/shivangnayar/app2/NewApp/Controllers/candidateController.cs" relfile="NewApp/Controllers/candidateController.cs" line="1039" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.NewApp2 PreferredExecutionTarget="/Applications/Google Chrome.app" />
 </Properties>

@@ -9,7 +9,7 @@ namespace NewApp.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<InvoiceData>().ToTable(" invoicedata");
+            modelBuilder.Entity<InvoiceData>().ToTable("invoicedata");
             modelBuilder.Entity<InvoiceData>().HasKey(tm => tm.InvoiceGUID);
 
             base.OnModelCreating(modelBuilder);

@@ -14,13 +14,16 @@ namespace NewApp.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+        private readonly CandidateDbContext _contextt;
+
         private readonly IConfiguration _configuration;
         private readonly UserDbContext _context;
          
-        public AuthController(IConfiguration configuration, UserDbContext context)
+        public AuthController(IConfiguration configuration, UserDbContext context, CandidateDbContext _contextt)
         {
             _configuration = configuration;
             _context = context;
+
         }
 
         [HttpPost("register")]
@@ -64,19 +67,34 @@ namespace NewApp.Controllers
             string adminEmail = "score@pexitics.com";
             string adminPassword = "India@123";
 
-            // Check if the input matches the hardcoded credentials
             if (user.Email == adminEmail && user.PasswordHash == adminPassword)
             {
-                // Generate JWT token
-                var token = GenerateJwtToken(1, adminEmail); // User ID can be arbitrary here since it's hardcoded
+                return Ok(new
+                {
+                    Email = adminEmail,
+                    UserLevel = "1", // Super Admin Level
+                    RedirectUrl = "/SuperAdminDashboard"
+                });
+            }
 
-                // Return the token in the response without saving it to the database
-                return Ok(new { Token = token });
+            // ✅ Check credentials in database for other users
+            var dbUser = _contextt.PasswordAndAccess
+                .FirstOrDefault(u => u.EmailID == user.Email && u.Password == user.PasswordHash);
+
+            if (dbUser != null)
+            {
+                // ✅ Return user details & redirect URL
+                string redirectUrl = dbUser.Level == "1" ? "/SuperAdminDashboard" : "/Organization";
+                return Ok(new
+                {
+                    Email = dbUser.EmailID,
+                    UserLevel = dbUser.Level,
+                    RedirectUrl = redirectUrl
+                });
             }
 
             return Unauthorized("Invalid credentials.");
         }
-
 
         private string GenerateJwtToken(int userId, string email)
         {

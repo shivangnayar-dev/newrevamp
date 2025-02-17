@@ -40,34 +40,50 @@
         </div>
 
         <!-- Organization Access Level Section -->
-        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <button id="toggleAccessDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
-                Organization Access Levels <span id="accessDetailsArrow">▼</span>
-            </button>
-            <div id="accessDetails" class="p-4 hidden space-y-4">
-                <input type="text" id="OrganizationId" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="email" id="AccessEmail_Core" placeholder="Access Email Core" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail1" placeholder="Access Email 1" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail2" placeholder="Access Email 2" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail3" placeholder="Access Email 3" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail4" placeholder="Access Email 4" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail5" placeholder="Access Email 5" class="p-3 border rounded-lg">
-                    <input type="email" id="AccessEmail6" placeholder="Access Email 6" class="p-3 border rounded-lg">
+        <!-- Updated input IDs to match JSON fields -->
+        <div id="accessDetailsContainer">
+            <div class="bg-gray-50 p-6 rounded-lg shadow-sm access-details">
+                <button class="toggleAccessDetails w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                    Organization Access Levels <span class="accessDetailsArrow">▼</span>
+                </button>
+                <div class="accessDetails p-4 space-y-4">
+                    <input type="text" name="organizationId" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
+                    <input type="text" name="organizationName" placeholder="Organization Name" class="w-full p-3 border rounded-lg">
+                    <input type="email" name="email" placeholder="Email" class="w-full p-3 border rounded-lg">
+                    <input type="text" name="level" placeholder="Level" class="w-full p-3 border rounded-lg">
+
+                    <div class="customerEmployeeContainer space-y-2">
+                        <div class="flex space-x-2">
+                            <input type="text" name="customerEmployeeName" placeholder="Customer Employee Name" class="w-full p-3 border rounded-lg">
+                            <button type="button" class="add-field bg-green-500 text-white px-4 py-2 rounded">+</button>
+                        </div>
+                    </div>
+
+                    <div class="linkedLevel2Container space-y-2">
+                        <div class="flex space-x-2">
+                            <input type="text" name="linkedLevel2ForLevel3" placeholder="Linked Level 2 for Level 3" class="w-full p-3 border rounded-lg">
+                            <button type="button" class="add-field bg-green-500 text-white px-4 py-2 rounded">+</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="date" name="createdDate" class="p-3 border rounded-lg">
+                        <input type="text" name="createdBy" placeholder="Created By" class="p-3 border rounded-lg">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="date" name="updatedDate" class="p-3 border rounded-lg">
+                        <input type="text" name="updatedBy" placeholder="Updated By" class="p-3 border rounded-lg">
+                    </div>
+
+                    <button type="button" class="remove-entry w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition">Remove Entry</button>
                 </div>
-                <input type="text" id="Levels_Core" placeholder="Core Access Level" class="w-full p-3 border rounded-lg">
-                <label class="flex items-center space-x-2">
-                    <input type="checkbox" id="Enabled_Core" class="h-5 w-5">
-                    <span>Enabled Core</span>
-                </label>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="date" id="Startdate_Core" class="p-3 border rounded-lg">
-                    <input type="date" id="Enddate_Core" class="p-3 border rounded-lg">
-                </div>
-                <input type="text" id="Username_Core" placeholder="Username Core" class="w-full p-3 border rounded-lg">
-                <button id="saveAccessDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Access Details</button>
             </div>
         </div>
+
+        <button id="addAccessDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg mt-4 hover:bg-blue-700 transition">Add New Entry</button>
+        <button id="saveAllAccessDetails" class="w-full bg-green-600 text-white py-3 rounded-lg mt-4 hover:bg-green-700 transition">Save All Access Details</button>
+
 
         <!-- Link Reports to Organization -->
         <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
@@ -75,20 +91,40 @@
                 Link Reports to Organization <span id="reportDetailsArrow">▼</span>
             </button>
             <div id="reportDetails" class="p-4 hidden space-y-4">
+                <!-- Organization Name Dropdown -->
+                <label class="block">
+                    <span class="text-gray-700">Select Report Name</span>
+                    <select id="ReportNameDropdown" class="w-full p-3 border rounded-lg"></select>
+                </label>
+
+                <!-- Report Details Fields -->
                 <input type="text" id="OrganizationReportId" placeholder="Organization Report ID" class="w-full p-3 border rounded-lg">
-                <input type="text" id="OrganizationId_Report" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
-                <input type="text" id="ReportId" placeholder="Report ID" class="w-full p-3 border rounded-lg">
+                <input type="text" id="OrganizationId_Report" placeholder="Organization ID" class="w-full p-3 border rounded-lg" readonly>
+                <input type="text" id="ReportId" placeholder="Report ID" class="w-full p-3 border rounded-lg" readonly>
+
+                <!-- Costs -->
                 <input type="number" id="MinimumCostOfReport" placeholder="Minimum Cost of Report" class="w-full p-3 border rounded-lg">
                 <input type="number" id="MarkupOnMinimumCost" placeholder="Markup on Minimum Cost (%)" class="w-full p-3 border rounded-lg">
                 <input type="number" id="TotalCost" placeholder="Total Cost" class="w-full p-3 border rounded-lg">
+
+                <!-- Dates -->
                 <div class="grid grid-cols-2 gap-4">
-                    <input type="date" id="ContractStartDate" class="p-3 border rounded-lg">
-                    <input type="date" id="ContractEndDate" class="p-3 border rounded-lg">
+                    <label class="block">
+                        <span class="text-gray-700">Contract Start Date</span>
+                        <input type="date" id="ContractStartDate" class="p-3 border rounded-lg w-full">
+                    </label>
+                    <label class="block">
+                        <span class="text-gray-700">Contract End Date</span>
+                        <input type="date" id="ContractEndDate" class="p-3 border rounded-lg w-full">
+                    </label>
                 </div>
-                <button id="saveReportDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">Save Report Details</button>
+
+                <!-- Save Button -->
+                <button id="saveReportDetails" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+                    Save Report Details
+                </button>
             </div>
         </div>
-
         <!-- Invoice Details Section -->
         <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
             <button id="toggleInvoiceDetails" class="w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
@@ -118,12 +154,296 @@
 
     <!-- Script to handle toggling and saving -->
     <script>
+        function generateRegistrationNumber() {
+            const timestamp = Date.now(); // Get current timestamp
+            const randomNum = Math.floor(1000 + Math.random() * 9000); // Generate a random 4-digit number
+            return `REG-${timestamp}-${randomNum}`; // Example: REG-1707000000000-1234
+        }
+
+        // Auto-fill registration number on page load if empty
         $(document).ready(function () {
+            if (!$('#registration_number').val()) {
+                const newRegNumber = generateRegistrationNumber();
+                $('#registration_number').val(newRegNumber);
+                console.log('Generated Registration Number:', newRegNumber);
+            }
+        });
+        function fetchOrgLevelAccessDetails() {
+            const organizationId = getUrlParameter('organizationId') ? parseInt(getUrlParameter('organizationId')) : 0;
+
+            if (organizationId === 0) {
+                console.error('Organization ID is missing or invalid.');
+                return;
+            }
+
+            console.log('Fetching access details for orgId:', organizationId);
+
+            $.ajax({
+                url: `/api/OrganizationData/GetAccessDetailsByOrgId/${organizationId}`,
+                type: 'GET',
+                success: function (accessDetailsList) {
+                    console.log('Access details received:', accessDetailsList);
+
+                    // Clear the existing container before adding new data
+                    $('#accessDetailsContainer').empty();
+
+                    if (!accessDetailsList || accessDetailsList.length === 0) {
+                        console.warn('No access details found for this organization.');
+                        return;
+                    }
+
+                    accessDetailsList.forEach(accessDetails => {
+                        addAccessDetailRow(accessDetails);
+                    });
+
+                    // Reveal section if hidden
+                    revealSectionIfHidden('#accessDetailsContainer');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching access details:', error, xhr.responseText);
+                }
+            });
+        }
+
+        // Function to create and populate a new access details entry
+        function addAccessDetailRow(accessDetails) {
+            let template = `
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm access-details">
+            <button class="toggleAccessDetails w-full text-left bg-gray-200 py-4 px-6 text-lg font-semibold text-gray-600">
+                Organization Access Levels <span class="accessDetailsArrow">▼</span>
+            </button>
+            <div class="accessDetails p-4 space-y-4">
+                <input type="text" name="organizationId" value="${accessDetails.organizationId}" placeholder="Organization ID" class="w-full p-3 border rounded-lg">
+                <input type="text" name="organizationName" value="${accessDetails.organizationName || ''}" placeholder="Organization Name" class="w-full p-3 border rounded-lg">
+                <input type="email" name="email" value="${accessDetails.email || ''}" placeholder="Email" class="w-full p-3 border rounded-lg">
+                <input type="text" name="level" value="${accessDetails.level || ''}" placeholder="Level" class="w-full p-3 border rounded-lg">
+
+                <div class="customerEmployeeContainer space-y-2">
+                    <div class="flex space-x-2">
+                        <input type="text" name="customerEmployeeName" value="${accessDetails.customerEmployeeName || ''}" placeholder="Customer Employee Name" class="w-full p-3 border rounded-lg">
+                        <button type="button" class="add-field bg-green-500 text-white px-4 py-2 rounded">+</button>
+                    </div>
+                </div>
+
+                <div class="linkedLevel2Container space-y-2">
+                    <div class="flex space-x-2">
+                        <input type="text" name="linkedLevel2ForLevel3" value="${accessDetails.linkedLevel2ForLevel3 || ''}" placeholder="Linked Level 2 for Level 3" class="w-full p-3 border rounded-lg">
+                        <button type="button" class="add-field bg-green-500 text-white px-4 py-2 rounded">+</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" name="createdDate" value="${formatDate(accessDetails.createdDate)}" class="p-3 border rounded-lg">
+                    <input type="text" name="createdBy" value="${accessDetails.createdBy || ''}" placeholder="Created By" class="p-3 border rounded-lg">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="date" name="updatedDate" value="${formatDate(accessDetails.updatedDate)}" class="p-3 border rounded-lg">
+                    <input type="text" name="updatedBy" value="${accessDetails.updatedBy || ''}" placeholder="Updated By" class="p-3 border rounded-lg">
+                </div>
+
+                <button type="button" class="remove-entry w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition">Remove Entry</button>
+            </div>
+        </div>`;
+
+            $('#accessDetailsContainer').append(template);
+        }
+
+        // Utility function to format dates to YYYY-MM-DD
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return date.toISOString().split('T')[0];
+        }
+
+        // Utility function to get URL parameters
+        function getUrlParameter(param) {
             const urlParams = new URLSearchParams(window.location.search);
-            const organizationId = urlParams.get('organizationId');
+            return urlParams.get(param);
+        }
+
+        // Reveal section if hidden
+        function revealSectionIfHidden(sectionId) {
+            if ($(sectionId).is(':hidden')) {
+                console.log(`Revealing section: ${sectionId}`);
+                $(sectionId).removeClass('hidden');
+            }
+        }
+
+        document.getElementById('addAccessDetails').addEventListener('click', function () {
+            const container = document.getElementById('accessDetailsContainer');
+            const template = container.querySelector('.access-details').cloneNode(true);
+
+            // Clear input fields
+            template.querySelectorAll('input').forEach(input => input.value = '');
+
+            // Attach remove event
+            template.querySelector('.remove-entry').addEventListener('click', function () {
+                template.remove();
+            });
+
+            container.appendChild(template);
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-entry')) {
+                event.target.closest('.access-details').remove();
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('add-field')) {
+                const container = event.target.closest('div').parentElement;
+                const inputGroup = document.createElement('div');
+                inputGroup.classList.add('flex', 'space-x-2');
+                inputGroup.innerHTML = `
+            <input type="text" name="${event.target.previousElementSibling.name}" placeholder="${event.target.previousElementSibling.placeholder}" class="w-full p-3 border rounded-lg">
+            <button type="button" class="remove-field bg-red-500 text-white px-4 py-2 rounded">-</button>
+        `;
+                container.appendChild(inputGroup);
+            }
+        });
+
+        document.addEventListener('click', function (event) {
+            if (event.target.classList.contains('remove-field')) {
+                event.target.parentElement.remove();
+            }
+        });
+
+        document.getElementById('saveAllAccessDetails').addEventListener('click', function () {
+            let accessDetails = [];
+
+            document.querySelectorAll('.access-details').forEach(form => {
+                let data = {
+                    OrganizationId: form.querySelector('[name="organizationId"]').value,
+                    OrganizationName: form.querySelector('[name="organizationName"]').value,
+                    Email: form.querySelector('[name="email"]').value,
+                    Level: form.querySelector('[name="level"]').value,
+                    CustomerEmployeeName: form.querySelector('[name="customerEmployeeName"]').value,
+                    LinkedLevel2ForLevel3: form.querySelector('[name="linkedLevel2ForLevel3"]').value || null,
+                    CreatedDate: form.querySelector('[name="createdDate"]').value,
+                    CreatedBy: form.querySelector('[name="createdBy"]').value,
+                    UpdatedDate: form.querySelector('[name="updatedDate"]').value,
+                    UpdatedBy: form.querySelector('[name="updatedBy"]').value
+                };
+                accessDetails.push(data);
+            });
+
+            fetch('/api/OrganizationData/SaveAccessDetails', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(accessDetails)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to save access details.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert('Access details saved successfully!');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while saving access details.');
+                });
+        });
+        function populateReportDropdown() {
+            $.ajax({
+                url: '/api/OrganizationData/GetReports',  // API endpoint to get report names
+                type: 'GET',
+                success: function (reports) {
+                    const dropdown = $('#ReportNameDropdown');
+                    dropdown.empty();
+                    reports.forEach(report => {
+                        dropdown.append(new Option(report.name, report.reportId));
+                    });
+                },
+                error: function () {
+                    alert('Error fetching reports.');
+                }
+            });
+        }
+
+        // Auto-fill ReportId on report selection
+        $('#ReportNameDropdown').on('change', function () {
+            $('#ReportId').val($(this).val());
+        });
+        $(document).ready(function () {
+
+            populateReportDropdown();
+
+            // Function to auto-fill organizationId from URL
+            function autoFillOrganizationId() {
+                const organizationId = getUrlParameter('organizationId') ? parseInt(getUrlParameter('organizationId')) : 0;
+
+                if (organizationId) {
+                    console.log('Auto-filling organizationId:', organizationId);
+
+                    // Auto-fill Organization ID
+                    $('#organizationId').val(organizationId);
+                    $('#OrganizationId_Report').val(organizationId);
+                    $('#Invoice_OrganizationId').val(organizationId);
+
+                    // Auto-fill in all Access Level Details if multiple entries exist
+                    $('.access-details').each(function () {
+                        $(this).find('[name="organizationId"]').val(organizationId);
+                    });
+
+                    // Fetch and auto-fill Organization Name from Organization Details
+                    const organizationName = $('#OrganizationName').val(); // Get organization name
+                    console.log("OrganizationName",organizationName);
+
+                    if (organizationName) {
+                        $('.access-details').each(function () {
+                            $(this).find('[name="organizationName"]').val(organizationName);
+                        });
+                    }
+                } else {
+                    console.error('Organization ID not found in URL.');
+                }
+            }
+
+            // Auto-update Organization Name in Access Level Details when it changes in Organization Details
+            $('#OrganizationName').on('input', function () {
+                const organizationName = $(this).val();
+                $('.access-details').each(function () {
+                    $(this).find('[name="organizationName"]').val(organizationName);
+                });
+            });
+
+
+            // Utility to get URL parameters
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+            function generateUniqueReportId() {
+                const uniqueId = 'ORG-REP-' + Date.now();  // Example format, modify as needed
+                console.log('Generated unique OrganizationReportId:', uniqueId);
+                $('#OrganizationReportId').val(uniqueId);
+            }
+
+            // Call the function on page load
+            $(document).ready(function () {
+                fetchOrgLevelAccessDetails();
+                autoFillOrganizationId();
+                generateUniqueReportId()
+            });
+            const organizationId = getUrlParameter('organizationId') ? parseInt(getUrlParameter('organizationId')) : 0;
+
+            // Populate existing organization details if the ID is present
+
+            const urlParams = new URLSearchParams(window.location.search);
+
 
             if (organizationId) {
                 fetchOrganizationDetails(organizationId);
+                fetchAccessDetails(organizationId);
+                fetchReportDetails(organizationId);
+                fetchInvoiceDetails(organizationId);
             }
 
             function toggleSection(button, section, arrow) {
@@ -137,12 +457,23 @@
             toggleSection('#toggleAccessDetails', '#accessDetails', '#accessDetailsArrow');
             toggleSection('#toggleReportDetails', '#reportDetails', '#reportDetailsArrow');
             toggleSection('#toggleInvoiceDetails', '#invoiceDetails', '#invoiceDetailsArrow');
+            function revealSectionIfHidden(sectionId) {
+                if ($(sectionId).is(':hidden')) {
+                    console.log(`Revealing section: ${sectionId}`);
+                    $(sectionId).removeClass('hidden');
+                }
+            }
 
             function fetchOrganizationDetails(orgId) {
+                console.log('Fetching organization details for orgId:', orgId);
+
                 $.ajax({
                     url: `/api/OrganizationData/GetById/${orgId}`,
                     type: 'GET',
                     success: function (organization) {
+                        console.log('Organization details received:', organization);
+
+                        // Populate fields
                         $('#OrganizationName').val(organization.organizationName || '');
                         $('#CG_SuperAdminEmailId').val(organization.cG_SuperAdminEmailId || '');
                         $('#Customer_SuperAdminEmailId').val(organization.customer_SuperAdminEmailId || '');
@@ -153,26 +484,319 @@
                         $('#Customer_AdminEmailId5').val(organization.customer_AdminEmailId5 || '');
                         $('#organization_type').val(organization.organization_type || '');
                         $('#registration_number').val(organization.registration_number || '');
+                        if (organization.organizationName) {
+                            $('.access-details').each(function () {
+                                $(this).find('[name="organizationName"]').val(organization.organizationName);
+                            });
+                        }
+                        // Reveal section
+                        revealSectionIfHidden('#organizationDetails');
                     },
                     error: function () {
-                        alert('Error fetching organization details.');
+
+                    }
+                });
+            }
+            function fetchInvoiceDetails(orgId) {
+                console.log('Fetching invoice details for orgId:', orgId);
+
+                $.ajax({
+                    url: `/api/OrganizationData/GetInvoiceDetailsByOrgId/${orgId}`,
+                    type: 'GET',
+                    success: function (invoiceDetails) {
+                        console.log('Invoice details received:', invoiceDetails);
+
+                        // Populate fields
+                        $('#InvoiceGUID').val(invoiceDetails.invoiceGUID || '');
+                        $('#Invoice_OrganizationId').val(invoiceDetails.organizationId || '');
+                        $('#Invoice_ReportId').val(invoiceDetails.reportId || '');
+                        $('#CodeOfReport').val(invoiceDetails.codeOfReport || '');
+                        $('#CountOfTest').val(invoiceDetails.countOfTest || 0);
+                        $('#CountOfReports').val(invoiceDetails.countOfReports || 0);
+                        $('#InvoiceTotalCost').val(invoiceDetails.invoiceTotalCost || 0);
+                        $('#SumOfCost').val(invoiceDetails.sumOfCost || 0);
+                        $('#Invoice_CreatedDate').val(formatDate(invoiceDetails.createdDate));
+                        $('#Invoice_UpdatedDate').val(formatDate(invoiceDetails.updatedDate));
+                        $('#Invoice_CreatedBy').val(invoiceDetails.createdBy || '');
+                        $('#Invoice_UpdatedBy').val(invoiceDetails.updatedBy || '');
+                        $('#InvoiceStatus').val(invoiceDetails.status || '');
+                        $('#DiscountAmount').val(invoiceDetails.discountAmount || 0);
+
+                        // Reveal section
+                        revealSectionIfHidden('#invoiceDetails');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching invoice details:', error, xhr.responseText);
+
                     }
                 });
             }
 
+
+            // Utility function to format dates to YYYY-MM-DD
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                return date.toISOString().split('T')[0];
+            }
+            function fetchAccessDetails() {
+                const organizationId = getUrlParameter('organizationId') ? parseInt(getUrlParameter('organizationId')) : 0;
+
+                if (organizationId === 0) {
+                    console.error('Organization ID is missing or invalid.');
+                    return;
+                }
+
+                console.log('Fetching access details for orgId:', organizationId);
+
+                $.ajax({
+                    url: `/api/OrganizationData/GetAccessDetailsByOrgId/${organizationId}`,
+                    type: 'GET',
+                    success: function (accessDetails) {
+                        console.log('Access details received:', accessDetails);
+
+                        // Auto-fill organization ID from the URL
+                        $('#organizationId').val(organizationId);
+
+                        // Populate other fields
+                        $('#accessEmail_Core').val(accessDetails.accessEmail_Core || '');
+                        $('#accessEmail1').val(accessDetails.accessEmail1 || '');
+                        $('#accessEmail2').val(accessDetails.accessEmail2 || '');
+                        $('#accessEmail3').val(accessDetails.accessEmail3 || '');
+                        $('#accessEmail4').val(accessDetails.accessEmail4 || '');
+                        $('#accessEmail5').val(accessDetails.accessEmail5 || '');
+                        $('#accessEmail6').val(accessDetails.accessEmail6 || '');
+                        $('#levels_Core').val(accessDetails.levels_Core || '');
+                        $('#enabled_Core').prop('checked', accessDetails.enabled_Core === "true");
+                        $('#startdate_Core').val(accessDetails.startdate_Core || '');
+                        $('#enddate_Core').val(accessDetails.enddate_Core || '');
+                        $('#username_Core').val(accessDetails.username_Core || '');
+
+                        // Reveal section if hidden
+                        revealSectionIfHidden('#accessDetails');
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error fetching access details:', error, xhr.responseText);
+
+                    }
+                });
+            }
+
+            // Utility to get URL parameters
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+            function fetchReportDetails(orgId) {
+                console.log('Fetching report details for orgId:', orgId);
+
+                $.ajax({
+                    url: `/api/OrganizationData/GetReportDetailsByOrgId/${orgId}`,
+                    type: 'GET',
+                    success: function (reportDetails) {
+                        console.log('Report details received:', reportDetails);
+
+                        // Populate fields
+                        $('#OrganizationId_Report').val(orgId);  // Automatically fill organization ID from URL
+
+                        // Generate unique OrganizationReportId if not already present
+                        const generatedReportId = generateUniqueId();
+                        $('#OrganizationReportId').val(reportDetails.organizationReportId || generatedReportId);
+
+                        $('#ReportId').val(reportDetails.reportId || '');
+                        $('#MinimumCostOfReport').val(reportDetails.minimumCostOfReport || 0);
+                        $('#MarkupOnMinimumCost').val(reportDetails.markupOnMinimumCost || 0);
+                        $('#TotalCost').val(reportDetails.totalCost || 0);
+                        $('#ContractStartDate').val(formatDate(reportDetails.contractStartDate));
+                        $('#ContractEndDate').val(formatDate(reportDetails.contractEndDate));
+
+                        // Reveal section
+                        revealSectionIfHidden('#reportDetails');
+                    },
+                    error: function () {
+                        console.error('Error fetching report details.');
+
+                    }
+                });
+            }
+
+            // Utility function to generate a unique ID (UUID)
+            function generateUniqueId() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = (Math.random() * 16) | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+            }
+
+            // Helper function to format dates (adjust to your needs)
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const date = new Date(dateString);
+                return date.toISOString().split('T')[0]; // Format as YYYY-MM-DD
+            }
+            function getUrlParameter(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+            $('#saveAccessDetails').on('click', function () {
+                // Ensure the organization ID is present
+                const orgId = parseInt($('#organizationId').val()) || 0;
+
+                const accessData = {
+                    orgLevelAccess1Id: orgId,
+                    organizationId: orgId,
+                    accessEmail_Core: $('#accessEmail_Core').val() || '',
+                    accessEmail1: $('#accessEmail1').val() || '',
+                    accessEmail2: $('#accessEmail2').val() || '',
+                    accessEmail3: $('#accessEmail3').val() || '',
+                    accessEmail4: $('#accessEmail4').val() || '',
+                    accessEmail5: $('#accessEmail5').val() || '',
+                    accessEmail6: $('#accessEmail6').val() || '',
+                    levels_Core: $('#levels_Core').val() || '',
+                    enabled_Core: $('#enabled_Core').is(':checked') ? 'true' : 'false',
+                    startdate_Core: $('#startdate_Core').val() || '',
+                    enddate_Core: $('#enddate_Core').val() || '',
+                    username_Core: $('#username_Core').val() || '',
+
+                    // Email Level 1 Details
+                    levels_Email1: $('#levels_Email1').val() || '',
+                    enabled_Email1: $('#enabled_Email1').is(':checked') ? 'true' : 'false',
+                    startdate_Email1: $('#startdate_Email1').val() || '',
+                    enddate_Email1: $('#enddate_Email1').val() || '',
+                    username_Email1: $('#username_Email1').val() || '',
+
+                    // Email Level 2 Details
+                    levels_Email2: $('#levels_Email2').val() || '',
+                    enabled_Email2: $('#enabled_Email2').is(':checked') ? 'true' : 'false',
+                    startdate_Email2: $('#startdate_Email2').val() || '',
+                    enddate_Email2: $('#enddate_Email2').val() || '',
+                    username_Email2: $('#username_Email2').val() || '',
+
+                    // Repeat for other email levels
+                    levels_Email3: $('#levels_Email3').val() || '',
+                    enabled_Email3: $('#enabled_Email3').is(':checked') ? 'true' : 'false',
+                    startdate_Email3: $('#startdate_Email3').val() || '',
+                    enddate_Email3: $('#enddate_Email3').val() || '',
+                    username_Email3: $('#username_Email3').val() || '',
+
+                    // Audit Fields
+                    createdBy: 'SuperAdmin',
+                    updatedBy: 'SuperAdmin'
+                };
+
+                console.log('Sending access data to server:', JSON.stringify(accessData));
+
+                $.ajax({
+                    url: '/api/OrganizationData/SaveOrUpdateAccessDetails',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(accessData),
+                    success: function () {
+                        alert('Access details saved successfully!');
+                    },
+                    error: function (xhr) {
+                        console.error('Error saving access details:', xhr.responseText);
+
+                    }
+                });
+            });
+            function generateGuid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = (Math.random() * 16) | 0,
+                        v = c === 'x' ? r : (r & 0x3) | 0x8;
+                    return v.toString(16);
+                });
+            }
+
+            if (!$('#InvoiceGUID').val()) {
+                $('#InvoiceGUID').val(generateGuid());
+            }
+            $(document).ready(function () {
+                $('#saveInvoiceDetails').on('click', function () {
+                    const invoiceData = {
+                        InvoiceGUID: $('#InvoiceGUID').val() || generateGuid(),
+                        OrganizationId: parseInt($('#Invoice_OrganizationId').val()) || 0,
+                        ReportId: $('#Invoice_ReportId').val() || '',
+                        CodeOfReport: $('#CodeOfReport').val() || '',
+                        CountOfTest: parseInt($('#CountOfTest').val()) || 0,
+                        CountOfReports: parseInt($('#CountOfReports').val()) || 0,
+                        TotalCost: parseFloat($('#InvoiceTotalCost').val()) || 0.0,
+                        SumOfCost: parseFloat($('#SumOfCost').val()) || 0.0,
+                        CreatedDate: $('#Invoice_CreatedDate').val() || new Date().toISOString(),
+                        UpdatedDate: $('#Invoice_UpdatedDate').val() || new Date().toISOString(),
+                        CreatedBy: 'SuperAdmin',
+                        UpdatedBy: 'SuperAdmin',
+                        Status: $('#InvoiceStatus').val() || '',
+                        DiscountAmount: parseFloat($('#DiscountAmount').val()) || 0.0
+                    };
+                    console.log('Sending invoice data to server:', invoiceData);
+
+                    $.ajax({
+                        url: '/api/OrganizationData/SaveOrUpdateInvoiceDetails',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(invoiceData),
+                        success: function () {
+                            alert('Invoice details saved successfully!');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error saving invoice details:', error, xhr.responseText);
+
+                        }
+                    });
+                });
+            });
+            $(document).ready(function () {
+                $('#saveReportDetails').on('click', function () {
+                    const reportData = {
+                        OrganizationReportId: parseInt($('#OrganizationReportId').val()) || 0,  // Ensure integer
+                        OrganizationId: parseInt($('#OrganizationId_Report').val()) || 0,      // Ensure integer
+                        ReportId: $('#ReportId').val() || '',
+                        MinimumCostOfReport: parseFloat($('#MinimumCostOfReport').val()) || 0,
+                        MarkupOnMinimumCost: parseFloat($('#MarkupOnMinimumCost').val()) || 0,
+                        TotalCost: parseFloat($('#TotalCost').val()) || 0,
+                        ContractStartDate: $('#ContractStartDate').val() || null,
+                        ContractEndDate: $('#ContractEndDate').val() || null,
+                        CreatedBy: 'SuperAdmin',
+                        UpdatedBy: 'SuperAdmin'
+                    };
+
+                    console.log('Sending report data to server:', JSON.stringify(reportData));
+
+                    $.ajax({
+                        url: '/api/OrganizationData/SaveOrUpdateReportDetails',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(reportData),
+                        success: function () {
+                            alert('Report details saved successfully!');
+                        },
+                        error: function (xhr, status, error) {
+                            console.error('Error saving report details:', xhr.responseText);
+                            alert('Error saving report details.');
+                        }
+                    });
+                });
+            });
+
             $('#saveOrganizationDetails').on('click', function () {
                 const organizationData = {
-                    OrganizationName: $('#OrganizationName').val(),
-                    CG_SuperAdminEmailId: $('#CG_SuperAdminEmailId').val(),
-                    Customer_SuperAdminEmailId: $('#Customer_SuperAdminEmailId').val(),
-                    Customer_AdminEmailId1: $('#Customer_AdminEmailId1').val(),
-                    Customer_AdminEmailId2: $('#Customer_AdminEmailId2').val(),
-                    Customer_AdminEmailId3: $('#Customer_AdminEmailId3').val(),
-                    Customer_AdminEmailId4: $('#Customer_AdminEmailId4').val(),
-                    Customer_AdminEmailId5: $('#Customer_AdminEmailId5').val(),
+                    organizationId: organizationId, // Use the organizationId from the URL
+                    organizationName: $('#OrganizationName').val(),
+                    cG_SuperAdminEmailId: $('#CG_SuperAdminEmailId').val(),
+                    customer_SuperAdminEmailId: $('#Customer_SuperAdminEmailId').val(),
+                    customer_AdminEmailId1: $('#Customer_AdminEmailId1').val(),
+                    customer_AdminEmailId2: $('#Customer_AdminEmailId2').val(),
+                    customer_AdminEmailId3: $('#Customer_AdminEmailId3').val(),
+                    customer_AdminEmailId4: $('#Customer_AdminEmailId4').val(),
+                    customer_AdminEmailId5: $('#Customer_AdminEmailId5').val(),
                     organization_type: $('#organization_type').val(),
-                    registration_number: $('#registration_number').val()
+                    registration_number: $('#registration_number').val(),
+                    createdBy: organizationId === 0 ? 'SuperAdmin' : '',
+                    updatedBy: organizationId > 0 ? 'SuperAdmin' : ''
                 };
+
+                console.log('Sending data to server:', JSON.stringify(organizationData));
 
                 $.ajax({
                     url: '/api/OrganizationData/CreateOrUpdate',
@@ -181,15 +805,16 @@
                     data: JSON.stringify(organizationData),
                     success: function () {
                         alert('Organization details saved successfully!');
+                        window.location.href = '/superAdminDashboard'; // Redirect to the dashboar
                     },
-                    error: function () {
-                        alert('Error saving organization details.');
+                    error: function (xhr) {
+                        console.error('Error saving organization details:', xhr.responseText);
+
                     }
                 });
             });
 
             // Implement save actions for other sections similarly
-        });
-    </script>
+        });</script>
 </body>
 </html>

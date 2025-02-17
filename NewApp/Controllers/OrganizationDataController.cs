@@ -44,6 +44,158 @@ namespace NewApp.Controllers
 
             return Ok(organizations);
         }
+        [HttpPost("SaveAccessDetails")]
+        public IActionResult SaveAccessDetails([FromBody] List<OrgLevelAccessData> accessDataList)
+        {
+            if (accessDataList == null || !accessDataList.Any())
+            {
+                return BadRequest(new { Message = "Access details are required." });
+            }
+
+            try
+            {
+                foreach (var accessData in accessDataList)
+                {
+                    // **Handle OrgLevelAccessData Table**
+                    var existingAccessData = _context.OrgLevelAccessData
+                        .FirstOrDefault(a => a.OrganizationId == accessData.OrganizationId && a.Email == accessData.Email);
+
+                    if (existingAccessData == null)
+                    {
+                        accessData.CreatedDate = DateTime.UtcNow;
+                        accessData.CreatedBy = "SuperAdmin";
+                        _context.OrgLevelAccessData.Add(accessData);
+                    }
+                    else
+                    {
+                        existingAccessData.OrganizationName = accessData.OrganizationName;
+                        existingAccessData.Level = accessData.Level;
+                        existingAccessData.CustomerEmployeeName = string.Join(", ", accessData.CustomerEmployeeName);
+                        existingAccessData.LinkedLevel2ForLevel3 = accessData.LinkedLevel2ForLevel3 != null
+                            ? string.Join(", ", accessData.LinkedLevel2ForLevel3)
+                            : null;
+                        existingAccessData.UpdatedDate = DateTime.UtcNow;
+                        existingAccessData.UpdatedBy = "SuperAdmin";
+                    }
+
+                    // **Handle LevelAccessTable**
+                    var existingLevelAccess = _context.LevelAccess
+                        .FirstOrDefault(l => l.OrganizationId == accessData.OrganizationId && l.Email == accessData.Email);
+
+                    if (existingLevelAccess == null)
+                    {
+                        var newLevelAccess = new LevelAccess
+                        {
+                            OrganizationId = accessData.OrganizationId,
+                            OrganizationName = accessData.OrganizationName ?? "N/A",
+                            Email = accessData.Email ?? "N/A",
+                            Level = accessData.Level ?? "1",
+                            CustomerEmployeeName = !string.IsNullOrWhiteSpace(accessData.CustomerEmployeeName)
+                                ? accessData.CustomerEmployeeName
+                                : "N/A",
+                            LinkedLevel2ForLevel3 = accessData.LinkedLevel2ForLevel3 ?? null,
+                            CreatedDate = DateTime.UtcNow,
+                            CreatedBy = "SuperAdmin"
+                        };
+
+                        _context.LevelAccess.Add(newLevelAccess);
+                    }
+                    else
+                    {
+                        existingLevelAccess.OrganizationName = accessData.OrganizationName ?? existingLevelAccess.OrganizationName;
+                        existingLevelAccess.Level = accessData.Level ?? existingLevelAccess.Level;
+                        existingLevelAccess.CustomerEmployeeName = !string.IsNullOrWhiteSpace(accessData.CustomerEmployeeName)
+                            ? accessData.CustomerEmployeeName
+                            : existingLevelAccess.CustomerEmployeeName;
+                        existingLevelAccess.LinkedLevel2ForLevel3 = accessData.LinkedLevel2ForLevel3 ?? existingLevelAccess.LinkedLevel2ForLevel3;
+                        existingLevelAccess.CreatedDate = DateTime.UtcNow;
+                        existingLevelAccess.CreatedBy = "SuperAdmin";
+                    }
+
+                    // **Handle PasswordAndAccess Table**
+                    var existingPasswordEntry = _context.PasswordAndAccess
+                        .FirstOrDefault(p => p.EmailID == accessData.Email && p.OrganisationId == accessData.OrganizationId);
+
+                    if (existingPasswordEntry == null)
+                    {
+                        var newPasswordEntry = new PasswordAndAccess
+                        {
+                            EmailID = accessData.Email,
+                            Password = "India@123", // Default password
+                            OrganisationId = accessData.OrganizationId,
+                            OrganizationName = accessData.OrganizationName ?? "N/A",
+                            Level = accessData.Level ?? "1",
+                            CustomerEmployeeName = !string.IsNullOrWhiteSpace(accessData.CustomerEmployeeName)
+                                ? accessData.CustomerEmployeeName
+                                : "N/A",
+                            LinkedLevel2ForLevel3 = accessData.LinkedLevel2ForLevel3 ?? null,
+                            CreatedDate = DateTime.UtcNow,
+                            CreatedBy = "SuperAdmin",
+                            IsLatestTimestamp = "yes", // Default to "yes"
+                            DeactivatedDate = null,
+                            DeactivatedBy = null
+                        };
+
+                        _context.PasswordAndAccess.Add(newPasswordEntry);
+                    }
+                    else
+                    {
+                        existingPasswordEntry.OrganizationName = accessData.OrganizationName ?? existingPasswordEntry.OrganizationName;
+                        existingPasswordEntry.Level = accessData.Level ?? existingPasswordEntry.Level;
+                        existingPasswordEntry.CustomerEmployeeName = !string.IsNullOrWhiteSpace(accessData.CustomerEmployeeName)
+                            ? accessData.CustomerEmployeeName
+                            : existingPasswordEntry.CustomerEmployeeName;
+                        existingPasswordEntry.LinkedLevel2ForLevel3 = accessData.LinkedLevel2ForLevel3 ?? existingPasswordEntry.LinkedLevel2ForLevel3;
+                        existingPasswordEntry.CreatedDate = DateTime.UtcNow;
+                        existingPasswordEntry.CreatedBy = "SuperAdmin";
+                        existingPasswordEntry.IsLatestTimestamp = "yes"; // Ensure it's marked as latest
+                    }
+                }
+
+                _context.SaveChanges();
+                return Ok(new { Message = "Access details saved successfully." });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving access details: {ex.Message}");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+        [HttpGet("GetAccessDetailsByOrgId/{orgId}")]
+        public IActionResult GetAccessDetailsByOrgId(int orgId)
+        {
+            try
+            {
+                var accessDetailsList = _context.OrgLevelAccessData
+                    .Where(a => a.OrganizationId == orgId)
+                    .Select(a => new
+                    {
+                        a.OrganizationId,
+                        a.OrganizationName,
+                        a.Email,
+                        a.Level,
+                        a.CustomerEmployeeName,
+                        a.LinkedLevel2ForLevel3,
+                        a.CreatedDate,
+                        a.CreatedBy,
+                        a.UpdatedDate,
+                        a.UpdatedBy
+                    })
+                    .ToList();
+
+                if (accessDetailsList == null || !accessDetailsList.Any())
+                {
+                    return NotFound(new { Message = "Access details not found for the given organization ID." });
+                }
+
+                return Ok(accessDetailsList);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "An error occurred while fetching access details.", Error = ex.Message });
+            }
+        }
+
 
         [HttpGet("GetById/{id}")]
         public IActionResult GetOrganizationById(int id)
@@ -97,21 +249,34 @@ namespace NewApp.Controllers
 
             if (organization.OrganizationId == 0)
             {
-                // Create new organization
+                // **New Organization Creation**
                 organization.CreatedDate = DateTime.UtcNow;
-                organization.CreatedBy = "SuperAdmin";
+                organization.CreatedBy = string.IsNullOrWhiteSpace(organization.CreatedBy) ? "SuperAdmin" : organization.CreatedBy;
+
+                // Handle NULL values (store as NULL)
+                organization.OrganizationName = string.IsNullOrWhiteSpace(organization.OrganizationName) ? null : organization.OrganizationName;
+                organization.CG_SuperAdminEmailId = string.IsNullOrWhiteSpace(organization.CG_SuperAdminEmailId) ? null : organization.CG_SuperAdminEmailId;
+                organization.Customer_SuperAdminEmailId = string.IsNullOrWhiteSpace(organization.Customer_SuperAdminEmailId) ? null : organization.Customer_SuperAdminEmailId;
+                organization.Customer_AdminEmailId1 = string.IsNullOrWhiteSpace(organization.Customer_AdminEmailId1) ? null : organization.Customer_AdminEmailId1;
+                organization.Customer_AdminEmailId2 = string.IsNullOrWhiteSpace(organization.Customer_AdminEmailId2) ? null : organization.Customer_AdminEmailId2;
+                organization.Customer_AdminEmailId3 = string.IsNullOrWhiteSpace(organization.Customer_AdminEmailId3) ? null : organization.Customer_AdminEmailId3;
+                organization.Customer_AdminEmailId4 = string.IsNullOrWhiteSpace(organization.Customer_AdminEmailId4) ? null : organization.Customer_AdminEmailId4;
+                organization.Customer_AdminEmailId5 = string.IsNullOrWhiteSpace(organization.Customer_AdminEmailId5) ? null : organization.Customer_AdminEmailId5;
+                organization.organization_type = string.IsNullOrWhiteSpace(organization.organization_type) ? null : organization.organization_type;
+                organization.registration_number = string.IsNullOrWhiteSpace(organization.registration_number) ? null : organization.registration_number;
+
                 _context.OrganizationData.Add(organization);
             }
             else
             {
-                // Update existing organization
+                // **Update Existing Organization**
                 var existingOrganization = _context.OrganizationData.FirstOrDefault(o => o.OrganizationId == organization.OrganizationId);
                 if (existingOrganization == null)
                 {
                     return NotFound(new { Message = "Organization not found." });
                 }
 
-                // Update only non-null fields
+                // **Update fields while keeping NULL values if applicable**
                 existingOrganization.OrganizationName = string.IsNullOrWhiteSpace(organization.OrganizationName) ? existingOrganization.OrganizationName : organization.OrganizationName;
                 existingOrganization.CG_SuperAdminEmailId = string.IsNullOrWhiteSpace(organization.CG_SuperAdminEmailId) ? existingOrganization.CG_SuperAdminEmailId : organization.CG_SuperAdminEmailId;
                 existingOrganization.Customer_SuperAdminEmailId = string.IsNullOrWhiteSpace(organization.Customer_SuperAdminEmailId) ? existingOrganization.Customer_SuperAdminEmailId : organization.Customer_SuperAdminEmailId;
@@ -123,52 +288,262 @@ namespace NewApp.Controllers
                 existingOrganization.organization_type = string.IsNullOrWhiteSpace(organization.organization_type) ? existingOrganization.organization_type : organization.organization_type;
                 existingOrganization.registration_number = string.IsNullOrWhiteSpace(organization.registration_number) ? existingOrganization.registration_number : organization.registration_number;
 
-                // Update metadata fields
+                // **Update metadata**
                 existingOrganization.UpdatedDate = DateTime.UtcNow;
-                existingOrganization.UpdatedBy = "SuperAdmin";
+                existingOrganization.UpdatedBy = string.IsNullOrWhiteSpace(organization.UpdatedBy) ? "SuperAdmin" : organization.UpdatedBy;
             }
 
-            _context.SaveChanges();
+            _context.SaveChanges(); // Save changes in `OrganizationData`
+
+            // **Handle LevelAccessTable and PasswordAndAccess**
+            List<string> emails = new List<string>
+    {
+        organization.CG_SuperAdminEmailId,
+        organization.Customer_SuperAdminEmailId,
+        organization.Customer_AdminEmailId1,
+        organization.Customer_AdminEmailId2,
+        organization.Customer_AdminEmailId3,
+        organization.Customer_AdminEmailId4,
+        organization.Customer_AdminEmailId5
+    };
+
+            foreach (var email in emails)
+            {
+                if (!string.IsNullOrWhiteSpace(email)) // Ensure email is not empty
+                {
+                    // Check if email already exists in LevelAccessTable
+                    bool emailExists = _context.LevelAccess
+                        .Any(a => a.OrganizationId == organization.OrganizationId && a.Email == email);
+
+                    if (!emailExists) // Only add if email is new
+                    {
+                        var accessEntry = new LevelAccess
+                        {
+                            OrganizationId = organization.OrganizationId,
+                            OrganizationName = organization.OrganizationName ?? "N/A",
+                            Email = email,
+                            Level = "1",
+                            CustomerEmployeeName = "N/A",
+                            LinkedLevel2ForLevel3 = null,
+                            CreatedDate = DateTime.UtcNow,
+                            CreatedBy = "SuperAdmin"
+                        };
+
+                        _context.LevelAccess.Add(accessEntry);
+                    }
+
+                    // **Handle PasswordAndAccess Table**
+                    var existingPasswordEntry = _context.PasswordAndAccess
+                        .FirstOrDefault(p => p.EmailID == email && p.OrganisationId == organization.OrganizationId);
+
+                    if (existingPasswordEntry == null)
+                    {
+                        var newPasswordEntry = new PasswordAndAccess
+                        {
+                            EmailID = email,
+                            Password = "India@123", // Default password
+                            OrganisationId = organization.OrganizationId,
+                            OrganizationName = organization.OrganizationName ?? "N/A",
+                            Level = "1",
+                            CustomerEmployeeName = "N/A",
+                            LinkedLevel2ForLevel3 = null,
+                            CreatedDate = DateTime.UtcNow,
+                            CreatedBy = "SuperAdmin",
+                            IsLatestTimestamp = "yes", // Default to "yes"
+                            DeactivatedDate = null,
+                            DeactivatedBy = null
+                        };
+
+                        _context.PasswordAndAccess.Add(newPasswordEntry);
+                    }
+                    else
+                    {
+                        existingPasswordEntry.OrganizationName = organization.OrganizationName ?? existingPasswordEntry.OrganizationName;
+                        existingPasswordEntry.Level = "1";
+                        existingPasswordEntry.CustomerEmployeeName = "N/A";
+                        existingPasswordEntry.LinkedLevel2ForLevel3 = null;
+                        existingPasswordEntry.CreatedDate = DateTime.UtcNow;
+                        existingPasswordEntry.CreatedBy = "SuperAdmin";
+                        existingPasswordEntry.IsLatestTimestamp = "yes"; // Ensure it's marked as latest
+                    }
+                }
+            }
+
+            _context.SaveChanges(); // Save all changes
+
             return Ok(new { Message = "Organization saved successfully." });
         }
 
-        // Save access details
-        [HttpPost("SaveAccessDetails")]
-        public IActionResult SaveAccessDetails([FromBody] OrgLevelAccessData accessData)
+        [HttpGet("GetReports")]
+        public IActionResult GetReports()
         {
-            if (accessData == null)
+            var reports = _context.ReportData
+                .Select(r => new ReportData
+                {
+                    ReportId = r.ReportId,
+                    Name = r.Name
+                }).ToList();
+
+            return Ok(reports);
+        }
+        [HttpPost("SaveOrUpdateReportDetails")]
+        public IActionResult SaveOrUpdateReportDetails([FromBody] OrganizationReportData reportData)
+        {
+            if (reportData == null)
             {
-                return BadRequest(new { Message = "Access details are required." });
+                return BadRequest(new { Message = "Report data is required." });
             }
 
+            // Check if the report already exists
+            var existingReport = _context.OrganizationReportData
+                .FirstOrDefault(r => r.OrganizationReportId == reportData.OrganizationReportId);
+
+            if (existingReport != null)
+            {
+                // Update the existing report
+                existingReport.OrganizationId = reportData.OrganizationId;
+                existingReport.ReportId = reportData.ReportId;
+                existingReport.Minimumcostofreport = reportData.Minimumcostofreport;
+                existingReport.MarkuponMinimumcost = reportData.MarkuponMinimumcost;
+                existingReport.TotalCost = reportData.TotalCost;
+                existingReport.Contract_Startdate = reportData.Contract_Startdate;
+                existingReport.Contract_Enddate = reportData.Contract_Enddate;
+
+                // Update audit fields
+                existingReport.UpdatedDate = DateTime.UtcNow;
+                existingReport.UpdatedBy = reportData.UpdatedBy;
+            }
+            else
+            {
+                // Create a new report entry
+                reportData.CreatedDate = DateTime.UtcNow;
+                reportData.CreatedBy = reportData.CreatedBy;
+                _context.OrganizationReportData.Add(reportData);
+            }
+
+            // Save changes to the database
+            _context.SaveChanges();
+            return Ok(new { Message = "Report details saved successfully." });
+        }
+        [HttpPost("SaveOrUpdateInvoiceDetails")]
+        public IActionResult SaveOrUpdateInvoiceDetails([FromBody] InvoiceData invoiceData)
+        {
+            if (invoiceData == null)
+            {
+                return BadRequest(new { Message = "Invoice data is required." });
+            }
+
+            // Check if the invoice already exists by InvoiceGUID
+            var existingInvoice = _context.InvoiceData.FirstOrDefault(i => i.InvoiceGUID == invoiceData.InvoiceGUID);
+
+            if (existingInvoice != null)
+            {
+                // Update the existing invoice details
+                existingInvoice.OrganizationId = invoiceData.OrganizationId;
+                existingInvoice.ReportId = invoiceData.ReportId;
+                existingInvoice.CodeOfReport = invoiceData.CodeOfReport;
+                existingInvoice.CountOfTest = invoiceData.CountOfTest;
+                existingInvoice.CountOfReports = invoiceData.CountOfReports;
+                existingInvoice.TotalCost = invoiceData.TotalCost;
+                existingInvoice.SumOfCost = invoiceData.SumOfCost;
+                existingInvoice.Status = invoiceData.Status;
+                existingInvoice.DiscountAmount = invoiceData.DiscountAmount;
+
+                // Update audit fields
+                existingInvoice.UpdatedDate = DateTime.UtcNow;
+                existingInvoice.UpdatedBy = invoiceData.UpdatedBy;
+            }
+            else
+            {
+                // Create a new invoice entry
+                invoiceData.CreatedDate = DateTime.UtcNow;
+                invoiceData.CreatedBy = invoiceData.CreatedBy;
+                invoiceData.InvoiceGUID = Guid.NewGuid();  // Generate a new GUID if it's a new record
+                _context.InvoiceData.Add(invoiceData);
+            }
+
+            // Save changes to the database
+            _context.SaveChanges();
+            return Ok(new { Message = "Invoice details saved successfully." });
+        }
+        [HttpGet("GetReportDetailsByOrgId/{orgId}")]
+        public IActionResult GetReportDetailsByOrgId(int orgId)
+        {
             try
             {
-                var existingAccessData = _context.OrgLevelAccessData
-                    .FirstOrDefault(a => a.OrganizationId == accessData.OrganizationId);
+                // Fetch report details from the database for the given organization ID
+                var reportDetails = _context.OrganizationReportData
+                    .Where(r => r.OrganizationId == orgId)
+                    .Select(r => new
+                    {
+                        OrganizationReportId = r.OrganizationReportId,
+                        OrganizationId = r.OrganizationId,
+                        ReportId = r.ReportId ?? "null",
+                        MinimumCostOfReport = r.Minimumcostofreport,
+                        MarkupOnMinimumCost = r.MarkuponMinimumcost,
+                        TotalCost = r.TotalCost,
+                        ContractStartDate = r.Contract_Startdate,
+                        ContractEndDate = r.Contract_Startdate
+                    })
+                    .FirstOrDefault();
 
-                if (existingAccessData == null)
+                if (reportDetails == null)
                 {
-                    accessData.CreatedDate = DateTime.UtcNow;
-                    accessData.CreatedBy = "SuperAdmin";
-                    _context.OrgLevelAccessData.Add(accessData);
-                }
-                else
-                {
-                    existingAccessData.AccessEmail_Core = string.IsNullOrWhiteSpace(accessData.AccessEmail_Core) ? existingAccessData.AccessEmail_Core : accessData.AccessEmail_Core;
-                    existingAccessData.AccessEmail1 = string.IsNullOrWhiteSpace(accessData.AccessEmail1) ? existingAccessData.AccessEmail1 : accessData.AccessEmail1;
-                    existingAccessData.UpdatedDate = DateTime.UtcNow;
-                    existingAccessData.UpdatedBy = "SuperAdmin";
+                    return NotFound(new { Message = "Report details not found for the given organization ID." });
                 }
 
-                _context.SaveChanges();
-                return Ok(new { Message = "Access details saved successfully." });
+                return Ok(reportDetails);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error saving access details: {ex.Message}");
+                // Log the error and return a 500 status code
+                Console.WriteLine($"Error fetching report details: {ex.Message}");
                 return StatusCode(500, "Internal server error.");
             }
         }
+        [HttpGet("GetInvoiceDetailsByOrgId/{orgId}")]
+        public IActionResult GetInvoiceDetailsByOrgId(int orgId)
+        {
+            try
+            {
+                // Fetch invoice details from the database for the given organization ID
+                var invoiceDetails = _context.InvoiceData
+             .Where(i => i.OrganizationId == orgId)
+             .Select(i => new
+             {
+                 InvoiceGUID = i.InvoiceGUID,
+                 OrganizationId = i.OrganizationId,
+                 ReportId = i.ReportId ?? string.Empty,
+                 CodeOfReport = i.CodeOfReport ?? string.Empty,
+                 CountOfTest = i.CountOfTest,
+                 CountOfReports = i.CountOfReports,
+                 InvoiceTotalCost = i.TotalCost,
+                 SumOfCost = i.SumOfCost,
+                 CreatedDate = i.CreatedDate,
+                 UpdatedDate = i.UpdatedDate,
+                 CreatedBy = i.CreatedBy ?? string.Empty,
+                 UpdatedBy = i.UpdatedBy ?? string.Empty,
+                 Status = i.Status ?? string.Empty,
+                 DiscountAmount = i.DiscountAmount
+             })
+             .FirstOrDefault();
+
+                if (invoiceDetails == null)
+                {
+                    return NotFound(new { Message = "Invoice details not found for the given organization ID." });
+                }
+
+                return Ok(invoiceDetails);
+            }
+            catch (Exception ex)
+            {
+                // Log the error and return a 500 status code
+                Console.WriteLine($"Error fetching invoice details: {ex.Message}");
+                return StatusCode(500, "Internal server error.");
+            }
+        }
+
+      
 
         // Save organization report
         [HttpPost("SaveOrganizationReport")]
