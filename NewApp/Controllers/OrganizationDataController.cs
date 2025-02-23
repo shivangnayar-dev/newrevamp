@@ -44,6 +44,88 @@ namespace NewApp.Controllers
 
             return Ok(organizations);
         }
+        [HttpPost("saveupdate1")]
+        public IActionResult SaveOrUpdateTestCode([FromBody] OrganizationTestDetails request)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    // 🔎 Debug here to check model binding issues
+                    return BadRequest(ModelState);
+                }
+
+                var existingTest = _context.OrganizationTestDetails
+                    .FirstOrDefault(t => t.OrganizationId == request.OrganizationId &&
+                                         t.OrganizationReportId == request.OrganizationReportId);
+
+                if (existingTest != null)
+                {
+                    // 🔄 Update Existing Record
+                    existingTest.TestCode = request.TestCode;
+                    existingTest.ConsultantComments = request.ConsultantComments;
+                    existingTest.LogoPath = request.LogoPath;
+                    existingTest.StartDate = request.StartDate;
+                    existingTest.EndDate = request.EndDate;
+                    existingTest.ReportSharingOption = request.ReportSharingOption;
+                    existingTest.VideoProctoring = request.VideoProctoring;
+                    existingTest.CandidatePhoneNumberRequired = request.CandidatePhoneNumberRequired;
+                    existingTest.FitmentRequired = request.FitmentRequired;
+                    existingTest.ExtraQuestion1 = request.ExtraQuestion1;
+                    existingTest.ExtraQuestion2 = request.ExtraQuestion2;
+                    existingTest.ExtraQuestion3 = request.ExtraQuestion3;
+                    existingTest.ExtraQuestion4 = request.ExtraQuestion4;
+                    existingTest.ExtraQuestion5 = request.ExtraQuestion5;
+                    existingTest.TestPurpose = request.TestPurpose;
+                    existingTest.PaymentRequired = request.PaymentRequired;
+                    existingTest.Price = request.Price;
+                    existingTest.Currency = request.Currency;
+                    existingTest.DiscountPercentage = request.DiscountPercentage;
+                    existingTest.FinalPrice = request.FinalPrice;
+                    existingTest.UpdatedDate = DateTime.UtcNow;
+                    existingTest.UpdatedBy = request.UpdatedBy;
+
+                    _context.SaveChanges();
+                    return Ok(new { Message = "Test code updated successfully." });
+                }
+                else
+                {
+                    // 🆕 Create New Record
+                    request.CreatedDate = DateTime.UtcNow;
+                    request.UpdatedDate = DateTime.UtcNow;
+                    _context.OrganizationTestDetails.Add(request);
+                    _context.SaveChanges();
+
+                    return Ok(new { Message = "Test code created successfully." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = $"Error saving or updating test code: {ex.Message}" });
+            }
+        }
+
+        [HttpGet("get-details/{organizationId}")]
+        public IActionResult GetTestDetailsByOrganizationId(int organizationId)
+        {
+            try
+            {
+                var details = _context.OrganizationTestDetails
+                    .Where(t => t.OrganizationId == organizationId)
+                    .ToList();
+
+                if (details != null && details.Count > 0)
+                {
+                    return Ok(details); // Return all test details for the organization
+                }
+
+                return NotFound(new { Message = "No test details found for the provided OrganizationId." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Error fetching test details: {ex.Message}");
+            }
+        }
         [HttpPost("SaveAccessDetails")]
         public IActionResult SaveAccessDetails([FromBody] List<OrgLevelAccessData> accessDataList)
         {
@@ -395,8 +477,9 @@ namespace NewApp.Controllers
             }
 
             // Check if the report already exists
+            var reportIdString = reportData.ReportId.ToString();
             var existingReport = _context.OrganizationReportData
-                .FirstOrDefault(r => r.OrganizationReportId == reportData.OrganizationReportId);
+                .FirstOrDefault(r => r.ReportId == reportIdString);
 
             if (existingReport != null)
             {
@@ -420,9 +503,9 @@ namespace NewApp.Controllers
                 reportData.CreatedBy = reportData.CreatedBy;
                 _context.OrganizationReportData.Add(reportData);
             }
-
-            // Save changes to the database
             _context.SaveChanges();
+            // Save changes to the database
+
             return Ok(new { Message = "Report details saved successfully." });
         }
         [HttpPost("SaveOrUpdateInvoiceDetails")]

@@ -7,63 +7,74 @@ namespace NewApp.Models
     public class OrganizationTestDetails
     {
         [Key]
-        public int TestCodeId { get; set; }  // Unique Test Code ID (Primary Key)
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TestCodeId { get; set; }
 
         [Required]
-        public int OrganizationId { get; set; }  // Foreign Key - Organization
+        public int OrganizationId { get; set; }
 
         [Required]
-        public int OrganizationReportId { get; set; }  // Foreign Key - Report Data
+        public string OrganizationReportId { get; set; }
+        public string TestCode { get; set; }
 
-        public string ConsultantComments { get; set; }  // Comments about the test
+        public string ConsultantComments { get; set; }
 
-        public string LogoPath { get; set; }  // Path for uploaded logo
-
-        [Required]
-        public DateTime StartDate { get; set; } = DateTime.Now;  // Start Date
-
-        public DateTime? EndDate { get; set; }  // End Date (nullable)
+        [MaxLength(255)]
+        public string LogoPath { get; set; }
 
         [Required]
-        public string ReportSharingOption { get; set; }  // "realtime", "scheduled", "no"
-
-        public bool VideoProctoring { get; set; } = false;  // Video monitoring feature
-
-        public bool CandidatePhoneNumberRequired { get; set; } = false;  // Is phone number required?
-
-        public bool FitmentRequired { get; set; } = false;  // Is Fitment required?
-
-        public string ExtraQuestion1 { get; set; }  // Extra free-text question 1
-        public string ExtraQuestion2 { get; set; }  // Extra free-text question 2
-        public string ExtraQuestion3 { get; set; }  // Extra free-text question 3
-        public string ExtraQuestion4 { get; set; }  // Extra free-text question 4
-        public string ExtraQuestion5 { get; set; }  // Extra free-text question 5
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public string TestPurpose { get; set; }  // "CareerGuidance", "Hiring", "Testing", "Others"
+        public DateTime EndDate { get; set; }
 
-        public bool PaymentRequired { get; set; } = false;  // Is Payment Required?
+        [Required]
+        
+        public string ReportSharingOption { get; set; }
+
+        [Required]
+        public bool VideoProctoring { get; set; }
+
+        [Required]
+        public bool CandidatePhoneNumberRequired { get; set; }
+
+        [Required]
+        public bool FitmentRequired { get; set; }
+
+        public string ExtraQuestion1 { get; set; }
+        public string ExtraQuestion2 { get; set; }
+        public string ExtraQuestion3 { get; set; }
+        public string ExtraQuestion4 { get; set; }
+        public string ExtraQuestion5 { get; set; }
+
+        [Required]
+       
+        public string TestPurpose { get; set; }
+
+        [Required]
+        public bool PaymentRequired { get; set; }
 
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Price { get; set; } = 0.00m;  // Cost of the test
+        public decimal Price { get; set; }
 
-        [StringLength(10)]
-        public string Currency { get; set; } = "USD";  // Currency (USD, INR, EUR, etc.)
+        [MaxLength(10)]
+        public string Currency { get; set; }
 
         [Column(TypeName = "decimal(5,2)")]
-        public decimal DiscountPercentage { get; set; } = 0.00m;  // Discount in %
+        public decimal DiscountPercentage { get; set; }
 
-        [NotMapped]
-        public decimal FinalPrice => Price - (Price * DiscountPercentage / 100);  // Auto-calculated Final Price
+   
+        public decimal FinalPrice { get; set; }
 
-        public DateTime CreatedDate { get; set; } = DateTime.Now;  // Created Timestamp
+        [Required]
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
-        public DateTime? UpdatedDate { get; set; }  // Last Updated Timestamp
+        public DateTime UpdatedDate { get; set; } = DateTime.UtcNow;
 
-        [StringLength(100)]
-        public string CreatedBy { get; set; } = "Admin";  // Created By
+        [MaxLength(100)]
+        public string CreatedBy { get; set; }
 
-        [StringLength(100)]
-        public string UpdatedBy { get; set; } = "Admin";  // Updated By
+        [MaxLength(100)]
+        public string UpdatedBy { get; set; }
     }
 }

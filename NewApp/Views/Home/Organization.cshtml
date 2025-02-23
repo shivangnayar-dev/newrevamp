@@ -16,7 +16,6 @@
     <div class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 space-y-6">
         <h1 class="text-3xl font-semibold text-gray-700 text-center">Create / Edit Test Code</h1>
 
-        <!-- Select Test Linked to Organization -->
         <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
             <label class="block text-gray-700">Choose Test Linked to Organization</label>
             <select id="TestDropdown" class="w-full p-3 border rounded-lg"></select>
@@ -35,7 +34,6 @@
             <img id="LogoPreview" class="mt-4 hidden w-32 h-32 object-cover rounded-lg border">
         </div>
 
-        <!-- Start & End Date -->
         <div class="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg shadow-sm">
             <label class="block">
                 <span class="text-gray-700">Start Date</span>
@@ -45,6 +43,18 @@
                 <span class="text-gray-700">End Date</span>
                 <input type="datetime-local" id="EndDate" class="w-full p-3 border rounded-lg">
             </label>
+        </div>
+        <!-- Generate Test Code Button -->
+        <div class="flex justify-center">
+            <button id="GenerateTestCodeButton" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
+                Generate Test Code
+            </button>
+        </div>
+
+        <!-- Display Generated Test Code -->
+        <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <label class="block text-gray-700">Generated Test Code</label>
+            <input type="text" id="GeneratedTestCode" class="w-full p-3 border rounded-lg" readonly placeholder="Test code will appear here">
         </div>
 
         <!-- Report Sharing Options -->
@@ -116,17 +126,129 @@
     </div>
 
     <!-- JavaScript -->
-    <script>$(document).ready(function () {
+    <script>
+        document.getElementById('SaveTestCode').addEventListener('click', async function () {
+            // Collect input values
+            const organisationIdd = localStorage.getItem('OrganisationId');
+            const organizationreportId = document.getElementById('TestDropdown').value;
+            const consultantComments = document.getElementById('ConsultantComments').value;
+            const logoUpload = document.getElementById('LogoUpload').files[0];
+            const startDate = document.getElementById('StartDate').value;
+            const endDate = document.getElementById('EndDate').value;
+            const reportSharingOption = document.getElementById('ReportSharingOption').value;
+            const videoProctoring = document.getElementById('VideoProctoring').checked;
+            const candidatePhoneNumberRequired = document.getElementById('CandidatePhoneNumber').checked;
+            const fitmentRequired = document.getElementById('FitmentRequired').checked;
+            const extraQuestion1 = document.getElementById('ExtraQuestion1').value;
+            const extraQuestion2 = document.getElementById('ExtraQuestion2').value;
+            const extraQuestion3 = document.getElementById('ExtraQuestion3').value;
+            const extraQuestion4 = document.getElementById('ExtraQuestion4').value;
+            const extraQuestion5 = document.getElementById('ExtraQuestion5').value;
+            const testPurpose = document.getElementById('TestPurpose').value;
+            const paymentRequired = document.getElementById('PaymentRequired').checked;
+            const price = parseFloat(document.getElementById('Price').value) || 0;
+            const currency = document.getElementById('Currency').value;
+            const discountPercentage = parseFloat(document.getElementById('Discount').value) || 0;
+            const finalPrice = parseFloat(document.getElementById('FinalPrice').value) || 0;
+            const generatedTestCode = document.getElementById('GeneratedTestCode').value;
+
+            // Upload logo if selected
+            let logoPath = '';
+            if (logoUpload) {
+                const formData = new FormData();
+                formData.append('file', logoUpload);
+
+                try {
+                    const uploadResponse = await fetch('/upload/logo', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const uploadResult = await uploadResponse.json();
+                    logoPath = uploadResult.logoPath; // Assuming server returns { logoPath: 'path/to/logo' }
+                } catch (error) {
+                    alert('Error uploading logo. Please try again.');
+                    return;
+                }
+            }
+
+            // Prepare request payload
+            const requestData = {
+                OrganizationId: organisationIdd,
+                OrganizationReportId: organizationreportId, // Assuming OrganizationReportId is the test code
+                TestCode: generatedTestCode,
+                ConsultantComments: consultantComments,
+                LogoPath: logoPath,
+                StartDate: startDate,
+                EndDate: endDate,
+                ReportSharingOption: reportSharingOption,
+                VideoProctoring: videoProctoring,
+                CandidatePhoneNumberRequired: candidatePhoneNumberRequired,
+                FitmentRequired: fitmentRequired,
+                ExtraQuestion1: extraQuestion1,
+                ExtraQuestion2: extraQuestion2,
+                ExtraQuestion3: extraQuestion3,
+                ExtraQuestion4: extraQuestion4,
+                ExtraQuestion5: extraQuestion5,
+                TestPurpose: testPurpose,
+                PaymentRequired: paymentRequired,
+                Price: price,
+                Currency: currency,
+                DiscountPercentage: discountPercentage,
+                FinalPrice: finalPrice,
+                UpdatedBy: "admin",
+                CreatedBy: "admin"
+                // Replace with the actual logged-in user if available
+            };
+
+            try {
+                const response = await fetch('/api/OrganizationData/saveupdate1', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+
+
+                if (response.ok) {
+                    alert("data saved successfully");
+                } else {
+                    alert("error saving data");
+                }
+            } catch (error) {
+                alert('An unexpected error occurred. Please try again.');
+                console.error('Save error:', error);
+            }
+        });
+        $(document).ready(function () {
+        
+          
+            // ✅ Extract OrganisationId from localStorage
+            const organisationId = localStorage.getItem('OrganisationId');
+
+            if (organisationId) {
+                console.log("[DEBUG] Found OrganisationId in localStorage:", organisationId);
+                fetchOrganizationDetails(organisationId); // Fetch organization name
+                fetchReportDetails(organisationId);
+                fetchExistingTestDetails(organisationId); 
+                // Fetch report details
+            } else {
+                console.warn("[WARNING] No OrganisationId found. Redirecting to login...");
+                alert('Organisation ID not found. Please login first.');
+                window.location.href = '/login'; // Redirect if orgId is not available
+            }
+
+            // Populate selected test ID when dropdown changes
             $('#TestDropdown').on('change', function () {
                 $('#SelectedTestId').val($(this).val());
             });
 
+            // Calculate final price based on discount
             $('#Discount').on('input', function () {
                 const price = parseFloat($('#Price').val()) || 0;
-                const discount = parseFloat($('#Discount').val()) || 0;
+                const discount = parseFloat($(this).val()) || 0;
                 $('#FinalPrice').val(price - (price * discount / 100));
             });
 
+            // Logo preview
             $('#LogoUpload').on('change', function (e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -137,7 +259,142 @@
                     reader.readAsDataURL(file);
                 }
             });
-        });</script>
+            $('#GenerateTestCodeButton').on('click', function () {
+                const startDate = $('#StartDate').val();
+                const endDate = $('#EndDate').val();
+                const testPurpose = $('#TestPurpose').val();
+
+                if (!startDate || !endDate) {
+                    alert("Please select both Start Date and End Date.");
+                    return;
+                }
+
+                if (!window.organizationName) {
+                    alert("Organization name not found. Please refresh the page.");
+                    return;
+                }
+
+                const testCode = generateTestCode(window.organizationName, startDate, testPurpose);
+                $('#GeneratedTestCode').val(testCode);
+            });
+
+    
+        });
+        function fetchOrganizationDetails(orgId) {
+            $.ajax({
+                url: `/api/OrganizationData/GetAll`,
+                type: 'GET',
+                success: function (organizations) {
+                    const org = organizations.find(o => o.organizationId == orgId);
+                    if (org) {
+                        window.organizationName = org.organizationName;
+                        console.log("[DEBUG] Organization Name:", window.organizationName);
+                    } else {
+                        alert("Organization not found.");
+                    }
+                },
+                error: function (xhr) {
+                    console.error("[ERROR] Failed to fetch organization details:", xhr.responseText);
+                }
+            });
+        }
+        function fetchExistingTestDetails(organizationId) {
+            $.ajax({
+                url: `/api/OrganizationData/get-details/${organizationId}`,
+                type: 'GET',
+                success: function (details) {
+                    console.log("[DEBUG] Existing Test Details:", details);
+
+                    if (details && details.length > 0) {
+                        const latestTest = details[details.length - 1]; // Fetch the most recent test details
+
+                        $('#TestDropdown').val(latestTest.organizationReportId);
+                        $('#GeneratedTestCode').val(latestTest.testCode);
+                        $('#ConsultantComments').val(latestTest.consultantComments);
+                        $('#StartDate').val(latestTest.startDate);
+                        $('#EndDate').val(latestTest.endDate);
+                        $('#ReportSharingOption').val(latestTest.reportSharingOption);
+                        $('#VideoProctoring').prop('checked', latestTest.videoProctoring);
+                        $('#CandidatePhoneNumber').prop('checked', latestTest.candidatePhoneNumberRequired);
+                        $('#FitmentRequired').prop('checked', latestTest.fitmentRequired);
+                        $('#ExtraQuestion1').val(latestTest.extraQuestion1);
+                        $('#ExtraQuestion2').val(latestTest.extraQuestion2);
+                        $('#ExtraQuestion3').val(latestTest.extraQuestion3);
+                        $('#ExtraQuestion4').val(latestTest.extraQuestion4);
+                        $('#ExtraQuestion5').val(latestTest.extraQuestion5);
+                        $('#TestPurpose').val(latestTest.testPurpose);
+                        $('#PaymentRequired').prop('checked', latestTest.paymentRequired);
+                        $('#Price').val(latestTest.price);
+                        $('#Currency').val(latestTest.currency);
+                        $('#Discount').val(latestTest.discountPercentage);
+                        $('#FinalPrice').val(latestTest.finalPrice);
+
+                        console.log("[DEBUG] Form populated with existing test details.");
+                    } else {
+                        console.warn("[WARNING] No existing test details found.");
+                    }
+                },
+                error: function (xhr) {
+                    console.error("[ERROR] Failed to fetch existing test details:", xhr.responseText);
+                }
+            });
+        }
+        function generateTestCode(orgName, startDate, testPurpose) {
+            console.log("[DEBUG] Generating test code...");
+
+            const threeDigitsCompany = orgName.substring(0, 3).toUpperCase();
+            const fourToSixDigits = orgName.split(' ').map(word => word[0]).join('').substring(0, 3).toUpperCase();
+
+            const date = new Date(startDate);
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+
+            const randomSevenToTenDigits = Math.floor(1000 + Math.random() * 9000); // Random 4-digit number
+            const purposeMap = { Hiring: 'H', CareerGuidance: 'C', Testing: 'T' };
+            const purposeCode = purposeMap[testPurpose] || 'O';
+            const serialNumber = Math.floor(1000 + Math.random() * 9000); // Random 4-digit serial
+
+            const code = `${threeDigitsCompany}${fourToSixDigits}${year}${month}${purposeCode}${serialNumber}`;
+            console.log("[DEBUG] Generated Code:", code);
+            return code;
+        }
+        // ✅ Fetch and populate dropdown with report details
+        function fetchReportDetails(orgId) {
+            console.log("[DEBUG] Fetching report details for OrganisationId:", orgId);
+
+            $.ajax({
+                url: `/api/OrganizationData/GetReportDetailsByOrgId/${orgId}`,
+                type: 'GET',
+                success: function (response) {
+                    console.log("[DEBUG] Report Details:", response);
+
+                    const $dropdown = $('#TestDropdown');
+                    $dropdown.empty(); // Clear existing options
+
+                    if (response && response.reportId) {
+                        // ✅ Populate the dropdown with the fetched reportId
+                        $dropdown.append(`<option value="${response.reportId}">${response.reportId}</option>`);
+                        console.log(`[DEBUG] Added reportId to dropdown: ${response.reportId}`);
+                    } else {
+                        $dropdown.append('<option value="">No Reports Found</option>');
+                        console.warn("[WARNING] No valid reportId found in the response.");
+                    }
+
+                    // ✅ Re-initialize select2 (if you are using select2)
+                    if ($dropdown.data('select2')) {
+                        $dropdown.select2('destroy'); // Destroy previous instance if any
+                    }
+                    $dropdown.select2(); // Initialize select2
+                },
+                error: function (xhr) {
+                    console.error("[ERROR] Error fetching report details:", xhr.responseText);
+                    $('#TestDropdown').empty().append('<option value="">Error loading reports</option>');
+                }
+            });
+        }
+
+
+    </script>
 
 </body>
 </html>

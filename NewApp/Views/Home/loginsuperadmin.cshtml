@@ -33,35 +33,83 @@
 
     <script>
         $(document).ready(function () {
+            // Login form submission
             $('#login-form').on('submit', function (event) {
                 event.preventDefault();
 
                 const username = $('#username').val();
                 const password = $('#password').val();
 
+                console.log("[DEBUG] Sending Login Request:", { email: username, password: password });
+
                 $.ajax({
                     url: '/api/Auth/login',
                     type: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({ email: username, passwordHash: password }),
+                    data: JSON.stringify({ email: username, password: password }),
                     success: function (response) {
-                        // ✅ Store user details in Local Storage
-                        localStorage.setItem('Email', response.Email);
-                        localStorage.setItem('UserLevel', response.UserLevel);
+                        console.log("[SUCCESS] Login API Response:", response); // ✅ Full response log
 
-                        // ✅ Determine redirect URL based on user level
-                        const redirectUrl = response.UserLevel === "1" ? "/SuperAdminDashboard" : "/Organization";
+                        // ✅ Use lowercase property names from response
+                        if (response && response.email && response.organisationId) {
+                            // Store values in localStorage
+                            localStorage.setItem('Email', response.email);
+                            localStorage.setItem('OrganisationId', response.organisationId);
 
-                        // ✅ Redirect user
-                        window.location.href = redirectUrl;
+                            console.log(`[DEBUG] Stored in LocalStorage -> Email: ${response.email}, OrganisationId: ${response.organisationId}`);
+
+                            // ✅ Call next function (if needed)
+                            fetchUserLevel(response.email);
+                        } else {
+                            console.warn("[WARNING] Response did not contain expected properties.");
+                        }
                     },
-                    error: function () {
+                    error: function (xhr, status, error) {
+                        console.error("[ERROR] Login Failed:", xhr.responseText);
+                        console.log("[DEBUG] Status:", status);
+                        console.log("[DEBUG] Error:", error);
                         $('#error-message').text('Invalid username or password').removeClass('d-none');
                     }
                 });
             });
+
+
+
+
+            function fetchUserLevel(email) {
+                console.log("[DEBUG] Fetching user level for:", email);
+
+                $.ajax({
+                    url: `/api/Auth/get-user-level?email=${encodeURIComponent(email)}`, // ✅ Pass email as query param
+                    type: 'GET',
+                    success: function (response) {
+                        console.log("[DEBUG] User Level Fetched:", response);
+
+                        // ✅ Fix: Ensure correct property name
+                        if (!response || !response.userLevel) {  // <-- Ensure correct key name
+                            console.error("[ERROR] User level not found in response.");
+                            $('#error-message').text('Error fetching user level. Please try again.').removeClass('d-none');
+                            return;
+                        }
+
+                        // ✅ Store User Level in Local Storage
+                        localStorage.setItem('UserLevel', response.userLevel);
+
+                        // ✅ Redirect Based on User Level
+                        const redirectUrl = response.userLevel === "1" ? "/SuperAdminDashboard" : "/Organization";
+                        console.log("[DEBUG] Redirecting to:", redirectUrl);
+                        window.location.href = redirectUrl;
+                    },
+                    error: function (xhr) {
+                        console.error("[ERROR] Failed to fetch user level:", xhr.responseText);
+                        $('#error-message').text('Error fetching user level. Please try again.').removeClass('d-none');
+                    }
+                });
+            }
         });
-    </script>
+
+</script>
+
 
 
 </body>

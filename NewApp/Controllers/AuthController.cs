@@ -1,125 +1,101 @@
-﻿ using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using NewApp.Models;
-using Newtonsoft.Json;
-using BCrypt.Net;
+using System.Linq;
+
 namespace NewApp.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
         private readonly CandidateDbContext _contextt;
 
-        private readonly IConfiguration _configuration;
-        private readonly UserDbContext _context;
-         
-        public AuthController(IConfiguration configuration, UserDbContext context, CandidateDbContext _contextt)
+        public AuthController(CandidateDbContext contextt)
         {
-            _configuration = configuration;
-            _context = context;
-
+            _contextt = contextt;
         }
 
-        [HttpPost("register")]
-        public IActionResult Register([FromBody] User user)
-        {
-            if (_context.User.Any(u => u.Email == user.Email))
-            {
-                return BadRequest("User already exists.");
-            }
-
-            // Hash the password before saving the user
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-
-            // Add the user to the database
-            _context.User.Add(user);
-            _context.SaveChanges();
-
-            // Generate JWT token after registration
-            var token = GenerateJwtToken(user.Id, user.Email);
-
-            // Save the generated token to the database
-            var userToken = new UserToken
-            {
-                UserId = user.Id,
-                Token = token,
-                ExpiryDate = DateTime.UtcNow.AddMinutes(double.Parse(_configuration["Jwt:ExpiryDuration"])) // Set token expiry
-            };
-
-            // Save the token in the UserToken table
-            _context.UserToken.Add(userToken);
-            _context.SaveChanges();
-
-            // Return the token in the response
-            return Ok(new { Message = "User registered successfully.", Token = token });
-        }
-
+        // ✅ Step 1: Authenticate User via POST Request
         [HttpPost("login")]
-        public IActionResult Login([FromBody] User user)
+        public IActionResult Login([FromBody] LoginRequest request)
         {
-            // Hardcoded credentials for super admin login
-            string adminEmail = "score@pexitics.com";
-            string adminPassword = "India@123";
-
-            if (user.Email == adminEmail && user.PasswordHash == adminPassword)
+            try
             {
-                return Ok(new
+                Console.WriteLine($"[DEBUG] Attempting login for Email: {request.Email}");
+
+                if (_contextt == null || _contextt.PasswordAndAccess == null)
                 {
-                    Email = adminEmail,
-                    UserLevel = "1", // Super Admin Level
-                    RedirectUrl = "/SuperAdminDashboard"
-                });
+                    Console.WriteLine("[ERROR] Database context or PasswordAndAccess table is NULL.");
+                    return StatusCode(500, "Database context is not initialized.");
+                }
+
+                // ✅ Query database for user credentials
+                var dbUser = _contextt.PasswordAndAccess
+                    .FirstOrDefault(u => u.EmailID == request.Email && u.Password == request.Password);
+
+                if (dbUser != null)
+                {
+                    Console.WriteLine($"[SUCCESS] User found: {dbUser.EmailID}, OrganisationId: {dbUser.OrganisationId}");
+
+                    return Ok(new
+                    {
+                        Email = dbUser.EmailID,
+                        OrganisationId = dbUser.OrganisationId, // ✅ Return Organisation ID
+                        UserLevel = dbUser.Level // ✅ Return User Level
+                    });
+                }
+
+                Console.WriteLine("[ERROR] Invalid credentials - No matching user found.");
+                return Unauthorized("Invalid username or password.");
             }
-
-            // ✅ Check credentials in database for other users
-            var dbUser = _contextt.PasswordAndAccess
-                .FirstOrDefault(u => u.EmailID == user.Email && u.Password == user.PasswordHash);
-
-            if (dbUser != null)
+            catch (Exception ex)
             {
-                // ✅ Return user details & redirect URL
-                string redirectUrl = dbUser.Level == "1" ? "/SuperAdminDashboard" : "/Organization";
-                return Ok(new
-                {
-                    Email = dbUser.EmailID,
-                    UserLevel = dbUser.Level,
-                    RedirectUrl = redirectUrl
-                });
+                Console.WriteLine($"[EXCEPTION] {ex.Message}");
+                return StatusCode(500, "An internal server error occurred.");
             }
-
-            return Unauthorized("Invalid credentials.");
         }
 
-        private string GenerateJwtToken(int userId, string email)
+        // ✅ Step 2: Fetch User Level via GET Request (Email from Headers)
+        [HttpGet("get-user-level")]
+        public IActionResult GetUserLevel([FromQuery] string email)
         {
-            var jwtSettings = _configuration.GetSection("Jwt");
-            var key = Encoding.ASCII.GetBytes(jwtSettings["Key"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            try
             {
-                Subject = new ClaimsIdentity(new[]
-                {
-            new Claim(ClaimTypes.NameIdentifier, userId.ToString()), // Include User ID as a claim
-            new Claim(ClaimTypes.Email, email), // Add email claim
-            new Claim(JwtRegisteredClaimNames.Aud, jwtSettings["Audience"]), // Add audience claim
-            new Claim(JwtRegisteredClaimNames.Iss, jwtSettings["Issuer"]) // Add issuer claim
-        }),
-                Expires = DateTime.UtcNow.AddMinutes(double.Parse(jwtSettings["ExpiryDuration"])),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-            };
+                Console.WriteLine($"[DEBUG] Fetching user level for: {email}");
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+                if (string.IsNullOrEmpty(email))
+                {
+                    Console.WriteLine("[ERROR] No email provided.");
+                    return BadRequest("Email parameter is required.");
+                }
+
+                // ✅ Query the database for the user's level
+                var dbUser = _contextt.PasswordAndAccess
+                    .FirstOrDefault(u => u.EmailID == email);
+
+                if (dbUser != null)
+                {
+                    Console.WriteLine($"[SUCCESS] Found User Level: {dbUser.Level}");
+                    return Ok(new { UserLevel = dbUser.Level });
+                }
+
+                Console.WriteLine("[ERROR] User not found in the database.");
+                return NotFound("User not found.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[EXCEPTION] {ex.Message}");
+                return StatusCode(500, "An internal server error occurred.");
+            }
         }
 
+
+        // ✅ Request model for Login API
+        public class LoginRequest
+        {
+            public string Email { get; set; }
+            public string Password { get; set; }
+        }
     }
 }
-
-
-
